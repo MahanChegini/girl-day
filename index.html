@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری</title>
+    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (Modern UI)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #FF5A95; /* صورتی جذاب */
-            --secondary-color: #8C52FF; /* بنفش سلطنتی */
-            --gradient-start: #FF7EB9;
-            --gradient-end: #AC6CFF;
-            --card-bg: #FFFFFF;
-            --text-color-dark: #333333;
+            --primary-color: #FF69B4; /* صورتی نئون */
+            --secondary-color: #9932CC; /* بنفش عمیق */
+            --gradient-start: #FF9ED8;
+            --gradient-end: #CC99FF;
+            --bg-color: #E6E6FA; /* زمینه اصلی روشن و مدرن */
+            --card-glass-bg: rgba(255, 255, 255, 0.15); /* پس‌زمینه شیشه‌ای */
+            --text-color-dark: #2A003F; 
             --text-color-light: #FFFFFF;
-            --shadow-soft: rgba(255, 90, 149, 0.3);
-            --shadow-deep: rgba(140, 82, 255, 0.4);
-            --transition-speed: 0.8s; /* افزایش زمان انتقال برای حس لوکس */
+            --shadow-soft: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.8s;
         }
 
         * {
@@ -32,9 +32,10 @@
             height: 100%;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            background-color: #F8F4FF;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #F0F8FF 100%); /* گرادیانت پس زمینه */
         }
-
+        
+        /* --- تنظیمات اصلی Layout --- */
         .full-screen {
             height: 100vh;
             width: 100%;
@@ -61,132 +62,97 @@
             width: 90%;
             z-index: 10;
         }
-
-        /* --- Hero --- */
+        
+        /* --- Hero Section (همچنان گرادیانت کامل برای جلوه اولیه) --- */
         #hero-section {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
         }
         #hero-section h1 {
-            font-size: 3.5rem; 
             font-weight: 900;
-            color: var(--text-color-light);
-            margin-bottom: 1rem;
-        }
-        #hero-section p {
-            color: #FFDAE8;
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .particle-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
         }
 
-        /* --- دکمه‌های WOW --- */
-        .wow-btn {
-            padding: 18px 45px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            box-shadow: 0 10px 20px var(--shadow-deep);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 1.5rem;
-        }
-        .wow-btn:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 15px 25px var(--shadow-deep);
-        }
-        .floating {
-            animation: floating-btn 3s ease-in-out infinite;
-        }
-        @keyframes floating-btn {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        .pulse { /* افکت جدید برای دکمه پرده‌برداری */
-            animation: pulse-btn 2s infinite;
-        }
-        @keyframes pulse-btn {
-            0% { box-shadow: 0 0 0 0 var(--shadow-deep); }
-            70% { box-shadow: 0 0 0 10px rgba(140, 82, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(140, 82, 255, 0); }
-        }
-
-        /* --- کارت‌ها --- */
+        /* --- استایل کارت Glassmorphism جدید --- */
         .card {
-            background-color: var(--card-bg);
-            padding: 50px;
+            background: var(--card-glass-bg); /* پس‌زمینه نیمه‌شفاف */
+            backdrop-filter: blur(10px); /* افکت شیشه‌ای */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* مرز شیشه‌ای روشن */
+            padding: 40px;
             border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 var(--shadow-soft); /* سایه نرم و عمیق */
             max-width: 450px;
             width: 90%;
+            /* تغییر رنگ متن در این کارت‌ها */
+            color: var(--text-color-dark); 
+        }
+        .card h2 {
+            color: var(--secondary-color); /* رنگ بنفش برای تیتر */
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            color: var(--text-color-dark);
         }
 
-        /* --- پرتال درخشش --- */
+        /* --- استایل ورودی‌ها (Soft UI) --- */
+        .card input, .card textarea {
+            background-color: rgba(255, 255, 255, 0.7); /* ورودی‌های روشن */
+            border: 1px solid rgba(140, 82, 255, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* سایه درونی برای حس Soft */
+            color: var(--text-color-dark);
+        }
+        .card input:focus, .card textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.4); /* سایه فوکوس نئونی */
+        }
+        
+        /* --- دکمه‌ها --- */
+        .wow-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 12px 25px rgba(153, 50, 204, 0.4);
+        }
+        .wow-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        /* --- Portal (مدرن‌سازی) --- */
         .portal-loader {
-            width: 100px;
-            height: 100px;
-            border: 8px solid var(--secondary-color);
+            border-color: var(--secondary-color);
             border-top-color: transparent;
-            border-radius: 50%;
-            animation: portal-spin 1s linear infinite;
-            margin: 30px auto;
         }
-        @keyframes portal-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .portal-text {
+            color: var(--primary-color);
         }
 
-        /* --- Popup هدیه --- */
-        .popup-overlay { /* اضافه شدن استایل پاپ‌آپ که در CSS قبلی جا افتاده بود */
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(8px);
-        }
+        /* --- Popup هدیه (همچنان Glassmorphism) --- */
         .popup-content {
-            background-color: var(--card-bg);
-            padding: 60px;
-            border-radius: 35px;
-            position: relative;
-            max-width: 550px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: popup-bounce 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        @keyframes popup-bounce {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            background: var(--card-glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            color: var(--text-color-dark);
         }
         .gift-text {
-            background: linear-gradient(90deg, #FFD9E8, #C49EFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.5rem;
-            font-weight: 900;
-            display: block;
-            padding: 10px 0;
+            /* همان استایل نئونی قبلی */
+        }
+        .gift-code {
+            border: 2px dashed var(--primary-color); /* تغییر رنگ خط‌چین به صورتی نئونی */
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .screenshot-tip {
+            color: #777;
         }
 
-        /* --- انیمیشن‌های ورود --- */
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .fade-in-up { opacity: 0; transform: translateY(30px); animation: fadeInUp var(--transition-speed) ease-out forwards; } /* افزایش میزان translateY */
-        .delay-2 { animation-delay: 0.4s; }
+        /* --- Celebration نهایی --- */
+        #celebration-section {
+            background: linear-gradient(135deg, #FFC0CB 0%, #DDA0DD 100%); /* گرادیانت ملایم و شیک */
+        }
+        #celebration-section h1, #celebration-section p {
+            color: var(--text-color-dark);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5); /* سایه روشن برای حس عمق */
+        }
+        #celebration-section h1 {
+            color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -379,16 +345,15 @@
                     
                     setTimeout(() => {
                         navigateTo('gift-reveal-section'); 
-                    }, 3000); // افزایش زمان لودینگ به 3 ثانیه برای حس انتظار
+                    }, 3000); 
 
                 } else {
                     errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
                 }
             });
 
-            // --- ۷. Logic: Gift Reveal & Popup (رفع باگ اینجا بود!) ---
+            // --- ۷. Logic: Gift Reveal & Popup ---
             document.getElementById('show-gift-btn').addEventListener('click', () => {
-                // *** رفع باگ: مطمئن شدیم که متغیرها به درستی فراخوانی می‌شوند.
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
                 
@@ -411,7 +376,7 @@
             // تابع Confetti
             const runConfetti = () => {
                 const defaults = { origin: { y: 0.7 } };
-                const colors = ["#FF5A95", "#8C52FF", "#FFFFFF", "#FFD9E8"];
+                const colors = ["#FF69B4", "#9932CC", "#FFFFFF", "#FFD8F0"];
 
                 function fire(particleRatio, opts) {
                   confetti(Object.assign({}, defaults, opts, {
@@ -450,7 +415,7 @@
                     // رفتن به صفحه Celebration
                     setTimeout(() => {
                         navigateTo('celebration-section');
-                        runConfetti(); // Confetti نهایی در Celebration
+                        runConfetti(); 
                     }, 1000);
 
                 } else {
