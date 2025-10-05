@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تیم بانوان SMS.ir | روز جهانی دختر</title>
+    <title>تقدیر ویژه از بانوان درخشان SMS.ir</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
-        /* --- ۱. تنظیمات عمومی و فونت --- */
+        /* [همان CSS قبلی با تغییرات جزئی برای بخش نهایی] */
         :root {
-            --primary-color: #FF5A95; /* صورتی جذاب و پر انرژی */
-            --secondary-color: #8C52FF; /* بنفش سلطنتی و لوکس */
+            --primary-color: #FF5A95;
+            --secondary-color: #8C52FF;
             --gradient-start: #FF7EB9;
             --gradient-end: #AC6CFF;
             --card-bg: #FFFFFF;
@@ -36,7 +36,6 @@
             background-color: #F8F4FF;
         }
 
-        /* --- ۲. ساختار اصلی صفحه (Single Page App) --- */
         .full-screen {
             height: 100vh;
             width: 100%;
@@ -64,7 +63,6 @@
             z-index: 10;
         }
 
-        /* --- ۳. Hero Section --- */
         #hero-section {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
         }
@@ -88,7 +86,6 @@
             z-index: 0;
         }
 
-        /* --- ۴. دکمه‌های جذاب (WOW Button) --- */
         .wow-btn {
             padding: 18px 45px;
             border: none;
@@ -114,7 +111,6 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* --- ۵. کارت‌های شناور (Card) --- */
         .card {
             background-color: var(--card-bg);
             padding: 50px;
@@ -153,7 +149,7 @@
             min-height: 20px;
         }
 
-        /* --- ۶. Popup Styles (هدیه) --- */
+        /* --- Popup Styles (هدیه) --- */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -177,15 +173,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: popup-bounce 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        @keyframes popup-bounce {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .popup-title {
-            color: var(--primary-color) !important;
-            font-size: 2.2rem !important;
-            margin-bottom: 0.5rem !important;
-        }
         .gift-text {
             background: linear-gradient(90deg, #FFD9E8, #C49EFF);
             -webkit-background-clip: text;
@@ -194,21 +181,6 @@
             font-weight: 900;
             display: block;
             padding: 10px 0;
-        }
-        .gift-code {
-            background-color: #F8F4FF;
-            color: var(--secondary-color);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 10px;
-            border: 1px dashed var(--secondary-color);
-        }
-        .screenshot-tip {
-            color: #999;
-            font-style: italic;
-            margin-top: 20px;
         }
         .close-btn {
             position: absolute;
@@ -221,8 +193,14 @@
             cursor: pointer;
             color: #AAA;
         }
+        #personal-message {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-top: 15px;
+        }
 
-        /* --- ۷. Celebration Section --- */
+        /* --- Celebration Section (جدید و خفن) --- */
         #celebration-section {
             background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
         }
@@ -236,20 +214,16 @@
             color: #A052FF;
         }
 
-        /* --- ۸. انیمیشن‌های ورود --- */
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease-out forwards; }
         .fade-in-down { opacity: 0; transform: translateY(-20px); animation: fadeInDown 0.8s ease-out forwards; }
         .delay-2 { animation-delay: 0.2s; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             #hero-section h1 { font-size: 2.2rem; }
             .wow-btn { padding: 15px 30px; font-size: 1.1rem; }
             .card { padding: 30px; }
-            .path-options { flex-direction: column; gap: 15px; }
-            .path-card { max-width: 100%; }
         }
     </style>
 </head>
@@ -259,16 +233,16 @@
         <section id="hero-section" class="full-screen active-section">
             <div id="particles-js" class="particle-bg"></div>
             <div class="content-wrapper">
-                <h1 class="fade-in-up">دخترِ قدرت، روزت مبارک! 👑</h1>
-                <p class="fade-in-up delay-2">به مناسبت روز جهانی دختر، این لینک هدیه یک کارت تبریک اختصاصی از طرف تیم فنی ماست!</p>
-                <button id="start-adventure-btn" class="wow-btn floating">بریم ببینیم چیه! ✨</button>
+                <h1 class="fade-in-up">تقدیر ویژه از بانوان درخشان SMS.ir</h1>
+                <p class="fade-in-up delay-2">به مناسبت روز جهانی دختر، این لینک هدیه یک کارت تبریک اختصاصی از طرف تیم منابع انسانی و فنی ماست.</p>
+                <button id="start-adventure-btn" class="wow-btn floating">دریافت تبریک اختصاصی ✨</button>
             </div>
         </section>
 
         <section id="phone-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>تبریک اختصاصی برای تو!</h2>
-                <p>شماره موبایلت رو وارد کن تا مطمئن شیم هدیه به دست خودت می‌رسه.</p>
+                <h2>گذر واژه ورود به قلب ماجرا 🔑</h2>
+                <p>شماره موبایلت رو وارد کن تا لینک تبریک و هدیه‌ات رو شخصی‌سازی کنیم.</p>
                 <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
                 <p id="phone-error" class="error-text"></p>
                 <button id="verify-phone-btn" class="wow-btn">اعتبار سنجی</button>
@@ -286,30 +260,32 @@
 
         <section id="gift-reveal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>تو یکی از بهترین‌های تیم مایی! 🥳</h2>
-                <p>هدیه کوچک ما به پاس تلاش‌های درخشانت آماده‌اس.</p>
+                <h2>تقدیر ویژه از یک ستاره درخشان! 🌟</h2>
+                <p>برای دیدن هدیه خاصی که برات آماده کردیم، آماده‌ای؟</p>
                 <button id="show-gift-btn" class="wow-btn">پرده‌برداری از هدیه! 🎁</button>
             </div>
         </section>
 
         <section id="friend-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>💌 یه پیام ساده، می‌تونه دوستت رو هم خوشحال کنه!</h2>
-                <p>شادی روز دختر رو با یه تبریک ساده به دوستات هم هدیه بده.</p>
+                <h2>💌 درخشش رو تقسیم کن!</h2>
+                <p>اجازه نده دوستات از این روز شاد بی‌خبر بمونن! یه تبریک خاص براشون بفرست.</p>
                 <form id="friend-message-form">
                     <input type="text" id="friend-name" placeholder="اسم دوستت">
                     <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
-                    <textarea id="friend-message" placeholder="متن پیامک (مثال: روزت مبارک دوست درخشانم! ✨)"></textarea>
+                    <textarea id="friend-message" placeholder="متن پیامک (مثال: تو شگفت‌انگیزی! روزت مبارک دوست درخشانم! ✨)"></textarea>
                     <p id="message-limit-text" class="error-text"></p>
-                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال تبریک شاد</button>
+                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال تبریک جادویی</button>
                 </form>
             </div>
         </section>
 
         <section id="celebration-section" class="full-screen">
+            <div id="final-confetti-bg" class="particle-bg"></div>
             <div class="content-wrapper">
-                <h1>🌸 ماجراجویی امروز تموم شد! اما درخشش تو ادامه داره! 💖</h1>
-                <p>امیدواریم از هدیه‌ات لذت ببری. با افتخار، تیم منابع انسانی و فنی SMS.ir</p>
+                <h1>تبریک تو هم ارسال شد! 🎉</h1>
+                <p>تو امروز هم خودت رو شاد کردی، هم دوستت رو. با افتخار، تیم فنی و منابع انسانی SMS.ir</p>
+                <button class="wow-btn" onclick="navigateTo('hero-section')">شروع دوباره شادی!</button>
             </div>
         </section>
     </main>
@@ -319,13 +295,12 @@
             <button class="close-btn">&times;</button>
             <div id="confetti-container"></div>
             <h3 class="popup-title">🎉 تبریک! هدیه ارزشمند شما:</h3>
-            <p class="gift-description">تو فوق‌العاده‌ای! این هدیه رو با شادی خرج کن:</p>
-            <div class="screenshot-area">
-                <span id="gift-amount" class="gift-text"></span>
+            <span id="gift-amount" class="gift-text"></span>
+            <p id="personal-message"></p> <div class="screenshot-area">
                 <p class="gift-code">کد تخفیف: HR-GIRL-POWER-2025</p>
             </div>
             <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
-            <button id="popup-next-btn" class="wow-btn">دوستامم شاد کنم! 👯‍♀️</button>
+            <button id="popup-next-btn" class="wow-btn">شادی رو با دوستام تقسیم کنم! 👯‍♀️</button>
         </div>
     </div>
 
@@ -338,25 +313,34 @@
             // --- ۱. دیتابیس داخلی (شبیه‌سازی) و متغیرهای اصلی ---
             const sections = document.querySelectorAll('.full-screen');
             const HR_DATABASE = {
-                // این لیست باید شامل تمام همکاران خانمی باشد
-                '09198967708': 'ماهان چگینی', // شماره تست
-                '09121234567': 'سارا احمدی', 
-                '09359876543': 'مریم عظیمی'
-                // ... بقیه شماره‌ها
+                // [شماره، نام، سِمت]
+                '09198967708': { name: 'ماهان چگینی', dept: 'مالی' },
+                '09121234567': { name: 'سارا احمدی', dept: 'فنی' },
+                '09359876543': { name: 'مریم عظیمی', dept: 'عملیات' },
+                '09015554433': { name: 'نیلوفر رضایی', dept: 'مارکتینگ' }
             };
-            const TEST_OTP = '1111'; // کد تست داخلی
+            const TEST_OTP = '1111';
             let hasSentMessage = false;
-            let currentUserName = ''; // برای ذخیره نام کاربر فعلی
+            let currentUser = {}; // ذخیره اطلاعات کاربر فعلی
 
-            // هدایای لوکس و جذاب
+            // هدایای لوکس
             const GIFTS = [
                 "300,000 تومان اعتبار خرید از کافه شرکت",
                 "کدتخفیف 100% (یک آیتم) خرید از کافه",
                 "بلیت استخر سه‌ماهه‌ رایگان",
                 "بن تخفیف 200,000 تومانی اسنپ‌فود"
             ];
+            
+            // پیام‌های شخصی‌سازی شده بر اساس سِمَت
+            const DEPT_MESSAGES = {
+                'مالی': (name) => `از دقت و نظم تو در محاسبات متشکریم، ${name} جان. تو بهترین مدیر منابع مالی خودت هستی! 💸`,
+                'فنی': (name) => `کدهای تو دنیای ما رو می‌سازه، ${name} عزیز! از خلاقیت و حل مسئله‌ات بی‌نهایت سپاسگزاریم. 💻`,
+                'عملیات': (name) => `تو ستون فقرات شرکت ما هستی، ${name}! از انرژی و توانایی سازماندهی بی‌نظیرت قدردانی می‌کنیم. 🚀`,
+                'مارکتینگ': (name) => `تو صدای درخشان ما هستی، ${name} دوست‌داشتنی! از ایده‌های خلاقانه و قدرت ارتباطی‌ات سپاسگزاریم. 💡`,
+                'default': (name) => `از تلاش‌های ارزشمندت متشکریم، ${name} عزیزم. تو بخش مهمی از خانواده ما هستی! ❤️`
+            };
 
-            // --- ۲. تابع ناوبری بین بخش‌ها (Navigation Logic) ---
+            // --- ۲. تابع ناوبری بین بخش‌ها ---
             const navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
 
@@ -371,7 +355,7 @@
                 }, 100);
             };
 
-            // --- ۳. تنظیم Particle.js برای Hero Section ---
+            // --- ۳. تنظیم Particle.js ---
             if (typeof particlesJS !== 'undefined') {
                 particlesJS('particles-js', {
                     "particles": {
@@ -395,23 +379,22 @@
                 navigateTo('phone-section');
             });
 
-            // --- ۵. Logic: Phone Verification (با دیتابیس HR) ---
+            // --- ۵. Logic: Phone Verification (با دیتابیس شغلی) ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
 
                 if (HR_DATABASE[phoneInput]) {
-                    currentUserName = HR_DATABASE[phoneInput]; // ذخیره نام
+                    currentUser = HR_DATABASE[phoneInput]; // ذخیره اطلاعات کاربر
                     errorText.textContent = '';
                     
-                    // تنظیم متن خوش‌آمدگویی شخصی‌سازی شده
-                    document.getElementById('otp-welcome-text').textContent = `سلام ${currentUserName} عزیزم! 💖`;
+                    // تنظیم متن خوش‌آمدگویی شخصی‌سازی شده با نام
+                    document.getElementById('otp-welcome-text').textContent = `سلام ${currentUser.name} عزیزم! 💖`;
                     
-                    // در محیط واقعی: ارسال SMS با استفاده از SMS.ir
                     navigateTo('otp-section');
 
                 } else {
-                    errorText.textContent = "اوه... این شماره در لیست تبریک امروز نیست! لطفاً شماره‌ای که باهاش QR رو اسکن کردی رو چک کن. 😔";
+                    errorText.textContent = "اوه... این شماره در لیست تبریک امروز نیست. لطفاً شماره‌ای که کارت رو باهاش دریافت کردی چک کن. 😔";
                 }
             });
 
@@ -422,16 +405,20 @@
 
                 if (otpInput === TEST_OTP) {
                     errorText.textContent = '';
-                    navigateTo('gift-reveal-section'); // مستقیم به هدیه
+                    navigateTo('gift-reveal-section'); 
                 } else {
                     errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، چون هدیه‌ات منتظره! 🎁";
                 }
             });
 
-            // --- ۷. Logic: Gift Reveal & Popup ---
+            // --- ۷. Logic: Gift Reveal & Popup (با پیام شغلی) ---
             document.getElementById('show-gift-btn').addEventListener('click', () => {
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
+                
+                // ایجاد پیام تشکر شغلی
+                const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
+                document.getElementById('personal-message').textContent = messageFunc(currentUser.name);
 
                 document.getElementById('gift-popup').style.display = 'flex';
                 
@@ -465,13 +452,13 @@
                 fire(0.1, { spread: 120, startVelocity: 45 });
             };
             
-            // --- ۸. Logic: Send to Friend ---
+            // --- ۸. Logic: Send to Friend و رفتن به Celebration نهایی ---
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
                 
                 if (hasSentMessage) {
-                    limitText.textContent = "عزیزم! قول داده بودیم فقط یک پیام شاد بفرستیم! 😔 دفعه بعد حتماً!";
+                    limitText.textContent = "عزیزم! قبلاً یک پیام شاد فرستادی! محدودیت یک پیام رو داریم 😔";
                     return;
                 }
 
@@ -480,20 +467,20 @@
                 const message = document.getElementById('friend-message').value.trim();
 
                 if (friendName && friendPhone.length === 11 && message) {
-                    // شبیه‌سازی ارسال پیامک با سرویس SMS.ir
                     console.log(`[SMS.ir API] Sending SMS to ${friendPhone} (${friendName}): ${message}`);
 
                     hasSentMessage = true; 
                     limitText.textContent = `تبریک شاد شما برای ${friendName} ارسال شد! 💌`;
                     
-                    // رفتن به صفحه Celebration بعد از ارسال
+                    // رفتن به صفحه Celebration
                     setTimeout(() => {
                         navigateTo('celebration-section');
-                        runConfetti(); 
+                        // برای حس خفن بودن
+                        runConfetti();
                     }, 1000);
 
                 } else {
-                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
+                    limitText.textContent = "لطفاً تمام فیلدها رو پر کن تا تبریک ارسال بشه! ✍️";
                 }
             });
 
