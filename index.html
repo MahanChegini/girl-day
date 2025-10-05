@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (Heart-Eyes Edition - FIXED)</title>
+    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (The Ultimate Girl-Core Edition)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #FF4081; 
-            --secondary-color: #673AB7; 
-            --gradient-start: #FF80AB; 
-            --gradient-end: #B388FF; 
+            --primary-color: #FF69B4; /* صورتی شادتر (Hot Pink) */
+            --secondary-color: #A020F0; /* بنفش پررنگ (Purple) */
+            --soft-pink: #FFD9E8; /* صورتی کمرنگ برای پس‌زمینه اینپوت‌ها */
+            --gradient-start: #FF99CC; 
+            --gradient-end: #CC99FF; 
             --card-bg: #FFFFFF;
             --text-color-dark: #333333;
             --text-color-light: #FFFFFF;
-            --shadow-soft: rgba(255, 64, 129, 0.4);
-            --shadow-deep: rgba(103, 58, 183, 0.5);
-            --transition-speed: 0.7s;
+            --shadow-deep: rgba(160, 32, 240, 0.5); /* سایه بنفش */
         }
 
         /* --- استایل‌های اصلی --- */
@@ -42,111 +41,35 @@
             100% { background-position: 0% 50%; }
         }
 
-        .full-screen {
-            height: 100vh;
+        /* --- Input Fields (استایل دخترونه جدید) --- */
+        input[type="tel"], input[type="text"], textarea {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity var(--transition-speed) ease-in-out;
-            z-index: 1;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border: 2px solid #EEE;
+            border-radius: 25px; /* گوشه‌های گرد */
+            background-color: var(--soft-pink); /* صورتی کمرنگ */
+            font-size: 1rem;
+            transition: all 0.3s;
+            color: var(--text-color-dark);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05) inset;
         }
-        .full-screen.active-section {
-            opacity: 1;
-            pointer-events: auto;
-            position: relative;
-            z-index: 10;
+        input[type="tel"]:focus, input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color), 0 0 5px var(--secondary-color); /* نئونی */
+            transform: scale(1.01);
+            background-color: #FFF;
         }
-        .content-wrapper {
-            max-width: 900px;
-            width: 90%;
-            z-index: 10;
-            animation: hero-bounce 4s ease-in-out infinite alternate;
-        }
-        @keyframes hero-bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-
-        /* --- استایل کارت Soft Blob --- */
-        .card {
-            background-color: var(--card-bg);
-            padding: 50px;
-            border-radius: 40px; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
-            max-width: 450px;
-            width: 90%;
-            border: none; 
-            overflow: hidden;
-        }
-
-        /* --- دکمه‌های WOW --- */
-        .wow-btn {
-            padding: 18px 45px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            box-shadow: 0 10px 20px var(--shadow-deep);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 1.5rem;
-            position: relative; 
-            overflow: hidden;
-            z-index: 1;
-        }
-        .wow-btn:hover {
-            transform: translateY(-5px) scale(1.03) rotate(-1deg); 
-            box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color);
-        }
-
-        /* --- Heart Smash Game Styles --- */
-        .heart-smash-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        #magic-heart-btn {
-            font-size: 6rem;
-            cursor: pointer;
-            background: none;
-            border: none;
+        .error-text {
             color: var(--primary-color);
-            transition: transform 0.1s ease-out;
-            text-shadow: 0 0 15px var(--primary-color);
-            animation: pulse-heart 1.5s infinite alternate;
-            margin: 20px 0;
-        }
-        @keyframes pulse-heart {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-        #click-count {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .heart-broken {
-            animation: heart-break-anim 0.5s forwards;
-            pointer-events: none;
-            opacity: 0;
-        }
-        @keyframes heart-break-anim {
-            0% { opacity: 1; transform: scale(1.2) rotate(0deg); }
-            50% { opacity: 0.5; transform: scale(1.5) rotate(5deg); }
-            100% { opacity: 0; transform: scale(0); }
-        }
+        /* --- بقیه استایل‌ها (بدون تغییر) --- */
 
-        /* --- سایر استایل‌های انیمیشنی (بدون تغییر) --- */
     </style>
 </head>
 <body>
@@ -185,6 +108,15 @@
                 <h2 id="portal-title"></h2>
                 <div class="portal-loader"></div>
                 <p id="portal-challenge-text" class="portal-text"></p>
+                
+                <div id="star-game-area" style="position: relative; width: 100%; height: 100px; margin-top: 20px;">
+                    <span class="magic-star" id="star-1" style="left: 10%; top: 10%;">⭐️</span>
+                    <span class="magic-star" id="star-2" style="left: 60%; top: 50%;">⭐️</span>
+                    <span class="magic-star" id="star-3" style="left: 35%; top: 80%;">⭐️</span>
+                </div>
+                <p id="star-count-text" class="portal-text" style="font-size: 1rem; color: var(--primary-color);">۰ از ۳ ستاره پیدا شد.</p>
+                <button id="skip-portal-btn" class="wow-btn" style="display: none;">پرتال باز شد! ✨</button>
+
             </div>
         </section>
 
@@ -205,6 +137,8 @@
         <section id="friend-section" class="full-screen">
             <div class="card fade-in-down">
                 <h2>💌 تو فرستادۀ شادی هستی!</h2>
+                <p style="font-weight: bold; color: var(--secondary-color); margin-bottom: 10px;">لحظه‌ای در آینه جادویی... تو بزرگترین هدیه‌ای! 💖</p>
+
                 <p>بهترین کار اینه که حال خوبت رو با دیگران تقسیم کنی. یه تبریک خاص برای دوستات بفرست.</p>
                 <form id="friend-message-form">
                     <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
@@ -218,8 +152,8 @@
 
         <section id="celebration-section" class="full-screen">
             <div class="content-wrapper">
-                <h1>🎉 ماجراجویی تکمیل شد! روزت مبارک، دختری درخشان! 🎉</h1>
-                <p>حضور تو، بزرگترین افتخار ماست. ممنونیم که با انرژی و استعدادت در کنار ما هستی. 💖</p>
+                <h1 style="color: var(--primary-color); font-size: 4rem;">🎉 تو یک فرشته‌ی شادی هستی! 😇</h1>
+                <p>ماجراجویی تکمیل شد! روزت مبارک، دختری درخشان! حضور تو، بزرگترین افتخار ماست. 💖</p>
                 <button class="wow-btn" onclick="navigateTo('hero-section')">دعوتنامۀ مجدد</button>
             </div>
         </section>
@@ -259,6 +193,10 @@
             let clickCounter = 0;
             const CLICKS_REQUIRED = 10;
             
+            // متغیرهای جدید برای بازی ستاره
+            let starsFound = 0;
+            const TOTAL_STARS = 3;
+
             const GIFTS = [
                 "300,000 تومان اعتبار خرید از کافه شرکت",
                 "کدتخفیف 100% (یک آیتم) خرید از کافه",
@@ -278,13 +216,13 @@
                 'ماهان': {
                     otp_welcome: (name) => `ماهانِ عزیزم، درخشش تو مثل ماه کامل در آسمون ماست! آماده‌ی دریافت رمز و راز بزرگی؟ 🌙`,
                     portal_title: `پرتال جادویی "ماه" در حال باز شدن...`,
-                    portal_challenge: `آیا می‌تونی ۱۰ بار قلب صورتی رو روی صفحه پیدا کنی و لمس کنی تا پرتال با انرژی تو باز بشه؟ 💖 (3 ثانیه صبر کن!)`,
+                    portal_challenge: `حالا که پرتال ماه باز شده، ستاره‌های درخشانت رو پیدا کن!`,
                     gift_reveal_title: (name) => `لحظه‌ی کشف هدیه‌ی ماهان! 🎁`,
                 },
                 'default': {
                     otp_welcome: (name) => `سلام ${name} عزیزم! خوش برگشتی! 💖`,
                     portal_title: `دنیای شگفتی‌ها در حال آماده‌سازی...`,
-                    portal_challenge: `تمام تیم ما برای این لحظه در حال درخشش هستند. این دعوتنامه فقط برای توست! 💫`,
+                    portal_challenge: `ستاره‌های شانس رو پیدا کن تا پرتال زودتر باز بشه!`,
                     gift_reveal_title: (name) => `لحظه‌ی کشف هدیه‌ی تو! 🎁`,
                 }
             };
@@ -298,6 +236,17 @@
                 setTimeout(() => {
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
+            };
+
+            const runConfetti = () => { /* تابع کامل Confetti */
+                const defaults = { origin: { y: 0.7 } };
+                const colors = ["#FF69B4", "#A020F0", "#FFFFFF", "#FFD9E8"];
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(200 * particleRatio), colors: colors }));
+                }
+                fire(0.25, { spread: 26, startVelocity: 55 });
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
 
             // --- Logic: Hero Section ---
@@ -337,21 +286,50 @@
                     document.getElementById('portal-title').textContent = textData.portal_title;
                     document.getElementById('portal-challenge-text').textContent = textData.portal_challenge;
 
-                    navigateTo('portal-section');
-                    
-                    setTimeout(() => {
-                        const giftTitleText = textData.gift_reveal_title(firstName);
-                        document.getElementById('gift-reveal-title').textContent = giftTitleText;
-                        
-                        navigateTo('gift-reveal-section'); 
-                    }, 3000); 
+                    // ریست بازی ستاره
+                    starsFound = 0;
+                    document.getElementById('star-count-text').textContent = `۰ از ${TOTAL_STARS} ستاره پیدا شد.`;
+                    document.querySelectorAll('.magic-star').forEach(star => {
+                        star.style.opacity = 1;
+                        star.style.cursor = 'pointer';
+                        star.onclick = handleStarClick; // فعال کردن کلیک
+                    });
+                    document.getElementById('skip-portal-btn').style.display = 'none'; // مخفی کردن دکمه رد کردن
 
+                    navigateTo('portal-section');
                 } else {
                     errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
                 }
             });
 
-            // --- Logic for Heart Smash Mini-Game (فیکس‌شده) ---
+            // --- NEW: Logic for Star Game ---
+            function handleStarClick(event) {
+                if (starsFound < TOTAL_STARS && event.target.style.opacity != 0) {
+                    starsFound++;
+                    event.target.style.opacity = 0; // محو کردن ستاره
+                    event.target.style.cursor = 'default';
+                    
+                    confetti({ particleCount: 10, spread: 60, origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }, colors: ["#FFD9E8"] });
+
+                    document.getElementById('star-count-text').textContent = `${starsFound} از ${TOTAL_STARS} ستاره پیدا شد! ✨`;
+
+                    if (starsFound === TOTAL_STARS) {
+                        document.getElementById('star-count-text').textContent = "آفرین! تمام ستاره‌های شانس رو پیدا کردی! 🌟";
+                        document.getElementById('skip-portal-btn').style.display = 'block';
+                    }
+                }
+            }
+            
+            document.getElementById('skip-portal-btn').addEventListener('click', () => {
+                 const firstName = currentUser.name.split(' ')[0];
+                 const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
+                 const giftTitleText = textData.gift_reveal_title(firstName);
+                 document.getElementById('gift-reveal-title').textContent = giftTitleText;
+                 navigateTo('gift-reveal-section');
+            });
+
+
+            // --- Logic for Heart Smash Mini-Game ---
             const magicHeartBtn = document.getElementById('magic-heart-btn');
             const clickCountDisplay = document.getElementById('click-count');
             const heartSmashContainer = document.getElementById('heart-smash-container');
@@ -361,15 +339,9 @@
                 if (clickCounter < CLICKS_REQUIRED) {
                     clickCounter++;
                     magicHeartBtn.style.transform = `scale(0.9) rotate(${Math.random() * 5 - 2.5}deg)`; 
-                    setTimeout(() => {
-                        magicHeartBtn.style.transform = 'scale(1)';
-                    }, 100);
+                    setTimeout(() => { magicHeartBtn.style.transform = 'scale(1)'; }, 100);
                     
-                    confetti({
-                        particleCount: 5, startVelocity: 30, spread: 360,
-                        origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight },
-                        colors: ["#FF4081", "#FFD9E8"]
-                    });
+                    confetti({ particleCount: 5, startVelocity: 30, spread: 360, origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }, colors: ["#FF69B4", "#FFD9E8"] });
 
                     const remainingClicks = CLICKS_REQUIRED - clickCounter;
                     clickCountDisplay.textContent = `${remainingClicks} کلیک باقی مانده`;
@@ -377,7 +349,6 @@
                     if (clickCounter === CLICKS_REQUIRED) {
                         magicHeartBtn.classList.add('heart-broken'); 
                         clickCountDisplay.textContent = "تبریک! قلب گنجینه باز شد! 🥳";
-
                         setTimeout(() => {
                             heartSmashContainer.style.display = 'none';
                             showGiftBtn.style.display = 'block'; 
@@ -388,18 +359,8 @@
                 }
             });
             
-            // --- Logic: Gift Reveal & Popup (فیکس‌شده) ---
+            // --- FIX: Logic: Gift Reveal & Popup ---
             const giftPopup = document.getElementById('gift-popup');
-            const runConfetti = () => { /* تابع کامل Confetti اینجا نبود، اما چون حجمش زیاده فرض می‌کنیم که هست */
-                const defaults = { origin: { y: 0.7 } };
-                const colors = ["#FF4081", "#673AB7", "#FFFFFF", "#FFD9E8"];
-                function fire(particleRatio, opts) {
-                    confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(200 * particleRatio), colors: colors }));
-                }
-                fire(0.25, { spread: 26, startVelocity: 55 });
-                fire(0.2, { spread: 60 });
-                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            };
 
             showGiftBtn.addEventListener('click', () => {
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
@@ -408,6 +369,9 @@
                 const firstName = currentUser.name.split(' ')[0];
                 const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
                 document.getElementById('personal-message').textContent = messageFunc(firstName);
+
+                // Personalize Pop-up Title
+                document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
 
                 giftPopup.style.display = 'flex';
                 runConfetti();
