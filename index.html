@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (Heart-Eyes Edition)</title>
+    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (Heart-Eyes Edition - FIXED)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #FF4081; /* صورتی نئون پررنگ‌تر */
-            --secondary-color: #673AB7; /* بنفش عمیق */
+            --primary-color: #FF4081; 
+            --secondary-color: #673AB7; 
             --gradient-start: #FF80AB; 
             --gradient-end: #B388FF; 
             --card-bg: #FFFFFF;
@@ -41,6 +41,7 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
         .full-screen {
             height: 100vh;
             width: 100%;
@@ -68,6 +69,10 @@
             z-index: 10;
             animation: hero-bounce 4s ease-in-out infinite alternate;
         }
+        @keyframes hero-bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
 
         /* --- استایل کارت Soft Blob --- */
         .card {
@@ -81,7 +86,7 @@
             overflow: hidden;
         }
 
-        /* --- دکمه‌های WOW و افکت لرزش --- */
+        /* --- دکمه‌های WOW --- */
         .wow-btn {
             padding: 18px 45px;
             border: none;
@@ -98,7 +103,11 @@
             overflow: hidden;
             z-index: 1;
         }
-        
+        .wow-btn:hover {
+            transform: translateY(-5px) scale(1.03) rotate(-1deg); 
+            box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color);
+        }
+
         /* --- Heart Smash Game Styles --- */
         .heart-smash-container {
             display: flex;
@@ -126,7 +135,6 @@
             color: var(--secondary-color);
             font-weight: bold;
         }
-        /* Heart Break Animation */
         .heart-broken {
             animation: heart-break-anim 0.5s forwards;
             pointer-events: none;
@@ -138,7 +146,7 @@
             100% { opacity: 0; transform: scale(0); }
         }
 
-        /* --- بقیه استایل‌ها (بدون تغییر) --- */
+        /* --- سایر استایل‌های انیمیشنی (بدون تغییر) --- */
     </style>
 </head>
 <body>
@@ -164,7 +172,7 @@
 
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="otp-welcome-text"></h2> 
+                <h2 id="otp-welcome-text"></h2>
                 <p>کد تایید ۴ رقمی پیامک‌شده را وارد کن. لحظۀ ورود به جشن نزدیک است!</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
@@ -174,8 +182,10 @@
 
         <section id="portal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="portal-title"></h2> <div class="portal-loader"></div>
-                <p id="portal-challenge-text" class="portal-text"></p> </div>
+                <h2 id="portal-title"></h2>
+                <div class="portal-loader"></div>
+                <p id="portal-challenge-text" class="portal-text"></p>
+            </div>
         </section>
 
         <section id="gift-reveal-section" class="full-screen">
@@ -185,17 +195,50 @@
                 <div id="heart-smash-container" class="heart-smash-container">
                     <p>قلب جادویی هدیه رو لمس کن تا باز بشه و سورپرایز رو ببینی! 👇</p>
                     <button id="magic-heart-btn">❤️</button>
-                    <p id="click-count">۰ کلیک باقی مانده</p>
+                    <p id="click-count">۱۰ کلیک باقی مانده</p>
                 </div>
 
                 <button id="show-gift-btn" class="wow-btn" style="display: none;">سورپرایزم رو ببینم! ✨</button>
             </div>
         </section>
 
-        </main>
+        <section id="friend-section" class="full-screen">
+            <div class="card fade-in-down">
+                <h2>💌 تو فرستادۀ شادی هستی!</h2>
+                <p>بهترین کار اینه که حال خوبت رو با دیگران تقسیم کنی. یه تبریک خاص برای دوستات بفرست.</p>
+                <form id="friend-message-form">
+                    <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
+                    <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
+                    <textarea id="friend-message" placeholder="متن پیامک (پیشنهاد: روزت مبارک دوست جادویی من! ✨)"></textarea>
+                    <p id="message-limit-text" class="error-text"></p>
+                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال انرژی مثبت</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="celebration-section" class="full-screen">
+            <div class="content-wrapper">
+                <h1>🎉 ماجراجویی تکمیل شد! روزت مبارک، دختری درخشان! 🎉</h1>
+                <p>حضور تو، بزرگترین افتخار ماست. ممنونیم که با انرژی و استعدادت در کنار ما هستی. 💖</p>
+                <button class="wow-btn" onclick="navigateTo('hero-section')">دعوتنامۀ مجدد</button>
+            </div>
+        </section>
+    </main>
 
     <div id="gift-popup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-btn">&times;</button>
+            <div id="confetti-container"></div>
+            <h3 id="popup-gift-title" class="gift-title-personalized">🥳 هدیه و سورپرایز ویژه تو: 🥳</h3>
+            <span id="gift-amount" class="gift-text"></span>
+            <p id="personal-message"></p>
+            <div class="screenshot-area">
+                <p class="gift-code">کد اختصاصی: GIRL-MAGIC-2025</p>
+            </div>
+            <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
+            <button id="popup-next-btn" class="wow-btn">شادی رو با دوستام تقسیم کنم! 👯‍♀️</button>
         </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -215,8 +258,7 @@
             let currentUser = {}; 
             let clickCounter = 0;
             const CLICKS_REQUIRED = 10;
-            const PHONE_VALIDATION = '09198967708'; // برای تست ماهان
-
+            
             const GIFTS = [
                 "300,000 تومان اعتبار خرید از کافه شرکت",
                 "کدتخفیف 100% (یک آیتم) خرید از کافه",
@@ -232,7 +274,6 @@
                 'default': (name) => `درخشش تو، الهام‌بخش تمام ماست، ${name} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`
             };
 
-            // **جدید: متون شخصی‌سازی شده برای ماهان**
             const PERSONALIZED_TEXT = {
                 'ماهان': {
                     otp_welcome: (name) => `ماهانِ عزیزم، درخشش تو مثل ماه کامل در آسمون ماست! آماده‌ی دریافت رمز و راز بزرگی؟ 🌙`,
@@ -259,7 +300,12 @@
                 }, 100);
             };
 
-            // --- Logic: Phone Verification (با اعمال شخصی‌سازی) ---
+            // --- Logic: Hero Section ---
+            document.getElementById('start-adventure-btn').addEventListener('click', () => {
+                navigateTo('phone-section');
+            });
+
+            // --- Logic: Phone Verification ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -268,8 +314,9 @@
                     currentUser = HR_DATABASE[phoneInput]; 
                     errorText.textContent = '';
                     
-                    const textData = PERSONALIZED_TEXT[currentUser.name.split(' ')[0]] || PERSONALIZED_TEXT['default'];
-                    document.getElementById('otp-welcome-text').textContent = textData.otp_welcome(currentUser.name.split(' ')[0]);
+                    const firstName = currentUser.name.split(' ')[0];
+                    const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
+                    document.getElementById('otp-welcome-text').textContent = textData.otp_welcome(firstName);
 
                     navigateTo('otp-section');
                 } else {
@@ -285,16 +332,15 @@
                 if (otpInput === TEST_OTP) {
                     errorText.textContent = '';
                     
-                    const textData = PERSONALIZED_TEXT[currentUser.name.split(' ')[0]] || PERSONALIZED_TEXT['default'];
+                    const firstName = currentUser.name.split(' ')[0];
+                    const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
                     document.getElementById('portal-title').textContent = textData.portal_title;
                     document.getElementById('portal-challenge-text').textContent = textData.portal_challenge;
 
                     navigateTo('portal-section');
                     
-                    // چالش پرتال ۳ ثانیه طول می‌کشد
                     setTimeout(() => {
-                        // Personalize the Gift Reveal Title
-                        const giftTitleText = textData.gift_reveal_title(currentUser.name.split(' ')[0]);
+                        const giftTitleText = textData.gift_reveal_title(firstName);
                         document.getElementById('gift-reveal-title').textContent = giftTitleText;
                         
                         navigateTo('gift-reveal-section'); 
@@ -305,30 +351,23 @@
                 }
             });
 
-            // --- NEW: Logic for Heart Smash Mini-Game ---
+            // --- Logic for Heart Smash Mini-Game (فیکس‌شده) ---
             const magicHeartBtn = document.getElementById('magic-heart-btn');
             const clickCountDisplay = document.getElementById('click-count');
+            const heartSmashContainer = document.getElementById('heart-smash-container');
             const showGiftBtn = document.getElementById('show-gift-btn');
 
-            clickCountDisplay.textContent = `${CLICKS_REQUIRED} کلیک باقی مانده`;
-
-            magicHeartBtn.addEventListener('click', () => {
+            magicHeartBtn.addEventListener('click', (event) => {
                 if (clickCounter < CLICKS_REQUIRED) {
                     clickCounter++;
-                    magicHeartBtn.style.transform = `scale(0.9) rotate(${Math.random() * 5 - 2.5}deg)`; // لرزش کوچک
+                    magicHeartBtn.style.transform = `scale(0.9) rotate(${Math.random() * 5 - 2.5}deg)`; 
                     setTimeout(() => {
                         magicHeartBtn.style.transform = 'scale(1)';
                     }, 100);
                     
-                    // افکت اکلیل (Confetti on Click)
                     confetti({
-                        particleCount: 5,
-                        startVelocity: 30,
-                        spread: 360,
-                        origin: {
-                            x: event.clientX / window.innerWidth,
-                            y: event.clientY / window.innerHeight
-                        },
+                        particleCount: 5, startVelocity: 30, spread: 360,
+                        origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight },
                         colors: ["#FF4081", "#FFD9E8"]
                     });
 
@@ -336,12 +375,11 @@
                     clickCountDisplay.textContent = `${remainingClicks} کلیک باقی مانده`;
 
                     if (clickCounter === CLICKS_REQUIRED) {
-                        // پایان بازی: انیمیشن شکستن قلب
                         magicHeartBtn.classList.add('heart-broken'); 
                         clickCountDisplay.textContent = "تبریک! قلب گنجینه باز شد! 🥳";
 
                         setTimeout(() => {
-                            document.getElementById('heart-smash-container').style.display = 'none';
+                            heartSmashContainer.style.display = 'none';
                             showGiftBtn.style.display = 'block'; 
                             showGiftBtn.classList.add('floating'); 
                             showGiftBtn.classList.add('pulse'); 
@@ -350,12 +388,66 @@
                 }
             });
             
-            // --- Logic: Gift Reveal & Popup (با اتصال به دکمه جدید) ---
+            // --- Logic: Gift Reveal & Popup (فیکس‌شده) ---
+            const giftPopup = document.getElementById('gift-popup');
+            const runConfetti = () => { /* تابع کامل Confetti اینجا نبود، اما چون حجمش زیاده فرض می‌کنیم که هست */
+                const defaults = { origin: { y: 0.7 } };
+                const colors = ["#FF4081", "#673AB7", "#FFFFFF", "#FFD9E8"];
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(200 * particleRatio), colors: colors }));
+                }
+                fire(0.25, { spread: 26, startVelocity: 55 });
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            };
+
             showGiftBtn.addEventListener('click', () => {
-                 // بقیه منطق پاپ‌آپ...
+                const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
+                document.getElementById('gift-amount').textContent = randomGift;
+                
+                const firstName = currentUser.name.split(' ')[0];
+                const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
+                document.getElementById('personal-message').textContent = messageFunc(firstName);
+
+                giftPopup.style.display = 'flex';
+                runConfetti();
             });
 
-            // ... (بقیه کدها و توابع کمکی بدون تغییر) ...
+            // مدیریت بستن پاپ‌آپ و رفتن به مرحله "پیام به دوست"
+            document.querySelectorAll('.close-btn, #popup-next-btn').forEach(el => {
+                el.addEventListener('click', () => {
+                    giftPopup.style.display = 'none';
+                    navigateTo('friend-section');
+                });
+            });
+
+            // --- Logic: Send to Friend و رفتن به Celebration نهایی ---
+            document.getElementById('friend-message-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const limitText = document.getElementById('message-limit-text');
+                
+                if (hasSentMessage) {
+                    limitText.textContent = "عزیزم! قبلاً یک پیام شاد فرستادی! محدودیت یک پیام رو داریم 😔";
+                    return;
+                }
+
+                const friendName = document.getElementById('friend-name').value.trim();
+                const friendPhone = document.getElementById('friend-phone').value.trim();
+                const message = document.getElementById('friend-message').value.trim();
+
+                if (friendName && friendPhone.length === 11 && message) {
+                    hasSentMessage = true; 
+                    limitText.textContent = `انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
+                    
+                    setTimeout(() => {
+                        navigateTo('celebration-section');
+                        runConfetti(); 
+                    }, 1000);
+
+                } else {
+                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
+                }
+            });
 
             // --- Initial Setup ---
             navigateTo('hero-section'); 
