@@ -6,51 +6,42 @@
 <title>کمپین روز دختر — SMS.ir</title>
 <link href="https://fonts.googleapis.com/css2?family=Shabnam:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Global ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;font-family:'Shabnam',sans-serif;direction:rtl;overflow-x:hidden;scroll-behavior:smooth;background:#fff0f6;color:#333;}
 h1,h2,h3{margin:0;font-weight:700;}
 button{cursor:pointer;transition:0.3s;border:none;font-weight:700;}
 input,textarea{font-family:'Shabnam',sans-serif;transition:0.3s;}
 .hidden{display:none;}
-
-/* ===== Full-screen Sections ===== */
 section{min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;transition:all 0.6s ease;padding:20px;}
 .title{font-size:2.6rem;color:#ff2fa0;margin-bottom:15px;text-shadow:0 2px 15px rgba(255,47,160,0.5);animation:fadeInDown 1s ease;}
 .subtitle{font-size:1.3rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
 @keyframes fadeInDown{0%{opacity:0;transform:translateY(-30px);}100%{opacity:1;transform:translateY(0);}}
 @keyframes fadeInUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
-
 button.btn{padding:16px 36px;border-radius:25px;background:linear-gradient(135deg,#ff6fcf,#ff9fd6);color:#fff;font-size:1.1rem;box-shadow:0 10px 25px rgba(255,111,207,0.4);}
 button.btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 15px 30px rgba(255,111,207,0.6);}
-
 input,textarea{width:100%;max-width:360px;padding:16px;margin:12px 0;border-radius:18px;border:1px solid #f5c2e7;font-size:1rem;}
 input:focus,textarea:focus{outline:none;border-color:#ff6fcf;box-shadow:0 0 20px rgba(255,111,207,0.4);}
-
-/* ===== Hero ===== */
 #hero{background:linear-gradient(135deg,#ff9fd6,#ff6fcf);color:#fff;overflow:hidden;}
 .floating{position:absolute;font-size:2.5rem;animation:float 6s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-30px);}}
-
-/* ===== Popup ===== */
 .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:50px;border-radius:30px;box-shadow:0 20px 40px rgba(0,0,0,0.3);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
 @keyframes scaleUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
 .popup h2{color:#ff2fa0;margin-bottom:15px;font-size:1.8rem;text-shadow:0 2px 15px rgba(255,47,160,0.5);}
 .popup button{margin-top:20px;}
-
-/* ===== Canvas ===== */
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
-
 footer{margin-top:50px;font-size:14px;color:#aa4499;text-align:center;}
+.card{background:linear-gradient(135deg,#ff9fd6,#ff6fcf);padding:30px;border-radius:25px;box-shadow:0 15px 35px rgba(0,0,0,0.25);}
+.choice-btn{padding:14px 28px;border-radius:20px;margin:10px;display:inline-block;background:#fff;color:#ff2fa0;font-weight:700;box-shadow:0 8px 20px rgba(255,47,160,0.3);}
+.choice-btn:hover{transform:scale(1.05);box-shadow:0 12px 25px rgba(255,47,160,0.5);}
 </style>
 </head>
 <body>
 
 <!-- Hero -->
 <section id="hero">
-  <h1 class="title">سلام 💖 امروز روز توئه!</h1>
-  <p class="subtitle">یک لحظه جادویی بساز و هدیه‌ات رو باز کن 🌸</p>
-  <button class="btn" id="btn-hero">شروع کن</button>
+  <h1 class="title">سلام 💖 آماده‌ای یک ماجراجویی دخترونه شروع کنیم؟</h1>
+  <p class="subtitle">امروز قرار است لحظه‌ای شاد بسازیم!</p>
+  <button class="btn" id="btn-hero">شروع ماجراجویی</button>
   <div class="floating" style="top:10%;left:20%;">💖</div>
   <div class="floating" style="top:25%;left:70%;">✨</div>
   <div class="floating" style="top:60%;left:35%;">🌸</div>
@@ -59,18 +50,32 @@ footer{margin-top:50px;font-size:14px;color:#aa4499;text-align:center;}
 
 <!-- شماره همراه -->
 <section id="phone-section" class="hidden">
-  <h2 class="title">شماره همراهت رو بده 🌸</h2>
-  <input type="tel" id="phone" placeholder="مثال: 09198967708">
-  <p class="subtitle" id="phone-error" style="color:#ff2fa0;"></p>
-  <button class="btn" id="btn-phone">ادامه</button>
+  <div class="card">
+    <h2 class="title">کلید جادویی‌ت رو بده 🌸</h2>
+    <input type="tel" id="phone" placeholder="مثال: 09198967708">
+    <p class="subtitle" id="phone-error" style="color:#ff2fa0;"></p>
+    <button class="btn" id="btn-phone">ادامه</button>
+  </div>
 </section>
 
-<!-- کد تایید -->
-<section id="code-section" class="hidden">
-  <h2 class="title" id="code-msg">کد تایید برای شما ارسال شد</h2>
-  <input type="text" id="code" placeholder="کد ۴ رقمی">
-  <p class="subtitle" id="code-error" style="color:#ff2fa0;"></p>
-  <button class="btn" id="btn-code">تایید کد</button>
+<!-- انتخاب مسیر هدیه -->
+<section id="path-section" class="hidden">
+  <div class="card">
+    <h2 class="title">مسیر هدیه‌ت رو انتخاب کن 🎁</h2>
+    <button class="choice-btn" id="gift-direct">هدیه فوری</button>
+    <button class="choice-btn" id="gift-challenge">چالش داستانی</button>
+  </div>
+</section>
+
+<!-- چالش داستانی -->
+<section id="challenge-section" class="hidden">
+  <div class="card">
+    <h2 class="title">چالش کوتاه دخترونه 🌸</h2>
+    <p class="subtitle">روی دکمه بزن تا رنگ جادویی درست رو انتخاب کنی!</p>
+    <button class="choice-btn" data-color="صورتی">صورتی</button>
+    <button class="choice-btn" data-color="یاسی">یاسی</button>
+    <button class="choice-btn" data-color="طلایی">طلایی</button>
+  </div>
 </section>
 
 <!-- هدیه -->
@@ -97,82 +102,15 @@ footer{margin-top:50px;font-size:14px;color:#aa4499;text-align:center;}
   <p class="subtitle" id="friend-success" style="color:#198754;font-weight:700;"></p>
 </section>
 
-<footer>💖 کمپین روز دختر — SMS.ir — تجربه‌ای دخترونه و لوکس 💖</footer>
+<!-- صفحه Celebration -->
+<section id="celebration-section" class="hidden">
+  <h1 class="title">🌸 ماجراجویی امروز تموم شد! 🌸</h1>
+  <p class="subtitle">اما لبخندتو نگه دار! 💖</p>
+</section>
 
+<footer>💖 کمپین روز دختر — SMS.ir — تجربه‌ای دخترونه و لوکس 💖</footer>
 <canvas id="confetti"></canvas>
 
 <script>
-  // Scroll Narrative
-  function showSection(section){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));section.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
-  document.getElementById('btn-hero').addEventListener('click',()=>showSection(document.getElementById('phone-section')));
-
-  // شماره همراه
-  const validPhone='09198967708';
-  const validName='ماهان چگینی';
-  document.getElementById('btn-phone').addEventListener('click',()=>{
-    const phone=document.getElementById('phone').value.trim();
-    const error=document.getElementById('phone-error');
-    if(phone!==validPhone){error.textContent='اوه نه… شماره ماجراجویی ما نیست! ولی لبخندتو نگه دار 💖';return;}
-    error.textContent='';
-    document.getElementById('code-msg').textContent=`🌸 ${validName} عزیز، کد جادویی برات ارسال شد!`;
-    showSection(document.getElementById('code-section'));
-  });
-
-  // کد تایید
-  const testCode='1111';
-  document.getElementById('btn-code').addEventListener('click',()=>{
-    const code=document.getElementById('code').value.trim();
-    const error=document.getElementById('code-error');
-    if(code!==testCode){error.textContent='کد اشتباهه… یه بار دیگه تلاش کن 💖';return;}
-    error.textContent='';
-    showSection(document.getElementById('gift-section'));
-  });
-
-  // هدیه
-  const gifts=['200 هزار تومان اعتبار کافه','کدتخفیف 100% خرید از کافه','100 هزار تومان اعتبار کافه'];
-  document.getElementById('btn-gift').addEventListener('click',()=>{
-    const gift=gifts[Math.floor(Math.random()*gifts.length)];
-    document.getElementById('gift-text').textContent=`🎉 تبریک! هدیه شما: ${gift} 🎉`;
-    document.getElementById('gift-popup').style.display='block';
-    startConfetti();
-  });
-  document.getElementById('btn-popup-close').addEventListener('click',()=>{
-    document.getElementById('gift-popup').style.display='none';
-    showSection(document.getElementById('friend-section'));
-  });
-
-  // ارسال پیام
-  let messageSent=false;
-  document.getElementById('btn-send').addEventListener('click',()=>{
-    if(messageSent) return;
-    const name=document.getElementById('friend-name').value.trim();
-    const phone=document.getElementById('friend-phone').value.trim();
-    const msg=document.getElementById('friend-msg').value.trim();
-    const error=document.getElementById('friend-error');
-    const success=document.getElementById('friend-success');
-    if(!phone||!msg){error.textContent='لطفاً شماره و متن پیام رو وارد کن 💖';return;}
-    error.textContent='';
-    messageSent=true;
-    success.textContent='✅ پیام با موفقیت ارسال شد! 🌸';
-    console.log(`پیامک ارسال شد به ${name} (${phone}): ${msg}`);
-  });
-
-  // Confetti
-  const canvas=document.getElementById('confetti');
-  const ctx=canvas.getContext('2d');
-  let confettiParticles=[];
-  function startConfetti(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-    confettiParticles=[];
-    for(let i=0;i<150;i++){confettiParticles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,r:Math.random()*6+4,d:Math.random()*50+10,color:`hsl(${Math.random()*360},70%,60%)`,tilt:Math.random()*10-10,tiltAngleIncremental:Math.random()*0.07+0.05});}
-    requestAnimationFrame(updateConfetti);
-    setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),5000);
-  }
-  function updateConfetti(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confettiParticles.forEach(p=>{ctx.beginPath();ctx.lineWidth=p.r/2;ctx.strokeStyle=p.color;ctx.moveTo(p.x+p.tilt+p.r/4,p.y);ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);ctx.stroke();p.tiltAngle+=p.tiltAngleIncremental;p.y+=(Math.cos(p.d)+3+p.r/2)/2;p.x+=Math.sin(p.tiltAngle);if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}});requestAnimationFrame(updateConfetti);}
-</script>
-
-</body>
-</html>
+  // Sections helper
+  function showSection(section){document.querySelectorAll('section').forEach(s
