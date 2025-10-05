@@ -3,46 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>کمپین روز جهانی دختر — SMS.ir</title>
+<title>کمپین روز دختر — SMS.ir</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Vazirmatn',sans-serif;direction:rtl;background:#ffe6f0;color:#333;line-height:1.6;}
   h1,h2,h3,h4,h5{margin:0;}
-  button{cursor:pointer;font-weight:700;}
+  button{cursor:pointer;font-weight:700;transition:0.3s;}
   input,textarea{font-family:'Vazirmatn',sans-serif;}
   a{text-decoration:none;color:inherit;}
   .hidden{display:none;}
 
   /* ====== Containers ====== */
-  .container{max-width:600px;margin:80px auto;padding:20px;text-align:center;background:#fff0f6;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+  .container{max-width:600px;margin:80px auto;padding:30px;text-align:center;background:#fff0f6;border-radius:25px;box-shadow:0 12px 25px rgba(0,0,0,0.1);position:relative;}
   .page{transition: all 0.5s ease;}
 
-  /* ====== Page Specific ====== */
-  .btn{padding:12px 20px;border:none;border-radius:12px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:white;font-size:16px;margin-top:20px;transition:0.3s;}
-  .btn:hover{transform:translateY(-3px);box-shadow:0 8px 15px rgba(255,125,180,0.3);}
-  input[type="tel"], input[type="text"], textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #f5c2e7;margin-top:10px;font-size:15px;}
-  input:focus, textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 10px rgba(255,120,182,0.3);}
-  .title{font-size:26px;font-weight:700;margin-bottom:15px;color:#d63384;}
-  .subtitle{font-size:17px;color:#555;margin-bottom:20px;}
+  /* ====== Hero Section ====== */
+  #page1{background:linear-gradient(135deg,#ff9fd6,#ff78b6);color:#fff;overflow:hidden;}
+  #page1 .title{font-size:30px;margin-bottom:15px;}
+  #page1 .subtitle{font-size:18px;margin-bottom:25px;}
+
+  /* ====== Buttons ====== */
+  .btn{padding:14px 25px;border:none;border-radius:15px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:white;font-size:16px;margin-top:20px;box-shadow:0 8px 15px rgba(255,125,180,0.3);}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 20px rgba(255,125,180,0.4);}
+
+  /* ====== Inputs ====== */
+  input[type="tel"], input[type="text"], textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #f5c2e7;margin-top:12px;font-size:16px;}
+  input:focus, textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 12px rgba(255,120,182,0.3);}
+
+  .title{font-size:24px;font-weight:700;margin-bottom:15px;color:#d63384;}
+  .subtitle{font-size:16px;color:#555;margin-bottom:20px;}
   .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
 
+  /* ====== Gift Popup ====== */
+  .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:30px;border-radius:20px;box-shadow:0 12px 25px rgba(0,0,0,0.2);z-index:10000;text-align:center;display:none;}
+  .popup h2{color:#d63384;margin-bottom:15px;}
+  .popup button{margin-top:20px;}
+
   /* ====== Footer ====== */
-  footer{margin-top:40px;font-size:13px;color:#aaa;}
+  footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- صفحه تبریک -->
+  <!-- صفحه اول: تبریک روز دختر -->
   <div id="page1" class="page">
     <h1 class="title">💖 همکار عزیز SMS.ir، روز جهانی دختر مبارک 💖</h1>
     <p class="subtitle">یه پیام ساده، می‌تونه روزت را شیرین کند! برای دریافت جایزه ادامه بده…</p>
     <button class="btn" id="btn-page1">ادامه</button>
   </div>
 
-  <!-- صفحه ورود شماره همراه -->
+  <!-- صفحه دوم: ورود شماره همراه -->
   <div id="page2" class="page hidden">
     <h2 class="title">شماره همراهت رو وارد کن</h2>
     <input type="tel" id="phone" placeholder="مثال: 09198967708">
@@ -50,7 +63,7 @@
     <button class="btn" id="btn-page2">ادامه</button>
   </div>
 
-  <!-- صفحه ورود کد تایید -->
+  <!-- صفحه سوم: ورود کد تایید -->
   <div id="page3" class="page hidden">
     <h2 class="title" id="code-msg">کد تایید برای شما ارسال شد</h2>
     <input type="text" id="code" placeholder="کد ۴ رقمی">
@@ -58,15 +71,21 @@
     <button class="btn" id="btn-page3">تایید کد</button>
   </div>
 
-  <!-- صفحه دریافت هدیه -->
+  <!-- صفحه چهارم: دریافت هدیه -->
   <div id="page4" class="page hidden">
     <h2 class="title">🎁 هدیه تو آماده است!</h2>
     <p class="subtitle">روی دکمه زیر بزن تا هدیه روزت را ببینی 💖</p>
     <button class="btn" id="btn-gift">دریافت هدیه</button>
-    <div id="gift-box" class="hidden" style="margin-top:20px;font-size:18px;color:#d63384;font-weight:700;"></div>
   </div>
 
-  <!-- صفحه ارسال پیام تبریک -->
+  <!-- Popup هدیه -->
+  <div class="popup" id="gift-popup">
+    <h2 id="gift-text"></h2>
+    <p>لطفاً از این صفحه اسکرین شات بگیر!</p>
+    <button class="btn" id="btn-popup-close">باشه، گرفتم!</button>
+  </div>
+
+  <!-- صفحه پنجم: ارسال پیام تبریک -->
   <div id="page5" class="page hidden">
     <h2 class="title">💌 یه پیام ساده، می‌تونه دوستت هم خوشحال کنه!</h2>
     <input type="text" id="friend-name" placeholder="اسم دوست/همکار">
@@ -79,24 +98,17 @@
 
 </div>
 
-<footer>💖 کمپین تبریک روز دختر — SMS.ir — با عشق برای همکاران 💖</footer>
+<footer>💖 کمپین تبریک روز دختر — SMS.ir — با عشق و خلاقیت برای همکاران 💖</footer>
 
-<canvas id="confetti" class="confetti hidden"></canvas>
+<canvas id="confetti" class="confetti"></canvas>
 
 <script>
   // ====== صفحات ======
-  const page1 = document.getElementById('page1');
-  const page2 = document.getElementById('page2');
-  const page3 = document.getElementById('page3');
-  const page4 = document.getElementById('page4');
-  const page5 = document.getElementById('page5');
+  const pages = [document.getElementById('page1'),document.getElementById('page2'),document.getElementById('page3'),document.getElementById('page4'),document.getElementById('page5')];
+  function showPage(page){pages.forEach(p=>p.classList.add('hidden'));page.classList.remove('hidden');}
 
-  function showPage(page){
-    [page1,page2,page3,page4,page5].forEach(p=>p.classList.add('hidden'));
-    page.classList.remove('hidden');
-  }
-
-  document.getElementById('btn-page1').addEventListener('click',()=>showPage(page2));
+  // ====== دکمه ادامه صفحه اول ======
+  document.getElementById('btn-page1').addEventListener('click',()=>showPage(document.getElementById('page2')));
 
   // ====== بررسی شماره همراه ======
   const validPhone = '09198967708';
@@ -105,108 +117,66 @@
   document.getElementById('btn-page2').addEventListener('click',()=>{
     const phone = document.getElementById('phone').value.trim();
     const error = document.getElementById('phone-error');
-    if(phone!==validPhone){
-      error.textContent = '❌ اوه نه! این شماره مجاز نیست… اما هنوز می‌توانی لبخند بزنی 💖';
-      return;
-    }
-    error.textContent = '';
-    document.getElementById('code-msg').textContent = `🌸 ${validName} عزیز، یک کد تایید براتون پیامک شد!`;
-    showPage(page3);
+    if(phone!==validPhone){error.textContent='❌ اوه نه! این شماره مجاز نیست… اما هنوز می‌توانی لبخند بزنی 💖';return;}
+    error.textContent='';
+    document.getElementById('code-msg').textContent=`🌸 ${validName} عزیز، یک کد تایید براتون پیامک شد!`;
+    showPage(document.getElementById('page3'));
   });
 
   // ====== بررسی کد تایید ======
-  const testCode = '1111';
+  const testCode='1111';
   document.getElementById('btn-page3').addEventListener('click',()=>{
-    const code = document.getElementById('code').value.trim();
-    const error = document.getElementById('code-error');
-    if(code!==testCode){
-      error.textContent = '❌ کد نادرست است… یک بار دیگر تلاش کن 💖';
-      return;
-    }
-    error.textContent = '';
-    showPage(page4);
+    const code=document.getElementById('code').value.trim();
+    const error=document.getElementById('code-error');
+    if(code!==testCode){error.textContent='❌ کد نادرست است… یک بار دیگر تلاش کن 💖';return;}
+    error.textContent='';
+    showPage(document.getElementById('page4'));
   });
 
   // ====== دریافت هدیه ======
-  let giftReceived = false;
-  const gifts = [
-    '200 هزار تومان اعتبار کافه',
-    'کدتخفیف 100% خرید از کافه',
-    '100 هزار تومان اعتبار کافه'
-  ];
-
+  const gifts=['200 هزار تومان اعتبار کافه','کدتخفیف 100% خرید از کافه','100 هزار تومان اعتبار کافه'];
   document.getElementById('btn-gift').addEventListener('click',()=>{
-    if(giftReceived) return;
-    giftReceived = true;
-    const gift = gifts[Math.floor(Math.random()*gifts.length)];
-    const box = document.getElementById('gift-box');
-    box.textContent = `🎉 تبریک! هدیه شما: ${gift} 🎉\nلطفاً اسکرین شات بگیر!`;
-    box.classList.remove('hidden');
-    showPage(page5);
+    const gift=gifts[Math.floor(Math.random()*gifts.length)];
+    document.getElementById('gift-text').textContent=`🎉 تبریک! هدیه شما: ${gift} 🎉`;
+    document.getElementById('gift-popup').style.display='block';
     startConfetti();
+  });
+  document.getElementById('btn-popup-close').addEventListener('click',()=>{
+    document.getElementById('gift-popup').style.display='none';
+    showPage(document.getElementById('page5'));
   });
 
   // ====== ارسال پیام به دوست ======
-  let messageSent = false;
+  let messageSent=false;
   document.getElementById('btn-send').addEventListener('click',()=>{
-    if(messageSent) return;
-    const name = document.getElementById('friend-name').value.trim();
-    const phone = document.getElementById('friend-phone').value.trim();
-    const msg = document.getElementById('friend-msg').value.trim();
-    const error = document.getElementById('friend-error');
-    const success = document.getElementById('friend-success');
-
-    if(!phone || !msg){
-      error.textContent = 'لطفاً شماره و متن پیام را وارد کنید 💖';
-      return;
-    }
-    error.textContent = '';
-    messageSent = true;
-    success.textContent = '✅ پیام با موفقیت ارسال شد! 🌸';
+    if(messageSent)return;
+    const name=document.getElementById('friend-name').value.trim();
+    const phone=document.getElementById('friend-phone').value.trim();
+    const msg=document.getElementById('friend-msg').value.trim();
+    const error=document.getElementById('friend-error');
+    const success=document.getElementById('friend-success');
+    if(!phone||!msg){error.textContent='لطفاً شماره و متن پیام را وارد کنید 💖';return;}
+    error.textContent='';
+    messageSent=true;
+    success.textContent='✅ پیام با موفقیت ارسال شد! 🌸';
     console.log(`پیامک ارسال شد به ${name} (${phone}): ${msg}`);
   });
 
   // ====== Confetti ======
-  const canvas = document.getElementById('confetti');
-  const ctx = canvas.getContext('2d');
-  let confettiParticles = [];
-
+  const canvas=document.getElementById('confetti');
+  const ctx=canvas.getContext('2d');
+  let confettiParticles=[];
   function startConfetti(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    canvas.classList.remove('hidden');
-    confettiParticles = [];
-    for(let i=0;i<150;i++){
-      confettiParticles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height - canvas.height,
-        r: Math.random()*6+4,
-        d: Math.random()*50+10,
-        color: `hsl(${Math.random()*360},70%,60%)`,
-        tilt: Math.random()*10-10,
-        tiltAngleIncremental: Math.random()*0.07+0.05
-      });
-    }
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+    confettiParticles=[];
+    for(let i=0;i<150;i++){confettiParticles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,r:Math.random()*6+4,d:Math.random()*50+10,color:`hsl(${Math.random()*360},70%,60%)`,tilt:Math.random()*10-10,tiltAngleIncremental:Math.random()*0.07+0.05});}
     requestAnimationFrame(updateConfetti);
-    setTimeout(()=>canvas.classList.add('hidden'),5000);
+    setTimeout(()=>canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height),5000);
   }
-
   function updateConfetti(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    confettiParticles.forEach(p=>{
-      ctx.beginPath();
-      ctx.lineWidth=p.r/2;
-      ctx.strokeStyle=p.color;
-      ctx.moveTo(p.x+p.tilt+ p.r/4,p.y);
-      ctx.lineTo(p.x+p.tilt,p.y+p.tilt+ p.r/4);
-      ctx.stroke();
-      p.tiltAngle += p.tiltAngleIncremental;
-      p.y += (Math.cos(p.d)+3+p.r/2)/2;
-      p.x += Math.sin(p.tiltAngle);
-      if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
-    });
-    requestAnimationFrame(updateConfetti);
-  }
+    confettiParticles.forEach(p=>{ctx.beginPath();ctx.lineWidth=p.r/2;ctx.strokeStyle=p.color;ctx.moveTo(p.x+p.tilt+p.r/4,p.y);ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);ctx.stroke();p.tiltAngle+=p.tiltAngleIncremental;p.y+=(Math.cos(p.d)+3+p.r/2)/2;p.x+=Math.sin(p.tiltAngle);if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}});requestAnimationFrame(updateConfetti);}
 </script>
 
 </body>
