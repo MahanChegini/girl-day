@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقدیر ویژه از بانوان درخشان SMS.ir</title>
+    <title>جشنواره درخشش | روز جهانی دختر مبارک</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
-        /* [همان CSS قبلی با تغییرات جزئی برای بخش نهایی] */
         :root {
-            --primary-color: #FF5A95;
-            --secondary-color: #8C52FF;
+            --primary-color: #FF5A95; /* صورتی جذاب */
+            --secondary-color: #8C52FF; /* بنفش سلطنتی */
             --gradient-start: #FF7EB9;
             --gradient-end: #AC6CFF;
             --card-bg: #FFFFFF;
@@ -63,18 +62,19 @@
             z-index: 10;
         }
 
+        /* --- Hero --- */
         #hero-section {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
         }
         #hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem; 
             font-weight: 900;
             color: var(--text-color-light);
             margin-bottom: 1rem;
         }
         #hero-section p {
             color: #FFDAE8;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin-bottom: 2rem;
         }
         .particle-bg {
@@ -86,6 +86,7 @@
             z-index: 0;
         }
 
+        /* --- دکمه‌های WOW --- */
         .wow-btn {
             padding: 18px 45px;
             border: none;
@@ -111,6 +112,7 @@
             50% { transform: translateY(-8px); }
         }
 
+        /* --- کارت‌ها --- */
         .card {
             background-color: var(--card-bg);
             padding: 50px;
@@ -123,9 +125,6 @@
             color: var(--primary-color);
             margin-bottom: 1rem;
             font-size: 2rem;
-        }
-        .card p {
-            font-size: 1.1rem;
         }
         .card input, .card textarea {
             width: 100%;
@@ -149,30 +148,36 @@
             min-height: 20px;
         }
 
-        /* --- Popup Styles (هدیه) --- */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(8px);
+        /* --- پرتال درخشش --- */
+        #portal-section {
+            background: #F8F4FF;
         }
-        .popup-content {
-            background-color: var(--card-bg);
-            padding: 60px;
-            border-radius: 35px;
-            position: relative;
-            max-width: 550px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: popup-bounce 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        .portal-loader {
+            width: 100px;
+            height: 100px;
+            border: 8px solid var(--secondary-color);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: portal-spin 1s linear infinite;
+            margin: 30px auto;
         }
+        @keyframes portal-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .portal-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Popup هدیه --- */
         .gift-text {
             background: linear-gradient(90deg, #FFD9E8, #C49EFF);
             -webkit-background-clip: text;
@@ -182,30 +187,23 @@
             display: block;
             padding: 10px 0;
         }
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 30px;
-            font-weight: normal;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #AAA;
-        }
         #personal-message {
-            font-size: 1.1rem;
-            font-style: italic;
+            font-size: 1.2rem;
+            font-weight: 500;
             color: var(--secondary-color);
             margin-top: 15px;
         }
+        .gift-code {
+            border: 2px dashed var(--secondary-color);
+            padding: 10px;
+        }
 
-        /* --- Celebration Section (جدید و خفن) --- */
+        /* --- Celebration نهایی --- */
         #celebration-section {
             background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
         }
         #celebration-section h1 {
-            font-size: 3.5rem;
+            font-size: 4rem; 
             color: var(--secondary-color);
             font-weight: 900;
         }
@@ -215,16 +213,8 @@
         }
 
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease-out forwards; }
-        .fade-in-down { opacity: 0; transform: translateY(-20px); animation: fadeInDown 0.8s ease-out forwards; }
         .delay-2 { animation-delay: 0.2s; }
-
-        @media (max-width: 768px) {
-            #hero-section h1 { font-size: 2.2rem; }
-            .wow-btn { padding: 15px 30px; font-size: 1.1rem; }
-            .card { padding: 30px; }
-        }
     </style>
 </head>
 <body>
@@ -233,16 +223,16 @@
         <section id="hero-section" class="full-screen active-section">
             <div id="particles-js" class="particle-bg"></div>
             <div class="content-wrapper">
-                <h1 class="fade-in-up">تقدیر ویژه از بانوان درخشان SMS.ir</h1>
-                <p class="fade-in-up delay-2">به مناسبت روز جهانی دختر، این لینک هدیه یک کارت تبریک اختصاصی از طرف تیم منابع انسانی و فنی ماست.</p>
-                <button id="start-adventure-btn" class="wow-btn floating">دریافت تبریک اختصاصی ✨</button>
+                <h1 class="fade-in-up">🥳 روز درخشش و آرزوهای تو مبارک! 🥳</h1>
+                <p class="fade-in-up delay-2">امروز یک جشن ویژه برای تمام دختران شگفت‌انگیز مجموعه‌ی ماست.</p>
+                <button id="start-adventure-btn" class="wow-btn floating">باز کردن شگفتی امروز!</button>
             </div>
         </section>
 
         <section id="phone-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>گذر واژه ورود به قلب ماجرا 🔑</h2>
-                <p>شماره موبایلت رو وارد کن تا لینک تبریک و هدیه‌ات رو شخصی‌سازی کنیم.</p>
+                <h2>گذرواژه ورود به جشن 🔑</h2>
+                <p>شماره موبایلت رو وارد کن تا مطمئن شیم هدیه به دست فرد شایسته‌اش می‌رسه.</p>
                 <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
                 <p id="phone-error" class="error-text"></p>
                 <button id="verify-phone-btn" class="wow-btn">اعتبار سنجی</button>
@@ -251,41 +241,49 @@
 
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="otp-welcome-text"></h2> <p>کد تایید ۴ رقمی که برات پیامک کردیم رو وارد کن.</p>
+                <h2 id="otp-welcome-text"></h2>
+                <p>کد تایید ۴ رقمی پیامک‌شده را وارد کن تا پرتال هدیه فعال بشه.</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
-                <button id="verify-otp-btn" class="wow-btn">ورود به دنیای هدیه</button>
+                <button id="verify-otp-btn" class="wow-btn">فعال‌سازی پرتال</button>
+            </div>
+        </section>
+
+        <section id="portal-section" class="full-screen">
+            <div class="card fade-in-down">
+                <h2>پرتال آرزوها در حال باز شدن...</h2>
+                <div class="portal-loader"></div>
+                <p class="portal-text">هدیه تو به زیبایی درخشش خودته، چند لحظه صبر کن! 💫</p>
             </div>
         </section>
 
         <section id="gift-reveal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>تقدیر ویژه از یک ستاره درخشان! 🌟</h2>
-                <p>برای دیدن هدیه خاصی که برات آماده کردیم، آماده‌ای؟</p>
-                <button id="show-gift-btn" class="wow-btn">پرده‌برداری از هدیه! 🎁</button>
+                <h2>لحظه‌ی شگفت‌انگیز! 🎁</h2>
+                <p>این هدیه کوچک، پاسخی به تأثیرگذاری بزرگ توست. آماده‌ای؟</p>
+                <button id="show-gift-btn" class="wow-btn">پرده‌برداری از شگفتی!</button>
             </div>
         </section>
 
         <section id="friend-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>💌 درخشش رو تقسیم کن!</h2>
-                <p>اجازه نده دوستات از این روز شاد بی‌خبر بمونن! یه تبریک خاص براشون بفرست.</p>
+                <h2>💌 شادی این روز رو منتشر کن!</h2>
+                <p>اجازه نده دوستات از این روز جادویی بی‌خبر بمونن! یه تبریک ویژه براشون بفرست.</p>
                 <form id="friend-message-form">
-                    <input type="text" id="friend-name" placeholder="اسم دوستت">
+                    <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
                     <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
-                    <textarea id="friend-message" placeholder="متن پیامک (مثال: تو شگفت‌انگیزی! روزت مبارک دوست درخشانم! ✨)"></textarea>
+                    <textarea id="friend-message" placeholder="متن پیامک (پیشنهاد: تو شگفت‌انگیزی! روزت مبارک دوست درخشانم! ✨)"></textarea>
                     <p id="message-limit-text" class="error-text"></p>
-                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال تبریک جادویی</button>
+                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال پیام جادویی</button>
                 </form>
             </div>
         </section>
 
         <section id="celebration-section" class="full-screen">
-            <div id="final-confetti-bg" class="particle-bg"></div>
             <div class="content-wrapper">
-                <h1>تبریک تو هم ارسال شد! 🎉</h1>
-                <p>تو امروز هم خودت رو شاد کردی، هم دوستت رو. با افتخار، تیم فنی و منابع انسانی SMS.ir</p>
-                <button class="wow-btn" onclick="navigateTo('hero-section')">شروع دوباره شادی!</button>
+                <h1>🎉 جشن درخشش امروز تموم شد! 🎉</h1>
+                <p>تبریک تو هم ارسال شد! ممنون که این روز رو با ما شادتر کردی. لبخندت بهترین هدیه‌اس!</p>
+                <button class="wow-btn" onclick="navigateTo('hero-section')">آرزوهای بعدی!</button>
             </div>
         </section>
     </main>
@@ -294,10 +292,11 @@
         <div class="popup-content">
             <button class="close-btn">&times;</button>
             <div id="confetti-container"></div>
-            <h3 class="popup-title">🎉 تبریک! هدیه ارزشمند شما:</h3>
+            <h3 class="popup-title">✨ تبریک! این شگفتی برای توست:</h3>
             <span id="gift-amount" class="gift-text"></span>
-            <p id="personal-message"></p> <div class="screenshot-area">
-                <p class="gift-code">کد تخفیف: HR-GIRL-POWER-2025</p>
+            <p id="personal-message"></p>
+            <div class="screenshot-area">
+                <p class="gift-code">کد اختصاصی: GIRL-MAGIC-2025</p>
             </div>
             <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
             <button id="popup-next-btn" class="wow-btn">شادی رو با دوستام تقسیم کنم! 👯‍♀️</button>
@@ -310,7 +309,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- ۱. دیتابیس داخلی (شبیه‌سازی) و متغیرهای اصلی ---
+            // --- ۱. دیتابیس لوکس و متغیرهای اصلی ---
             const sections = document.querySelectorAll('.full-screen');
             const HR_DATABASE = {
                 // [شماره، نام، سِمت]
@@ -321,9 +320,9 @@
             };
             const TEST_OTP = '1111';
             let hasSentMessage = false;
-            let currentUser = {}; // ذخیره اطلاعات کاربر فعلی
+            let currentUser = {}; 
 
-            // هدایای لوکس
+            // هدایای لوکس و جذاب
             const GIFTS = [
                 "300,000 تومان اعتبار خرید از کافه شرکت",
                 "کدتخفیف 100% (یک آیتم) خرید از کافه",
@@ -331,13 +330,13 @@
                 "بن تخفیف 200,000 تومانی اسنپ‌فود"
             ];
             
-            // پیام‌های شخصی‌سازی شده بر اساس سِمَت
+            // پیام‌های شخصی‌سازی شده بر اساس سِمَت (با لحن دوستانه و مثبت)
             const DEPT_MESSAGES = {
-                'مالی': (name) => `از دقت و نظم تو در محاسبات متشکریم، ${name} جان. تو بهترین مدیر منابع مالی خودت هستی! 💸`,
-                'فنی': (name) => `کدهای تو دنیای ما رو می‌سازه، ${name} عزیز! از خلاقیت و حل مسئله‌ات بی‌نهایت سپاسگزاریم. 💻`,
-                'عملیات': (name) => `تو ستون فقرات شرکت ما هستی، ${name}! از انرژی و توانایی سازماندهی بی‌نظیرت قدردانی می‌کنیم. 🚀`,
-                'مارکتینگ': (name) => `تو صدای درخشان ما هستی، ${name} دوست‌داشتنی! از ایده‌های خلاقانه و قدرت ارتباطی‌ات سپاسگزاریم. 💡`,
-                'default': (name) => `از تلاش‌های ارزشمندت متشکریم، ${name} عزیزم. تو بخش مهمی از خانواده ما هستی! ❤️`
+                'مالی': (name) => `تو مثل یک ستاره‌ی درخشان، نظم و دقت رو به دنیای ما آوردی، ${name} عزیزم. ممنون از جادوی محاسباتت! 💖`,
+                'فنی': (name) => `تو با کدهات، آینده ما رو می‌سازی! ${name} عزیز. ممنون از خلاقیت و شگفت‌انگیزیت در حل مسئله. 💻`,
+                'عملیات': (name) => `تو قلب پُر انرژی و باهوش عملیات ما هستی، ${name}! ممنون که با درایتت، همه چیز رو سر و سامان می‌دی. 🚀`,
+                'مارکتینگ': (name) => `تو صدای شیرین و جذاب ما هستی، ${name} دوست‌داشتنی! ممنون که شور و هیجان رو به همه منتقل می‌کنی. 💡`,
+                'default': (name) => `درخشش تو، الهام‌بخش تمام ماست، ${name} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`
             };
 
             // --- ۲. تابع ناوبری بین بخش‌ها ---
@@ -379,44 +378,48 @@
                 navigateTo('phone-section');
             });
 
-            // --- ۵. Logic: Phone Verification (با دیتابیس شغلی) ---
+            // --- ۵. Logic: Phone Verification ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
 
                 if (HR_DATABASE[phoneInput]) {
-                    currentUser = HR_DATABASE[phoneInput]; // ذخیره اطلاعات کاربر
+                    currentUser = HR_DATABASE[phoneInput]; 
                     errorText.textContent = '';
                     
-                    // تنظیم متن خوش‌آمدگویی شخصی‌سازی شده با نام
-                    document.getElementById('otp-welcome-text').textContent = `سلام ${currentUser.name} عزیزم! 💖`;
+                    document.getElementById('otp-welcome-text').textContent = `سلام ${currentUser.name} عزیزم! خوش برگشتی! 💖`;
                     
                     navigateTo('otp-section');
 
                 } else {
-                    errorText.textContent = "اوه... این شماره در لیست تبریک امروز نیست. لطفاً شماره‌ای که کارت رو باهاش دریافت کردی چک کن. 😔";
+                    errorText.textContent = "شماره وارد شده در لیست مهمان‌های جشن امروز نیست. لطفا دوباره چک کن. 😔";
                 }
             });
 
-            // --- ۶. Logic: OTP Verification ---
+            // --- ۶. Logic: OTP Verification (با پرتال) ---
             document.getElementById('verify-otp-btn').addEventListener('click', () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
 
                 if (otpInput === TEST_OTP) {
                     errorText.textContent = '';
-                    navigateTo('gift-reveal-section'); 
+                    navigateTo('portal-section');
+                    
+                    setTimeout(() => {
+                        navigateTo('gift-reveal-section'); 
+                    }, 2500); 
+
                 } else {
-                    errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، چون هدیه‌ات منتظره! 🎁";
+                    errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
                 }
             });
 
-            // --- ۷. Logic: Gift Reveal & Popup (با پیام شغلی) ---
+            // --- ۷. Logic: Gift Reveal & Popup ---
             document.getElementById('show-gift-btn').addEventListener('click', () => {
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
                 
-                // ایجاد پیام تشکر شغلی
+                // ایجاد پیام تشکر شغلی اختصاصی
                 const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
                 document.getElementById('personal-message').textContent = messageFunc(currentUser.name);
 
@@ -467,20 +470,18 @@
                 const message = document.getElementById('friend-message').value.trim();
 
                 if (friendName && friendPhone.length === 11 && message) {
-                    console.log(`[SMS.ir API] Sending SMS to ${friendPhone} (${friendName}): ${message}`);
+                    console.log(`[SMS API Simulation] Sending SMS to ${friendPhone} (${friendName}): ${message}`);
 
                     hasSentMessage = true; 
-                    limitText.textContent = `تبریک شاد شما برای ${friendName} ارسال شد! 💌`;
+                    limitText.textContent = `انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
                     
                     // رفتن به صفحه Celebration
                     setTimeout(() => {
                         navigateTo('celebration-section');
-                        // برای حس خفن بودن
-                        runConfetti();
                     }, 1000);
 
                 } else {
-                    limitText.textContent = "لطفاً تمام فیلدها رو پر کن تا تبریک ارسال بشه! ✍️";
+                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
                 }
             });
 
