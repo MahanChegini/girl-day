@@ -6,34 +6,41 @@
 <title>کمپین روز دختر — SMS.ir</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  /* ===== Global ===== */
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Vazirmatn',sans-serif;direction:rtl;background:#fff0f6;color:#333;line-height:1.6;overflow-x:hidden;}
-  h1,h2,h3,h4,h5{margin:0;}
-  button{cursor:pointer;font-weight:700;transition:0.3s;}
-  input,textarea{font-family:'Vazirmatn',sans-serif;}
+  html,body{height:100%;font-family:'Vazirmatn',sans-serif;direction:rtl;overflow-x:hidden;scroll-behavior:smooth;background:#fff0f6;}
+  h1,h2,h3,h4,h5{margin:0;font-weight:700;}
+  button{cursor:pointer;transition:0.3s;border:none;font-weight:700;}
+  input,textarea{font-family:'Vazirmatn',sans-serif;transition:0.3s;}
   .hidden{display:none;}
 
-  /* ====== Scroll Narrative Sections ====== */
-  section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:all 0.8s ease;position:relative;padding:20px;}
-  .title{font-size:2.2rem;color:#d63384;font-weight:700;margin-bottom:15px;}
-  .subtitle{font-size:1.1rem;color:#555;margin-bottom:25px;}
-  button.btn{padding:14px 25px;border:none;border-radius:15px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:white;font-size:16px;box-shadow:0 8px 15px rgba(255,125,180,0.3);}
-  button.btn:hover{transform:translateY(-3px);box-shadow:0 12px 20px rgba(255,125,180,0.4);}
+  /* ===== Full Screen Sections ===== */
+  section{min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;transition:all 0.6s ease;}
+  .title{font-size:2.4rem;color:#d63384;margin-bottom:15px;animation:fadeInDown 1s ease;}
+  .subtitle{font-size:1.2rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
+  @keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+  @keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
 
-  input,textarea{width:100%;max-width:300px;padding:12px;margin:10px 0;border-radius:12px;border:1px solid #f5c2e7;font-size:16px;}
-  input:focus,textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 12px rgba(255,120,182,0.3);}
+  /* ===== Buttons ===== */
+  button.btn{padding:14px 30px;border-radius:18px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:#fff;font-size:1rem;box-shadow:0 8px 20px rgba(255,125,180,0.3);}
+  button.btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(255,125,180,0.5);}
 
-  /* Hero Section */
+  /* ===== Inputs ===== */
+  input,textarea{width:100%;max-width:320px;padding:14px;margin:10px 0;border-radius:14px;border:1px solid #f5c2e7;font-size:1rem;}
+  input:focus,textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 15px rgba(255,120,182,0.3);}
+
+  /* ===== Hero Section ===== */
   #hero{background:linear-gradient(135deg,#ff9fd6,#ff78b6);color:#fff;overflow:hidden;}
-  #hero .floating{position:absolute;font-size:2rem;animation:float 6s infinite;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+  .floating{position:absolute;font-size:2rem;animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
 
-  /* Gift Popup */
-  .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:30px;border-radius:25px;box-shadow:0 12px 25px rgba(0,0,0,0.2);text-align:center;z-index:10000;display:none;}
+  /* ===== Popup ===== */
+  .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:40px;border-radius:25px;box-shadow:0 15px 30px rgba(0,0,0,0.25);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
+  @keyframes scaleUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
   .popup h2{color:#d63384;margin-bottom:15px;}
   .popup button{margin-top:20px;}
 
-  /* Confetti */
+  /* ===== Confetti ===== */
   canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
 
   footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
@@ -46,9 +53,11 @@
   <h1 class="title">💖 همکار عزیز SMS.ir، روز جهانی دختر مبارک 💖</h1>
   <p class="subtitle">یه پیام ساده، می‌تونه روزت را شیرین کند! برای دریافت جایزه ادامه بده…</p>
   <button class="btn" id="btn-hero">ادامه</button>
-  <div class="floating" style="top:10%;left:20%;">💖</div>
-  <div class="floating" style="top:30%;left:80%;">✨</div>
-  <div class="floating" style="top:70%;left:40%;">🌸</div>
+  <!-- Floating decorations -->
+  <div class="floating" style="top:10%;left:15%;">💖</div>
+  <div class="floating" style="top:20%;left:70%;">✨</div>
+  <div class="floating" style="top:60%;left:40%;">🌸</div>
+  <div class="floating" style="top:75%;left:85%;">💫</div>
 </section>
 
 <!-- شماره همراه -->
@@ -99,12 +108,11 @@
 <script>
   // ===== Scroll Narrative =====
   function showSection(section){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));section.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
-  
   document.getElementById('btn-hero').addEventListener('click',()=>showSection(document.getElementById('phone-section')));
 
   // ===== شماره همراه =====
-  const validPhone = '09198967708';
-  const validName = 'ماهان چگینی';
+  const validPhone='09198967708';
+  const validName='ماهان چگینی';
   document.getElementById('btn-phone').addEventListener('click',()=>{
     const phone=document.getElementById('phone').value.trim();
     const error=document.getElementById('phone-error');
@@ -169,6 +177,5 @@
     ctx.clearRect(0,0,canvas.width,canvas.height);
     confettiParticles.forEach(p=>{ctx.beginPath();ctx.lineWidth=p.r/2;ctx.strokeStyle=p.color;ctx.moveTo(p.x+p.tilt+p.r/4,p.y);ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);ctx.stroke();p.tiltAngle+=p.tiltAngleIncremental;p.y+=(Math.cos(p.d)+3+p.r/2)/2;p.x+=Math.sin(p.tiltAngle);if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}});requestAnimationFrame(updateConfetti);}
 </script>
-
 </body>
 </html>
