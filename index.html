@@ -3,66 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>کمپین روز دختر — SMS.ir</title>
+<title>روز دختر — SMS.ir</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ===== Global ===== */
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{height:100%;font-family:'Vazirmatn',sans-serif;direction:rtl;overflow-x:hidden;scroll-behavior:smooth;background:#fff0f6;}
-  h1,h2,h3,h4,h5{margin:0;font-weight:700;}
-  button{cursor:pointer;transition:0.3s;border:none;font-weight:700;}
-  input,textarea{font-family:'Vazirmatn',sans-serif;transition:0.3s;}
-  .hidden{display:none;}
+/* ===== Global ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Vazirmatn',sans-serif;direction:rtl;scroll-behavior:smooth;overflow-x:hidden;background:#fff0f6;color:#333;}
+h1,h2,h3{margin:0;font-weight:700;}
+button{cursor:pointer;transition:0.3s;border:none;font-weight:700;}
+input,textarea{font-family:'Vazirmatn',sans-serif;transition:0.3s;}
+.hidden{display:none;}
 
-  /* ===== Full Screen Sections ===== */
-  section{min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;transition:all 0.6s ease;}
-  .title{font-size:2.4rem;color:#d63384;margin-bottom:15px;animation:fadeInDown 1s ease;}
-  .subtitle{font-size:1.2rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
-  @keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
-  @keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+/* ===== Full-screen Sections ===== */
+section{min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;transition:all 0.6s ease;padding:20px;}
+.title{font-size:2.4rem;color:#d63384;margin-bottom:15px;animation:fadeInDown 1s ease;}
+.subtitle{font-size:1.2rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
+@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
 
-  /* ===== Buttons ===== */
-  button.btn{padding:14px 30px;border-radius:18px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:#fff;font-size:1rem;box-shadow:0 8px 20px rgba(255,125,180,0.3);}
-  button.btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(255,125,180,0.5);}
+button.btn{padding:14px 30px;border-radius:20px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:#fff;font-size:1rem;box-shadow:0 8px 20px rgba(255,125,180,0.3);}
+button.btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(255,125,180,0.5);}
 
-  /* ===== Inputs ===== */
-  input,textarea{width:100%;max-width:320px;padding:14px;margin:10px 0;border-radius:14px;border:1px solid #f5c2e7;font-size:1rem;}
-  input:focus,textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 15px rgba(255,120,182,0.3);}
+input,textarea{width:100%;max-width:320px;padding:14px;margin:10px 0;border-radius:14px;border:1px solid #f5c2e7;font-size:1rem;}
+input:focus,textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 15px rgba(255,120,182,0.3);}
 
-  /* ===== Hero Section ===== */
-  #hero{background:linear-gradient(135deg,#ff9fd6,#ff78b6);color:#fff;overflow:hidden;}
-  .floating{position:absolute;font-size:2rem;animation:float 6s ease-in-out infinite;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
+/* ===== Hero ===== */
+#hero{background:linear-gradient(135deg,#ff9fd6,#ff78b6);color:#fff;overflow:hidden;}
+.floating{position:absolute;font-size:2rem;animation:float 6s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
 
-  /* ===== Popup ===== */
-  .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:40px;border-radius:25px;box-shadow:0 15px 30px rgba(0,0,0,0.25);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
-  @keyframes scaleUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
-  .popup h2{color:#d63384;margin-bottom:15px;}
-  .popup button{margin-top:20px;}
+/* ===== Popup ===== */
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:40px;border-radius:25px;box-shadow:0 15px 30px rgba(0,0,0,0.25);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
+@keyframes scaleUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+.popup h2{color:#d63384;margin-bottom:15px;}
+.popup button{margin-top:20px;}
 
-  /* ===== Confetti ===== */
-  canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+/* ===== Canvas ===== */
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
 
-  footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
+footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
 </style>
 </head>
 <body>
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section id="hero">
-  <h1 class="title">💖 همکار عزیز SMS.ir، روز جهانی دختر مبارک 💖</h1>
-  <p class="subtitle">یه پیام ساده، می‌تونه روزت را شیرین کند! برای دریافت جایزه ادامه بده…</p>
-  <button class="btn" id="btn-hero">ادامه</button>
-  <!-- Floating decorations -->
-  <div class="floating" style="top:10%;left:15%;">💖</div>
-  <div class="floating" style="top:20%;left:70%;">✨</div>
+  <h1 class="title">سلام 💖 امروز روز توئه!</h1>
+  <p class="subtitle">بیا با هم یه لحظه شیرین بسازیم…</p>
+  <button class="btn" id="btn-hero">شروع کن</button>
+  <div class="floating" style="top:15%;left:20%;">💖</div>
+  <div class="floating" style="top:30%;left:75%;">✨</div>
   <div class="floating" style="top:60%;left:40%;">🌸</div>
-  <div class="floating" style="top:75%;left:85%;">💫</div>
+  <div class="floating" style="top:80%;left:85%;">💫</div>
 </section>
 
 <!-- شماره همراه -->
 <section id="phone-section" class="hidden">
-  <h2 class="title">شماره همراهت رو وارد کن</h2>
+  <h2 class="title">شماره همراهت رو بده 🌸</h2>
   <input type="tel" id="phone" placeholder="مثال: 09198967708">
   <p class="subtitle" id="phone-error" style="color:#d63384;"></p>
   <button class="btn" id="btn-phone">ادامه</button>
@@ -76,21 +73,20 @@
   <button class="btn" id="btn-code">تایید کد</button>
 </section>
 
-<!-- دریافت هدیه -->
+<!-- هدیه -->
 <section id="gift-section" class="hidden">
-  <h2 class="title">🎁 هدیه تو آماده است!</h2>
-  <p class="subtitle">روی دکمه زیر بزن تا هدیه روزت را ببینی 💖</p>
+  <h2 class="title">🎁 لحظه جادویی!</h2>
+  <p class="subtitle">روی دکمه بزن و هدیه روزت رو ببین 💖</p>
   <button class="btn" id="btn-gift">دریافت هدیه</button>
 </section>
 
-<!-- Popup هدیه -->
 <div class="popup" id="gift-popup">
   <h2 id="gift-text"></h2>
   <p>لطفاً از این صفحه اسکرین شات بگیر!</p>
   <button class="btn" id="btn-popup-close">باشه، گرفتم!</button>
 </div>
 
-<!-- ارسال پیام به دوست -->
+<!-- پیام به دوست -->
 <section id="friend-section" class="hidden">
   <h2 class="title">💌 یه پیام ساده، می‌تونه دوستت هم خوشحال کنه!</h2>
   <input type="text" id="friend-name" placeholder="اسم دوست/همکار">
@@ -101,38 +97,38 @@
   <p class="subtitle" id="friend-success" style="color:#198754;font-weight:700;"></p>
 </section>
 
-<footer>💖 کمپین تبریک روز دختر — SMS.ir — با عشق و خلاقیت برای همکاران 💖</footer>
+<footer>💖 کمپین روز دختر — SMS.ir — تجربه‌ای دخترونه و لوکس 💖</footer>
 
 <canvas id="confetti"></canvas>
 
 <script>
-  // ===== Scroll Narrative =====
+  // Scroll Narrative
   function showSection(section){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));section.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
   document.getElementById('btn-hero').addEventListener('click',()=>showSection(document.getElementById('phone-section')));
 
-  // ===== شماره همراه =====
+  // شماره همراه
   const validPhone='09198967708';
   const validName='ماهان چگینی';
   document.getElementById('btn-phone').addEventListener('click',()=>{
     const phone=document.getElementById('phone').value.trim();
     const error=document.getElementById('phone-error');
-    if(phone!==validPhone){error.textContent='❌ اوه نه! این شماره مجاز نیست… اما هنوز می‌توانی لبخند بزنی 💖';return;}
+    if(phone!==validPhone){error.textContent='اوه نه… شماره ماجراجویی ما نیست! ولی لبخندتو نگه دار 💖';return;}
     error.textContent='';
-    document.getElementById('code-msg').textContent=`🌸 ${validName} عزیز، یک کد تایید براتون پیامک شد!`;
+    document.getElementById('code-msg').textContent=`🌸 ${validName} عزیز، کد جادویی برات ارسال شد!`;
     showSection(document.getElementById('code-section'));
   });
 
-  // ===== کد تایید =====
+  // کد تایید
   const testCode='1111';
   document.getElementById('btn-code').addEventListener('click',()=>{
     const code=document.getElementById('code').value.trim();
     const error=document.getElementById('code-error');
-    if(code!==testCode){error.textContent='❌ کد نادرست است… یک بار دیگر تلاش کن 💖';return;}
+    if(code!==testCode){error.textContent='کد اشتباهه… یه بار دیگه تلاش کن 💖';return;}
     error.textContent='';
     showSection(document.getElementById('gift-section'));
   });
 
-  // ===== دریافت هدیه =====
+  // هدیه
   const gifts=['200 هزار تومان اعتبار کافه','کدتخفیف 100% خرید از کافه','100 هزار تومان اعتبار کافه'];
   document.getElementById('btn-gift').addEventListener('click',()=>{
     const gift=gifts[Math.floor(Math.random()*gifts.length)];
@@ -145,7 +141,7 @@
     showSection(document.getElementById('friend-section'));
   });
 
-  // ===== ارسال پیام =====
+  // ارسال پیام
   let messageSent=false;
   document.getElementById('btn-send').addEventListener('click',()=>{
     if(messageSent) return;
@@ -154,14 +150,14 @@
     const msg=document.getElementById('friend-msg').value.trim();
     const error=document.getElementById('friend-error');
     const success=document.getElementById('friend-success');
-    if(!phone||!msg){error.textContent='لطفاً شماره و متن پیام را وارد کنید 💖';return;}
+    if(!phone||!msg){error.textContent='لطفاً شماره و متن پیام رو وارد کن 💖';return;}
     error.textContent='';
     messageSent=true;
     success.textContent='✅ پیام با موفقیت ارسال شد! 🌸';
     console.log(`پیامک ارسال شد به ${name} (${phone}): ${msg}`);
   });
 
-  // ===== Confetti =====
+  // Confetti
   const canvas=document.getElementById('confetti');
   const ctx=canvas.getContext('2d');
   let confettiParticles=[];
@@ -177,5 +173,6 @@
     ctx.clearRect(0,0,canvas.width,canvas.height);
     confettiParticles.forEach(p=>{ctx.beginPath();ctx.lineWidth=p.r/2;ctx.strokeStyle=p.color;ctx.moveTo(p.x+p.tilt+p.r/4,p.y);ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);ctx.stroke();p.tiltAngle+=p.tiltAngleIncremental;p.y+=(Math.cos(p.d)+3+p.r/2)/2;p.x+=Math.sin(p.tiltAngle);if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}});requestAnimationFrame(updateConfetti);}
 </script>
+
 </body>
 </html>
