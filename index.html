@@ -3,45 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>روز دختر — SMS.ir</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<title>کمپین روز دختر — SMS.ir</title>
+<link href="https://fonts.googleapis.com/css2?family=Shabnam:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ===== Global ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;font-family:'Vazirmatn',sans-serif;direction:rtl;scroll-behavior:smooth;overflow-x:hidden;background:#fff0f6;color:#333;}
+html,body{height:100%;font-family:'Shabnam',sans-serif;direction:rtl;overflow-x:hidden;scroll-behavior:smooth;background:#fff0f6;color:#333;}
 h1,h2,h3{margin:0;font-weight:700;}
 button{cursor:pointer;transition:0.3s;border:none;font-weight:700;}
-input,textarea{font-family:'Vazirmatn',sans-serif;transition:0.3s;}
+input,textarea{font-family:'Shabnam',sans-serif;transition:0.3s;}
 .hidden{display:none;}
 
 /* ===== Full-screen Sections ===== */
 section{min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;transition:all 0.6s ease;padding:20px;}
-.title{font-size:2.4rem;color:#d63384;margin-bottom:15px;animation:fadeInDown 1s ease;}
-.subtitle{font-size:1.2rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
-@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+.title{font-size:2.6rem;color:#ff2fa0;margin-bottom:15px;text-shadow:0 2px 15px rgba(255,47,160,0.5);animation:fadeInDown 1s ease;}
+.subtitle{font-size:1.3rem;color:#555;margin-bottom:25px;animation:fadeInUp 1s ease;}
+@keyframes fadeInDown{0%{opacity:0;transform:translateY(-30px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
 
-button.btn{padding:14px 30px;border-radius:20px;background:linear-gradient(90deg,#ff78b6,#ff9fd6);color:#fff;font-size:1rem;box-shadow:0 8px 20px rgba(255,125,180,0.3);}
-button.btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(255,125,180,0.5);}
+button.btn{padding:16px 36px;border-radius:25px;background:linear-gradient(135deg,#ff6fcf,#ff9fd6);color:#fff;font-size:1.1rem;box-shadow:0 10px 25px rgba(255,111,207,0.4);}
+button.btn:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 15px 30px rgba(255,111,207,0.6);}
 
-input,textarea{width:100%;max-width:320px;padding:14px;margin:10px 0;border-radius:14px;border:1px solid #f5c2e7;font-size:1rem;}
-input:focus,textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 15px rgba(255,120,182,0.3);}
+input,textarea{width:100%;max-width:360px;padding:16px;margin:12px 0;border-radius:18px;border:1px solid #f5c2e7;font-size:1rem;}
+input:focus,textarea:focus{outline:none;border-color:#ff6fcf;box-shadow:0 0 20px rgba(255,111,207,0.4);}
 
 /* ===== Hero ===== */
-#hero{background:linear-gradient(135deg,#ff9fd6,#ff78b6);color:#fff;overflow:hidden;}
-.floating{position:absolute;font-size:2rem;animation:float 6s ease-in-out infinite;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
+#hero{background:linear-gradient(135deg,#ff9fd6,#ff6fcf);color:#fff;overflow:hidden;}
+.floating{position:absolute;font-size:2.5rem;animation:float 6s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-30px);}}
 
 /* ===== Popup ===== */
-.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:40px;border-radius:25px;box-shadow:0 15px 30px rgba(0,0,0,0.25);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff0f6;padding:50px;border-radius:30px;box-shadow:0 20px 40px rgba(0,0,0,0.3);text-align:center;z-index:10000;display:none;animation:scaleUp 0.5s ease;}
 @keyframes scaleUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
-.popup h2{color:#d63384;margin-bottom:15px;}
+.popup h2{color:#ff2fa0;margin-bottom:15px;font-size:1.8rem;text-shadow:0 2px 15px rgba(255,47,160,0.5);}
 .popup button{margin-top:20px;}
 
 /* ===== Canvas ===== */
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
 
-footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
+footer{margin-top:50px;font-size:14px;color:#aa4499;text-align:center;}
 </style>
 </head>
 <body>
@@ -49,11 +49,11 @@ footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
 <!-- Hero -->
 <section id="hero">
   <h1 class="title">سلام 💖 امروز روز توئه!</h1>
-  <p class="subtitle">بیا با هم یه لحظه شیرین بسازیم…</p>
+  <p class="subtitle">یک لحظه جادویی بساز و هدیه‌ات رو باز کن 🌸</p>
   <button class="btn" id="btn-hero">شروع کن</button>
-  <div class="floating" style="top:15%;left:20%;">💖</div>
-  <div class="floating" style="top:30%;left:75%;">✨</div>
-  <div class="floating" style="top:60%;left:40%;">🌸</div>
+  <div class="floating" style="top:10%;left:20%;">💖</div>
+  <div class="floating" style="top:25%;left:70%;">✨</div>
+  <div class="floating" style="top:60%;left:35%;">🌸</div>
   <div class="floating" style="top:80%;left:85%;">💫</div>
 </section>
 
@@ -61,7 +61,7 @@ footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
 <section id="phone-section" class="hidden">
   <h2 class="title">شماره همراهت رو بده 🌸</h2>
   <input type="tel" id="phone" placeholder="مثال: 09198967708">
-  <p class="subtitle" id="phone-error" style="color:#d63384;"></p>
+  <p class="subtitle" id="phone-error" style="color:#ff2fa0;"></p>
   <button class="btn" id="btn-phone">ادامه</button>
 </section>
 
@@ -69,7 +69,7 @@ footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
 <section id="code-section" class="hidden">
   <h2 class="title" id="code-msg">کد تایید برای شما ارسال شد</h2>
   <input type="text" id="code" placeholder="کد ۴ رقمی">
-  <p class="subtitle" id="code-error" style="color:#d63384;"></p>
+  <p class="subtitle" id="code-error" style="color:#ff2fa0;"></p>
   <button class="btn" id="btn-code">تایید کد</button>
 </section>
 
@@ -92,7 +92,7 @@ footer{margin-top:50px;font-size:13px;color:#aa4499;text-align:center;}
   <input type="text" id="friend-name" placeholder="اسم دوست/همکار">
   <input type="tel" id="friend-phone" placeholder="شماره همراه">
   <textarea id="friend-msg" rows="3">روز جهانی دختر مبارک! امیدوارم همیشه شاد و موفق باشی 🌸</textarea>
-  <p class="subtitle" id="friend-error" style="color:#d63384;"></p>
+  <p class="subtitle" id="friend-error" style="color:#ff2fa0;"></p>
   <button class="btn" id="btn-send">ارسال پیامک</button>
   <p class="subtitle" id="friend-success" style="color:#198754;font-weight:700;"></p>
 </section>
