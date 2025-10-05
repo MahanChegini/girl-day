@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دختر قدرت | ماجراجویی شاد SMS.ir</title>
+    <title>تیم بانوان SMS.ir | روز جهانی دختر</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -128,6 +128,9 @@
             margin-bottom: 1rem;
             font-size: 2rem;
         }
+        .card p {
+            font-size: 1.1rem;
+        }
         .card input, .card textarea {
             width: 100%;
             padding: 15px;
@@ -150,74 +153,7 @@
             min-height: 20px;
         }
 
-        /* --- ۶. Path Selection Styles --- */
-        .path-options {
-            display: flex;
-            gap: 25px;
-            margin-top: 3rem;
-            justify-content: center;
-        }
-        .path-card {
-            background-color: #FFF;
-            padding: 35px 25px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            flex: 1;
-            max-width: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 4px solid transparent;
-        }
-        .path-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary-color);
-        }
-        .path-card h3 {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-        .path-card p {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        /* --- ۷. Challenge Section Styles (انتخاب استایل) --- */
-        .challenge-game {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        .style-option {
-            padding: 15px 5px;
-            border-radius: 15px;
-            border: 3px solid #DDD;
-            flex: 1;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-        .style-option:hover {
-            transform: scale(1.05);
-            border-color: var(--primary-color);
-        }
-        .style-option.selected {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px var(--shadow-soft);
-            border-color: var(--secondary-color);
-            background-color: #FFF8FC;
-        }
-        .style-option .emoji {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .style-option p {
-            font-weight: bold;
-            color: var(--text-color-dark);
-        }
-
-        /* --- ۸. Popup Styles (هدیه) --- */
+        /* --- ۶. Popup Styles (هدیه) --- */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -286,7 +222,7 @@
             color: #AAA;
         }
 
-        /* --- ۹. Celebration Section --- */
+        /* --- ۷. Celebration Section --- */
         #celebration-section {
             background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
         }
@@ -300,7 +236,7 @@
             color: #A052FF;
         }
 
-        /* --- ۱۰. انیمیشن‌های ورود --- */
+        /* --- ۸. انیمیشن‌های ورود --- */
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease-out forwards; }
@@ -314,8 +250,6 @@
             .card { padding: 30px; }
             .path-options { flex-direction: column; gap: 15px; }
             .path-card { max-width: 100%; }
-            .challenge-game { flex-direction: column; gap: 10px; }
-            .style-option { padding: 10px; }
         }
     </style>
 </head>
@@ -325,98 +259,57 @@
         <section id="hero-section" class="full-screen active-section">
             <div id="particles-js" class="particle-bg"></div>
             <div class="content-wrapper">
-                <h1 class="fade-in-up">دخترِ قدرت، سلام! 👑 آماده یک سفر پُر از شادی و جایزه شدی؟</h1>
-                <p class="fade-in-up delay-2">امروز روز توئه؛ بریم یه لحظه به‌یادماندنی بسازیم!</p>
-                <button id="start-adventure-btn" class="wow-btn floating">شروع هیجان</button>
+                <h1 class="fade-in-up">دخترِ قدرت، روزت مبارک! 👑</h1>
+                <p class="fade-in-up delay-2">به مناسبت روز جهانی دختر، این لینک هدیه یک کارت تبریک اختصاصی از طرف تیم فنی ماست!</p>
+                <button id="start-adventure-btn" class="wow-btn floating">بریم ببینیم چیه! ✨</button>
             </div>
         </section>
 
         <section id="phone-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>رمز عبور ماجراجویی 🔑</h2>
-                <p>شماره‌ای که این لینک جادویی رو برات فرستاده، اینجا وارد کن.</p>
-                <input type="tel" id="phone-input" placeholder="مثال: 09** *** ** **" maxlength="11">
+                <h2>تبریک اختصاصی برای تو!</h2>
+                <p>شماره موبایلت رو وارد کن تا مطمئن شیم هدیه به دست خودت می‌رسه.</p>
+                <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
                 <p id="phone-error" class="error-text"></p>
-                <button id="verify-phone-btn" class="wow-btn">بیا تو! ✨</button>
+                <button id="verify-phone-btn" class="wow-btn">اعتبار سنجی</button>
             </div>
         </section>
 
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>کد ۴ رقمی رو پیدا کن! 🔍</h2>
-                <p>کد تایید SMS.ir رو وارد کن تا مطمئن شیم خودِ خودتی!</p>
+                <h2 id="otp-welcome-text"></h2> <p>کد تایید ۴ رقمی که برات پیامک کردیم رو وارد کن.</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
-                <button id="verify-otp-btn" class="wow-btn">تایید و ادامه</button>
-            </div>
-        </section>
-
-        <section id="path-section" class="full-screen">
-            <div class="content-wrapper">
-                <h2>لحظه‌ی انتخاب! دلت کدوم رو می‌خواد؟ 🧭</h2>
-                <div class="path-options">
-                    <div class="path-card" id="instant-gift-path">
-                        <h3>⚡ هدیه بَرَق‌آسا</h3>
-                        <p>بزن بریم! جایزه رو فوری بگیر و برو سراغ شادی‌های بعدی!</p>
-                        <button class="wow-btn select-path-btn" data-path="instant">همین حالا!</button>
-                    </div>
-                    <div class="path-card" id="story-challenge-path">
-                        <h3>🎀 چالش دخترونه</h3>
-                        <p>یه بازی کوچولو و شاد! جایزه بعد از پیروزی بیشتر می‌چسبه.</p>
-                        <button class="wow-btn select-path-btn" data-path="challenge">چالش بده!</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="challenge-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2>کدوم استایل رو برای مهمونی امشب انتخاب می‌کنی؟ 👗</h2>
-                <p id="challenge-text">ببینم سلیقه‌ات چطوره! روی کارت مورد علاقه کلیک کن.</p>
-                <div id="style-challenge" class="challenge-game">
-                    <div class="style-option" data-style="chic">
-                        <span class="emoji">🌸</span>
-                        <p>استایل سافت</p>
-                    </div>
-                    <div class="style-option" data-style="bold">
-                        <span class="emoji">🔥</span>
-                        <p>استایل بُولد</p>
-                    </div>
-                    <div class="style-option" data-style="minimal">
-                        <span class="emoji">✨</span>
-                        <p>استایل مینیمال</p>
-                    </div>
-                </div>
-                <button id="complete-challenge-btn" class="wow-btn" style="display: none;">دریافت جایزه جادویی!</button>
+                <button id="verify-otp-btn" class="wow-btn">ورود به دنیای هدیه</button>
             </div>
         </section>
 
         <section id="gift-reveal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>تو یه برنده واقعی هستی! 🥳</h2>
-                <p>هدیه‌ات آماده‌اس که شگفت‌زده‌ات کنه! آماده‌ای؟</p>
+                <h2>تو یکی از بهترین‌های تیم مایی! 🥳</h2>
+                <p>هدیه کوچک ما به پاس تلاش‌های درخشانت آماده‌اس.</p>
                 <button id="show-gift-btn" class="wow-btn">پرده‌برداری از هدیه! 🎁</button>
             </div>
         </section>
 
         <section id="friend-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>💌 شادی رو تقسیم کن!</h2>
-                <p>اجازه نده دوستات از این ماجرا جا بمونن! یه پیامک شاد براشون بفرست.</p>
+                <h2>💌 یه پیام ساده، می‌تونه دوستت رو هم خوشحال کنه!</h2>
+                <p>شادی روز دختر رو با یه تبریک ساده به دوستات هم هدیه بده.</p>
                 <form id="friend-message-form">
                     <input type="text" id="friend-name" placeholder="اسم دوستت">
                     <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
-                    <textarea id="friend-message" placeholder="متن پیامک (مثال: تولد روز جهانی دختر مبارک! برو اینجا جایزه بگیر!)"></textarea>
+                    <textarea id="friend-message" placeholder="متن پیامک (مثال: روزت مبارک دوست درخشانم! ✨)"></textarea>
                     <p id="message-limit-text" class="error-text"></p>
-                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال پیام شاد</button>
+                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال تبریک شاد</button>
                 </form>
             </div>
         </section>
 
         <section id="celebration-section" class="full-screen">
             <div class="content-wrapper">
-                <h1>🌸 ماجراجویی امروز تموم شد! اما لبخندتو نگه دار! 💖</h1>
-                <p>ممنون که لحظه‌ای پُر از درخشش رو با ما ساختی. روزت پُر از انرژی مثبت!</p>
+                <h1>🌸 ماجراجویی امروز تموم شد! اما درخشش تو ادامه داره! 💖</h1>
+                <p>امیدواریم از هدیه‌ات لذت ببری. با افتخار، تیم منابع انسانی و فنی SMS.ir</p>
             </div>
         </section>
     </main>
@@ -429,7 +322,7 @@
             <p class="gift-description">تو فوق‌العاده‌ای! این هدیه رو با شادی خرج کن:</p>
             <div class="screenshot-area">
                 <span id="gift-amount" class="gift-text"></span>
-                <p class="gift-code">کد تخفیف: SMS-GIRL-MAGIC</p>
+                <p class="gift-code">کد تخفیف: HR-GIRL-POWER-2025</p>
             </div>
             <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
             <button id="popup-next-btn" class="wow-btn">دوستامم شاد کنم! 👯‍♀️</button>
@@ -442,33 +335,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- ۱. تعریف متغیرهای اصلی ---
+            // --- ۱. دیتابیس داخلی (شبیه‌سازی) و متغیرهای اصلی ---
             const sections = document.querySelectorAll('.full-screen');
-            const ALLOWED_PHONE = '09198967708';
+            const HR_DATABASE = {
+                // این لیست باید شامل تمام همکاران خانمی باشد
+                '09198967708': 'ماهان چگینی', // شماره تست
+                '09121234567': 'سارا احمدی', 
+                '09359876543': 'مریم عظیمی'
+                // ... بقیه شماره‌ها
+            };
             const TEST_OTP = '1111'; // کد تست داخلی
-            let isChallengeCompleted = false;
             let hasSentMessage = false;
+            let currentUserName = ''; // برای ذخیره نام کاربر فعلی
 
-            // هدایای لوکس کافه
+            // هدایای لوکس و جذاب
             const GIFTS = [
-                "200,000 تومان اعتبار کافه (VIP)",
-                "کدتخفیف 100% خرید از کافه (فقط یک آیتم)",
-                "100,000 تومان اعتبار کافه"
+                "300,000 تومان اعتبار خرید از کافه شرکت",
+                "کدتخفیف 100% (یک آیتم) خرید از کافه",
+                "بلیت استخر سه‌ماهه‌ رایگان",
+                "بن تخفیف 200,000 تومانی اسنپ‌فود"
             ];
 
             // --- ۲. تابع ناوبری بین بخش‌ها (Navigation Logic) ---
             const navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
 
-                // Deactivate all sections
                 sections.forEach(sec => {
                     sec.classList.remove('active-section');
                 });
 
-                // Activate the target section
                 targetSection.classList.add('active-section');
                 
-                // Scroll to the new section smoothly
                 setTimeout(() => {
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
@@ -498,16 +395,23 @@
                 navigateTo('phone-section');
             });
 
-            // --- ۵. Logic: Phone Verification ---
+            // --- ۵. Logic: Phone Verification (با دیتابیس HR) ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
 
-                if (phoneInput === ALLOWED_PHONE) {
+                if (HR_DATABASE[phoneInput]) {
+                    currentUserName = HR_DATABASE[phoneInput]; // ذخیره نام
                     errorText.textContent = '';
+                    
+                    // تنظیم متن خوش‌آمدگویی شخصی‌سازی شده
+                    document.getElementById('otp-welcome-text').textContent = `سلام ${currentUserName} عزیزم! 💖`;
+                    
+                    // در محیط واقعی: ارسال SMS با استفاده از SMS.ir
                     navigateTo('otp-section');
+
                 } else {
-                    errorText.textContent = "اوه نه… این شماره رمز ماجراجویی ما نیست! 😔 ولی لبخندتو حفظ کن!";
+                    errorText.textContent = "اوه... این شماره در لیست تبریک امروز نیست! لطفاً شماره‌ای که باهاش QR رو اسکن کردی رو چک کن. 😔";
                 }
             });
 
@@ -518,46 +422,13 @@
 
                 if (otpInput === TEST_OTP) {
                     errorText.textContent = '';
-                    navigateTo('path-section');
+                    navigateTo('gift-reveal-section'); // مستقیم به هدیه
                 } else {
-                    errorText.textContent = "کد جادویی درست نیست! دوباره چک کن 💖";
+                    errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، چون هدیه‌ات منتظره! 🎁";
                 }
             });
 
-            // --- ۷. Logic: Path Selection ---
-            document.querySelectorAll('.select-path-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const path = e.target.dataset.path;
-                    if (path === 'instant') {
-                        navigateTo('gift-reveal-section');
-                    } else if (path === 'challenge') {
-                        navigateTo('challenge-section');
-                    }
-                });
-            });
-
-            // --- ۸. Logic: Story Challenge (انتخاب استایل) ---
-            document.querySelectorAll('.style-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    if (!isChallengeCompleted) {
-                        document.querySelectorAll('.style-option').forEach(opt => opt.classList.remove('selected'));
-                        e.currentTarget.classList.add('selected');
-                        
-                        const styleName = e.currentTarget.querySelector('p').textContent;
-                        document.getElementById('challenge-text').textContent = `آفرین! استایل ${styleName} فوق‌العاده‌اس! تو یه ستاره‌ای! ✨`;
-                        
-                        document.getElementById('complete-challenge-btn').style.display = 'block';
-                        isChallengeCompleted = true; 
-                    }
-                });
-            });
-            
-            document.getElementById('complete-challenge-btn').addEventListener('click', () => {
-                navigateTo('gift-reveal-section');
-            });
-
-
-            // --- ۹. Logic: Gift Reveal & Popup ---
+            // --- ۷. Logic: Gift Reveal & Popup ---
             document.getElementById('show-gift-btn').addEventListener('click', () => {
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
@@ -594,7 +465,7 @@
                 fire(0.1, { spread: 120, startVelocity: 45 });
             };
             
-            // --- ۱۰. Logic: Send to Friend ---
+            // --- ۸. Logic: Send to Friend ---
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
@@ -609,11 +480,11 @@
                 const message = document.getElementById('friend-message').value.trim();
 
                 if (friendName && friendPhone.length === 11 && message) {
-                    // شبیه‌سازی ارسال پیامک
-                    console.log(`Sending SMS to ${friendPhone} (${friendName}): ${message}`);
+                    // شبیه‌سازی ارسال پیامک با سرویس SMS.ir
+                    console.log(`[SMS.ir API] Sending SMS to ${friendPhone} (${friendName}): ${message}`);
 
                     hasSentMessage = true; 
-                    limitText.textContent = `پیام شاد شما برای ${friendName} ارسال شد! 💌`;
+                    limitText.textContent = `تبریک شاد شما برای ${friendName} ارسال شد! 💌`;
                     
                     // رفتن به صفحه Celebration بعد از ارسال
                     setTimeout(() => {
@@ -622,11 +493,11 @@
                     }, 1000);
 
                 } else {
-                    limitText.textContent = "لطفاً هم اسم و هم شماره دوستت رو وارد کن تا پیام برسه! ✍️";
+                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
                 }
             });
 
-            // --- ۱۱. Initial Setup ---
+            // --- ۹. Initial Setup ---
             navigateTo('hero-section'); 
         });
     </script>
