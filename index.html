@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (The Ultimate Girl-Core Edition)</title>
+    <title>جشنوارۀ الماس آرزوها | دعوتنامۀ انحصاری (Fixed & Ultimate Girl-Core)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
         :root {
             --primary-color: #FF69B4; /* صورتی شادتر (Hot Pink) */
             --secondary-color: #A020F0; /* بنفش پررنگ (Purple) */
-            --soft-pink: #FFD9E8; /* صورتی کمرنگ برای پس‌زمینه اینپوت‌ها */
+            --soft-pink: #FFD9E8; 
             --gradient-start: #FF99CC; 
             --gradient-end: #CC99FF; 
             --card-bg: #FFFFFF;
             --text-color-dark: #333333;
             --text-color-light: #FFFFFF;
-            --shadow-deep: rgba(160, 32, 240, 0.5); /* سایه بنفش */
+            --shadow-deep: rgba(160, 32, 240, 0.5); 
+            --transition-speed: 0.7s;
         }
 
-        /* --- استایل‌های اصلی --- */
+        /* --- استایل‌های اصلی و فیکس ناوبری --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -41,34 +42,89 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Input Fields (استایل دخترونه جدید) --- */
+        /* فیکس اصلی: سکشن‌ها باید مطلق باشند و فقط یکی فعال باشد */
+        .full-screen {
+            min-height: 100vh; /* از min-height استفاده می‌کنیم که محتوا در موبایل جا شود */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: absolute; /* بسیار مهم برای فیکس شدن ناوبری */
+            top: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease-in-out;
+            z-index: 1;
+        }
+        .full-screen.active-section {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative; /* سکشن فعال باید relative باشد تا دیده شود */
+            z-index: 10;
+        }
+        
+        /* --- استایل کارت و ورودی‌ها --- */
+        .card {
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 40px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
+            max-width: 450px;
+            width: 90%;
+            border: none; 
+            overflow: hidden;
+        }
+
         input[type="tel"], input[type="text"], textarea {
             width: 100%;
             padding: 15px 20px;
             margin: 10px 0;
             border: 2px solid #EEE;
-            border-radius: 25px; /* گوشه‌های گرد */
-            background-color: var(--soft-pink); /* صورتی کمرنگ */
+            border-radius: 25px; 
+            background-color: var(--soft-pink); 
             font-size: 1rem;
             transition: all 0.3s;
             color: var(--text-color-dark);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05) inset;
+            font-family: 'Shabnam', Tahoma, sans-serif; /* فیکس فونت ورودی‌ها */
         }
         input[type="tel"]:focus, input[type="text"]:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 15px var(--primary-color), 0 0 5px var(--secondary-color); /* نئونی */
+            box-shadow: 0 0 15px var(--primary-color), 0 0 5px var(--secondary-color); 
             transform: scale(1.01);
             background-color: #FFF;
         }
-        .error-text {
-            color: var(--primary-color);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        /* --- استایل دکمه‌ها و بازی‌ها --- */
+        .wow-btn {
+            /* استایل قبلی حفظ شد */
+            padding: 18px 45px;
+            /* ... */
         }
-        /* --- بقیه استایل‌ها (بدون تغییر) --- */
+
+        /* --- Portal Star Game Styles (فیکس استایل برای داخل کادر) --- */
+        .magic-star {
+            position: absolute;
+            font-size: 2.5rem; 
+            cursor: pointer;
+            transition: opacity 0.3s;
+            filter: drop-shadow(0 0 5px yellow);
+        }
+
+        #star-game-area {
+            position: relative; 
+            width: 90%; /* عرض کمتری برای امن بودن در کادر */
+            height: 120px; 
+            margin: 20px auto 10px;
+            border: 1px dashed var(--secondary-color); /* کادر برای دیدن محدوده بازی */
+            border-radius: 20px;
+        }
+        #star-1 { left: 5%; top: 5%; }
+        #star-2 { left: 45%; top: 30%; }
+        #star-3 { left: 80%; top: 70%; }
 
     </style>
 </head>
@@ -77,8 +133,8 @@
     <main id="landing-container">
         <section id="hero-section" class="full-screen active-section">
             <div class="content-wrapper">
-                <h1 class="fade-in-up">به قلمرویِ درخشش خودت خوش آمدی! 👑</h1>
-                <p class="fade-in-up delay-2">امروز، روز توئه! ما کلی سورپرایزهای سِرّی داریم که فقط منتظرن تا تو کشفشون کنی. 💖</p>
+                <h1 style="color: var(--text-color-light);">به قلمرویِ درخشش خودت خوش آمدی! 👑</h1>
+                <p style="color: #FFD9E8;">امروز، روز توئه! ما کلی سورپرایزهای سِرّی داریم که فقط منتظرن تا تو کشفشون کنی. 💖</p>
                 <button id="start-adventure-btn" class="wow-btn floating">می‌خوام درخشش رو شروع کنم! 🌟</button>
             </div>
         </section>
@@ -109,10 +165,10 @@
                 <div class="portal-loader"></div>
                 <p id="portal-challenge-text" class="portal-text"></p>
                 
-                <div id="star-game-area" style="position: relative; width: 100%; height: 100px; margin-top: 20px;">
-                    <span class="magic-star" id="star-1" style="left: 10%; top: 10%;">⭐️</span>
-                    <span class="magic-star" id="star-2" style="left: 60%; top: 50%;">⭐️</span>
-                    <span class="magic-star" id="star-3" style="left: 35%; top: 80%;">⭐️</span>
+                <div id="star-game-area">
+                    <span class="magic-star" id="star-1">⭐️</span>
+                    <span class="magic-star" id="star-2">⭐️</span>
+                    <span class="magic-star" id="star-3">⭐️</span>
                 </div>
                 <p id="star-count-text" class="portal-text" style="font-size: 1rem; color: var(--primary-color);">۰ از ۳ ستاره پیدا شد.</p>
                 <button id="skip-portal-btn" class="wow-btn" style="display: none;">پرتال باز شد! ✨</button>
@@ -138,7 +194,6 @@
             <div class="card fade-in-down">
                 <h2>💌 تو فرستادۀ شادی هستی!</h2>
                 <p style="font-weight: bold; color: var(--secondary-color); margin-bottom: 10px;">لحظه‌ای در آینه جادویی... تو بزرگترین هدیه‌ای! 💖</p>
-
                 <p>بهترین کار اینه که حال خوبت رو با دیگران تقسیم کنی. یه تبریک خاص برای دوستات بفرست.</p>
                 <form id="friend-message-form">
                     <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
@@ -175,7 +230,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -192,8 +246,6 @@
             let currentUser = {}; 
             let clickCounter = 0;
             const CLICKS_REQUIRED = 10;
-            
-            // متغیرهای جدید برای بازی ستاره
             let starsFound = 0;
             const TOTAL_STARS = 3;
 
@@ -227,15 +279,14 @@
                 }
             };
 
+            // --- تابع ناوبری فیکس شده ---
             const navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
                 sections.forEach(sec => {
                     sec.classList.remove('active-section');
                 });
                 targetSection.classList.add('active-section');
-                setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // اسکرول به بالا برای جلوگیری از بهم ریختگی
             };
 
             const runConfetti = () => { /* تابع کامل Confetti */
@@ -254,7 +305,7 @@
                 navigateTo('phone-section');
             });
 
-            // --- Logic: Phone Verification ---
+            // --- Logic: Phone Verification (بدون تغییر) ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -273,7 +324,7 @@
                 }
             });
 
-            // --- Logic: OTP Verification (با اعمال چالش پرتال) ---
+            // --- Logic: OTP Verification (اجرای بازی ستاره) ---
             document.getElementById('verify-otp-btn').addEventListener('click', () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
@@ -294,7 +345,7 @@
                         star.style.cursor = 'pointer';
                         star.onclick = handleStarClick; // فعال کردن کلیک
                     });
-                    document.getElementById('skip-portal-btn').style.display = 'none'; // مخفی کردن دکمه رد کردن
+                    document.getElementById('skip-portal-btn').style.display = 'none';
 
                     navigateTo('portal-section');
                 } else {
@@ -302,11 +353,11 @@
                 }
             });
 
-            // --- NEW: Logic for Star Game ---
+            // --- Logic for Star Game ---
             function handleStarClick(event) {
                 if (starsFound < TOTAL_STARS && event.target.style.opacity != 0) {
                     starsFound++;
-                    event.target.style.opacity = 0; // محو کردن ستاره
+                    event.target.style.opacity = 0; 
                     event.target.style.cursor = 'default';
                     
                     confetti({ particleCount: 10, spread: 60, origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }, colors: ["#FFD9E8"] });
@@ -325,6 +376,14 @@
                  const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
                  const giftTitleText = textData.gift_reveal_title(firstName);
                  document.getElementById('gift-reveal-title').textContent = giftTitleText;
+                 
+                 // ریست بازی Heart Smash برای شروع مجدد
+                 clickCounter = 0;
+                 document.getElementById('heart-smash-container').style.display = 'flex';
+                 document.getElementById('show-gift-btn').style.display = 'none';
+                 document.getElementById('magic-heart-btn').classList.remove('heart-broken');
+                 document.getElementById('click-count').textContent = `${CLICKS_REQUIRED} کلیک باقی مانده`;
+
                  navigateTo('gift-reveal-section');
             });
 
@@ -359,7 +418,7 @@
                 }
             });
             
-            // --- FIX: Logic: Gift Reveal & Popup ---
+            // --- FIX: Logic: Gift Reveal & Popup (دکمه "سورپرایزم رو ببینم") ---
             const giftPopup = document.getElementById('gift-popup');
 
             showGiftBtn.addEventListener('click', () => {
@@ -370,7 +429,6 @@
                 const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
                 document.getElementById('personal-message').textContent = messageFunc(firstName);
 
-                // Personalize Pop-up Title
                 document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
 
                 giftPopup.style.display = 'flex';
