@@ -6,9 +6,8 @@
 <title>کمپین روز جهانی دختر — SMS.ir</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ====== Reset & Base ====== */
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Vazirmatn',sans-serif;direction:rtl;background:#fff0f6;color:#333;}
+  body{font-family:'Vazirmatn',sans-serif;direction:rtl;background:#ffe6f0;color:#333;line-height:1.6;}
   h1,h2,h3,h4,h5{margin:0;}
   button{cursor:pointer;font-weight:700;}
   input,textarea{font-family:'Vazirmatn',sans-serif;}
@@ -16,7 +15,7 @@
   .hidden{display:none;}
 
   /* ====== Containers ====== */
-  .container{max-width:600px;margin:40px auto;padding:20px;text-align:center;}
+  .container{max-width:600px;margin:80px auto;padding:20px;text-align:center;background:#fff0f6;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
   .page{transition: all 0.5s ease;}
 
   /* ====== Page Specific ====== */
@@ -24,8 +23,8 @@
   .btn:hover{transform:translateY(-3px);box-shadow:0 8px 15px rgba(255,125,180,0.3);}
   input[type="tel"], input[type="text"], textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #f5c2e7;margin-top:10px;font-size:15px;}
   input:focus, textarea:focus{outline:none;border-color:#ff78b6;box-shadow:0 0 10px rgba(255,120,182,0.3);}
-  .title{font-size:24px;font-weight:700;margin-bottom:15px;color:#d63384;}
-  .subtitle{font-size:16px;color:#555;margin-bottom:20px;}
+  .title{font-size:26px;font-weight:700;margin-bottom:15px;color:#d63384;}
+  .subtitle{font-size:17px;color:#555;margin-bottom:20px;}
   .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
 
   /* ====== Footer ====== */
@@ -39,31 +38,31 @@
   <!-- صفحه تبریک -->
   <div id="page1" class="page">
     <h1 class="title">💖 همکار عزیز SMS.ir، روز جهانی دختر مبارک 💖</h1>
-    <p class="subtitle">یک پیام ساده می‌تواند روزت را شیرین کند! برای دریافت جایزه ادامه بده…</p>
-    <button class="btn" onclick="nextPage(2)">ادامه</button>
+    <p class="subtitle">یه پیام ساده، می‌تونه روزت را شیرین کند! برای دریافت جایزه ادامه بده…</p>
+    <button class="btn" id="btn-page1">ادامه</button>
   </div>
 
   <!-- صفحه ورود شماره همراه -->
   <div id="page2" class="page hidden">
     <h2 class="title">شماره همراهت رو وارد کن</h2>
     <input type="tel" id="phone" placeholder="مثال: 09198967708">
-    <p class="subtitle" id="phone-error"></p>
-    <button class="btn" onclick="checkPhone()">ادامه</button>
+    <p class="subtitle" id="phone-error" style="color:#d63384;"></p>
+    <button class="btn" id="btn-page2">ادامه</button>
   </div>
 
   <!-- صفحه ورود کد تایید -->
   <div id="page3" class="page hidden">
     <h2 class="title" id="code-msg">کد تایید برای شما ارسال شد</h2>
     <input type="text" id="code" placeholder="کد ۴ رقمی">
-    <p class="subtitle" id="code-error"></p>
-    <button class="btn" onclick="checkCode()">تایید کد</button>
+    <p class="subtitle" id="code-error" style="color:#d63384;"></p>
+    <button class="btn" id="btn-page3">تایید کد</button>
   </div>
 
   <!-- صفحه دریافت هدیه -->
   <div id="page4" class="page hidden">
     <h2 class="title">🎁 هدیه تو آماده است!</h2>
     <p class="subtitle">روی دکمه زیر بزن تا هدیه روزت را ببینی 💖</p>
-    <button class="btn" onclick="showGift()">دریافت هدیه</button>
+    <button class="btn" id="btn-gift">دریافت هدیه</button>
     <div id="gift-box" class="hidden" style="margin-top:20px;font-size:18px;color:#d63384;font-weight:700;"></div>
   </div>
 
@@ -73,9 +72,9 @@
     <input type="text" id="friend-name" placeholder="اسم دوست/همکار">
     <input type="tel" id="friend-phone" placeholder="شماره همراه">
     <textarea id="friend-msg" rows="3">روز جهانی دختر مبارک! امیدوارم همیشه شاد و موفق باشی 🌸</textarea>
-    <p class="subtitle" id="friend-error"></p>
-    <button class="btn" onclick="sendMessage()">ارسال پیامک</button>
-    <p class="subtitle" id="friend-success"></p>
+    <p class="subtitle" id="friend-error" style="color:#d63384;"></p>
+    <button class="btn" id="btn-send">ارسال پیامک</button>
+    <p class="subtitle" id="friend-success" style="color:#198754;font-weight:700;"></p>
   </div>
 
 </div>
@@ -86,16 +85,24 @@
 
 <script>
   // ====== صفحات ======
-  function nextPage(pageNum){
-    document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-    document.getElementById('page'+pageNum).classList.remove('hidden');
+  const page1 = document.getElementById('page1');
+  const page2 = document.getElementById('page2');
+  const page3 = document.getElementById('page3');
+  const page4 = document.getElementById('page4');
+  const page5 = document.getElementById('page5');
+
+  function showPage(page){
+    [page1,page2,page3,page4,page5].forEach(p=>p.classList.add('hidden'));
+    page.classList.remove('hidden');
   }
+
+  document.getElementById('btn-page1').addEventListener('click',()=>showPage(page2));
 
   // ====== بررسی شماره همراه ======
   const validPhone = '09198967708';
   const validName = 'ماهان چگینی';
 
-  function checkPhone(){
+  document.getElementById('btn-page2').addEventListener('click',()=>{
     const phone = document.getElementById('phone').value.trim();
     const error = document.getElementById('phone-error');
     if(phone!==validPhone){
@@ -104,12 +111,12 @@
     }
     error.textContent = '';
     document.getElementById('code-msg').textContent = `🌸 ${validName} عزیز، یک کد تایید براتون پیامک شد!`;
-    nextPage(3);
-  }
+    showPage(page3);
+  });
 
   // ====== بررسی کد تایید ======
   const testCode = '1111';
-  function checkCode(){
+  document.getElementById('btn-page3').addEventListener('click',()=>{
     const code = document.getElementById('code').value.trim();
     const error = document.getElementById('code-error');
     if(code!==testCode){
@@ -117,8 +124,8 @@
       return;
     }
     error.textContent = '';
-    nextPage(4);
-  }
+    showPage(page4);
+  });
 
   // ====== دریافت هدیه ======
   let giftReceived = false;
@@ -128,20 +135,20 @@
     '100 هزار تومان اعتبار کافه'
   ];
 
-  function showGift(){
+  document.getElementById('btn-gift').addEventListener('click',()=>{
     if(giftReceived) return;
     giftReceived = true;
     const gift = gifts[Math.floor(Math.random()*gifts.length)];
     const box = document.getElementById('gift-box');
     box.textContent = `🎉 تبریک! هدیه شما: ${gift} 🎉\nلطفاً اسکرین شات بگیر!`;
     box.classList.remove('hidden');
-    nextPage(5);
+    showPage(page5);
     startConfetti();
-  }
+  });
 
   // ====== ارسال پیام به دوست ======
   let messageSent = false;
-  function sendMessage(){
+  document.getElementById('btn-send').addEventListener('click',()=>{
     if(messageSent) return;
     const name = document.getElementById('friend-name').value.trim();
     const phone = document.getElementById('friend-phone').value.trim();
@@ -157,7 +164,7 @@
     messageSent = true;
     success.textContent = '✅ پیام با موفقیت ارسال شد! 🌸';
     console.log(`پیامک ارسال شد به ${name} (${phone}): ${msg}`);
-  }
+  });
 
   // ====== Confetti ======
   const canvas = document.getElementById('confetti');
@@ -172,7 +179,7 @@
     for(let i=0;i<150;i++){
       confettiParticles.push({
         x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height- canvas.height,
+        y: Math.random()*canvas.height - canvas.height,
         r: Math.random()*6+4,
         d: Math.random()*50+10,
         color: `hsl(${Math.random()*360},70%,60%)`,
@@ -201,5 +208,6 @@
     requestAnimationFrame(updateConfetti);
   }
 </script>
+
 </body>
 </html>
