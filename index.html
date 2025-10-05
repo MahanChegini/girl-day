@@ -109,8 +109,120 @@ footer{margin-top:50px;font-size:14px;color:#aa4499;text-align:center;}
 </section>
 
 <footer>💖 کمپین روز دختر — SMS.ir — تجربه‌ای دخترونه و لوکس 💖</footer>
+
 <canvas id="confetti"></canvas>
 
 <script>
-  // Sections helper
-  function showSection(section){document.querySelectorAll('section').forEach(s
+/* ===== Sections helper ===== */
+function showSection(section){
+  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+  section.classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ===== Hero ===== */
+document.getElementById('btn-hero').addEventListener('click', ()=>{
+  showSection(document.getElementById('phone-section'));
+});
+
+/* ===== شماره همراه ===== */
+const validPhone = '09198967708';
+const validName = 'ماهان چگینی';
+document.getElementById('btn-phone').addEventListener('click', ()=>{
+  const phone = document.getElementById('phone').value.trim();
+  const error = document.getElementById('phone-error');
+  if(phone !== validPhone){
+    error.textContent = 'اوه نه… شماره ماجراجویی ما نیست! ولی لبخندتو نگه دار 💖';
+    return;
+  }
+  error.textContent = '';
+  showSection(document.getElementById('path-section'));
+});
+
+/* ===== انتخاب مسیر هدیه ===== */
+document.getElementById('gift-direct').addEventListener('click', ()=>{
+  showSection(document.getElementById('gift-section'));
+});
+document.getElementById('gift-challenge').addEventListener('click', ()=>{
+  showSection(document.getElementById('challenge-section'));
+});
+
+/* ===== چالش داستانی ===== */
+document.querySelectorAll('#challenge-section .choice-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    showSection(document.getElementById('gift-section'));
+  });
+});
+
+/* ===== هدیه ===== */
+const gifts = ['200 هزار تومان اعتبار کافه','کدتخفیف 100% خرید از کافه','100 هزار تومان اعتبار کافه'];
+document.getElementById('btn-gift').addEventListener('click', ()=>{
+  const gift = gifts[Math.floor(Math.random()*gifts.length)];
+  document.getElementById('gift-text').textContent = `🎉 تبریک! هدیه شما: ${gift} 🎉`;
+  document.getElementById('gift-popup').style.display='block';
+  startConfetti();
+});
+document.getElementById('btn-popup-close').addEventListener('click', ()=>{
+  document.getElementById('gift-popup').style.display='none';
+  showSection(document.getElementById('friend-section'));
+});
+
+/* ===== پیام به دوست ===== */
+let messageSent=false;
+document.getElementById('btn-send').addEventListener('click', ()=>{
+  if(messageSent) return;
+  const name=document.getElementById('friend-name').value.trim();
+  const phone=document.getElementById('friend-phone').value.trim();
+  const msg=document.getElementById('friend-msg').value.trim();
+  const error=document.getElementById('friend-error');
+  const success=document.getElementById('friend-success');
+  if(!phone||!msg){error.textContent='لطفاً شماره و متن پیام رو وارد کن 💖';return;}
+  error.textContent='';
+  messageSent=true;
+  success.textContent='✅ پیام با موفقیت ارسال شد! 🌸';
+  console.log(`پیامک ارسال شد به ${name} (${phone}): ${msg}`);
+  setTimeout(()=>showSection(document.getElementById('celebration-section')),1500);
+});
+
+/* ===== Confetti ===== */
+const canvas=document.getElementById('confetti');
+const ctx=canvas.getContext('2d');
+let confettiParticles=[];
+function startConfetti(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  confettiParticles=[];
+  for(let i=0;i<150;i++){
+    confettiParticles.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height-canvas.height,
+      r:Math.random()*6+4,
+      d:Math.random()*50+10,
+      color:`hsl(${Math.random()*360},70%,60%)`,
+      tilt:Math.random()*10-10,
+      tiltAngleIncremental:Math.random()*0.07+0.05
+    });
+  }
+  requestAnimationFrame(updateConfetti);
+  setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),5000);
+}
+function updateConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confettiParticles.forEach(p=>{
+    ctx.beginPath();
+    ctx.lineWidth=p.r/2;
+    ctx.strokeStyle=p.color;
+    ctx.moveTo(p.x+p.tilt+p.r/4,p.y);
+    ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);
+    ctx.stroke();
+    p.tiltAngle+=p.tiltAngleIncremental;
+    p.y+=(Math.cos(p.d)+3+p.r/2)/2;
+    p.x+=Math.sin(p.tiltAngle);
+    if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
+  });
+  requestAnimationFrame(updateConfetti);
+}
+</script>
+
+</body>
+</html>
