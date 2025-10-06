@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جعبه جواهر درخشان | دعوتنامۀ روز دختر (Final & Full Featured)</title>
+    <title>روز دختر، روز درخشش تو! (Final & Tagline Ready)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -84,14 +84,15 @@
             border-radius: 25px; 
             background-color: var(--soft-pink); 
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             font-family: 'Shabnam', Tahoma, sans-serif;
             color: var(--text-color-dark);
         }
         input[type="tel"]:focus, input[type="text"]:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px var(--primary-color);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+            transform: scale(1.02);
         }
         .error-text {
             color: var(--primary-color);
@@ -121,8 +122,16 @@
             transform: translateY(-5px) scale(1.03) rotate(-1deg);
             box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color);
         }
+        .floating {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
 
-        /* --- استایل جعبه جواهر --- */
+        /* --- استایل جعبه جواهر و انیمیشن لودینگ --- */
         #jewel-box {
             font-size: 6rem;
             cursor: pointer;
@@ -136,7 +145,12 @@
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(-10px) rotate(3deg); }
         }
-        /* --- Popup Styles (برای نمایش پاپ‌آپ) --- */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* --- Popup Styles (باکس هدیه - فیکس شده) --- */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -168,6 +182,46 @@
             background: none;
             color: var(--text-color-dark);
         }
+        
+        /* استایل‌های جدید برای نظم و زیبایی باکس هدیه */
+        .gift-title-personalized {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        .gift-text {
+            font-size: 1.8rem; /* بزرگتر شدن متن هدیه */
+            font-weight: 900;
+            color: var(--secondary-color); /* برجسته‌تر شدن رنگ */
+            display: block;
+            margin: 15px 0 25px 0;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--soft-pink); /* پس‌زمینه‌ی ملایم */
+            border: 3px solid var(--primary-color);
+            line-height: 1.5;
+        }
+        #personal-message {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .gift-code {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-color-dark);
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .screenshot-tip {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -175,16 +229,16 @@
     <main id="landing-container">
         <section id="hero-section" class="full-screen active-section">
             <div class="content-wrapper">
-                <h1 style="color: var(--text-color-light);">به قلمرویِ درخشش خودت خوش آمدی! 👑</h1>
-                <p style="color: #FFD9E8;">امروز، روز توئه! ما یک جعبه‌ی جواهر سِرّی داریم که فقط منتظره تو بازش کنی! 💖</p>
-                <button id="start-adventure-btn" class="wow-btn floating">باز کردن دعوتنامه 🎀</button>
+                <h1 style="color: var(--text-color-light);">روز دختر، روز درخشش تو! 👑</h1>
+                <p style="color: #FFD9E8;">امروز، روز توئه! ما یک گنجینه‌ی سِرّی داریم که فقط منتظره تو بازش کنی! 💖</p>
+                <button id="start-adventure-btn" class="wow-btn floating">باز کردن دعوتنامه ✨</button>
             </div>
         </section>
 
         <section id="phone-section" class="full-screen">
             <div class="card fade-in-down">
                 <h2>گذرواژۀ انحصاری تو 🔑</h2>
-                <p>شماره موبایلت رو وارد کن تا مطمئن شیم تو همون کسی هستی که دعوت شده.</p>
+                <p>شماره موبایلت رو وارد کن تا مطمئن شیم **جادوگر اصلی** پشت خطه! 🪄</p>
                 <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
                 <p id="phone-error" class="error-text"></p>
                 <button id="verify-phone-btn" class="wow-btn">تأیید هویت</button>
@@ -194,7 +248,7 @@
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
                 <h2 id="otp-welcome-text"></h2>
-                <p>کد تایید ۴ رقمی پیامک‌شده را وارد کن. لحظۀ ورود به جشن نزدیک است!</p>
+                <p>کد تایید ۴ رقمی پیامک‌شده رو وارد کن. لحظۀ ورود به جشن نزدیکه!</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
                 <button id="verify-otp-btn" class="wow-btn">ورود به پرتال</button>
@@ -213,7 +267,7 @@
 
         <section id="gift-reveal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="gift-reveal-title">لحظه‌ی باز کردن گنجینه! 💎</h2>
+                <h2 id="gift-reveal-title">لحظه‌ی کشف راز بزرگ! 🎁</h2>
                 
                 <div id="jewel-box">🎁</div> 
                 <p id="reveal-message">این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...</p>
@@ -224,13 +278,13 @@
 
         <section id="friend-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>💌 تو فرستادۀ شادی هستی!</h2>
-                <p style="font-weight: bold; color: var(--secondary-color); margin-bottom: 10px;">لحظه‌ای در آینه جادویی... تو بزرگترین هدیه‌ای! 💖</p>
-                <p>بهترین کار اینه که حال خوبت رو با دیگران تقسیم کنی. یه تبریک خاص برای دوستات بفرست.</p>
+                <h2>💌 یه پیام ساده، می‌تونه دنیای یه نفر رو شاد کنه!</h2>
+                <p style="font-weight: bold; color: var(--secondary-color); margin-bottom: 10px;">شادی رو پخش کن! ✨</p>
+                <p>بهترین کار اینه که حال خوبت رو با دوستات تقسیم کنی. یه تبریک خاص براشون بفرست.</p>
                 <form id="friend-message-form">
                     <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
                     <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
-                    <textarea id="friend-message" placeholder="متن پیامک (پیشنهاد: روزت مبارک دوست جادویی من! ✨)"></textarea>
+                    <textarea id="friend-message" placeholder="متن پیامک (پیشنهاد: روز دخترت مبارک دوست جادویی من! ✨)"></textarea>
                     <p id="message-limit-text" class="error-text"></p>
                     <button type="submit" id="send-message-btn" class="wow-btn">ارسال انرژی مثبت</button>
                 </form>
@@ -239,8 +293,8 @@
 
         <section id="celebration-section" class="full-screen">
             <div class="content-wrapper">
-                <h1 style="color: var(--primary-color); font-size: 4rem;">🎉 تو یک فرشته‌ی شادی هستی! 😇</h1>
-                <p>ماجراجویی تکمیل شد! روزت مبارک، دختری درخشان! حضور تو، بزرگترین افتخار ماست. 💖</p>
+                <h1 style="color: var(--primary-color); font-size: 4rem;" id="final-celebration-title">🎉 مأموریت شادی تکمیل شد! 😇</h1>
+                <p>ماجراجویی تکمیل شد! روزت مبارک، دختر درخشان! 💖 حضور تو، بزرگترین افتخار ماست. 🥳</p>
                 <button class="wow-btn" onclick="navigateTo('hero-section')">دعوتنامۀ مجدد</button>
             </div>
         </section>
@@ -267,8 +321,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             const sections = document.querySelectorAll('.full-screen');
+            // ماهان: این دیتابیس برای تست شما و شبیه‌سازی کاربران نهایی حفظ شده است.
             const HR_DATABASE = {
-                '09198967708': { name: 'ماهان چگینی', dept: 'مالی' },
+                '09198967708': { name: 'ماهان چگینی', dept: 'مالی' }, 
                 '09121234567': { name: 'سارا احمدی', dept: 'فنی' },
                 '09359876543': { name: 'مریم عظیمی', dept: 'عملیات' },
                 '09015554433': { name: 'نیلوفر رضایی', dept: 'مارکتینگ' }
@@ -283,6 +338,7 @@
                 "بن تخفیف 200,000 تومانی اسنپ‌فود"
             ];
             
+            // پیام‌های صمیمی و دخترانه برای دپارتمان‌ها
             const DEPT_MESSAGES = {
                 'مالی': (name) => `تو مثل یک ستاره‌ی درخشان، نظم و دقت رو به دنیای ما آوردی، ${name} عزیزم. ممنون از جادوی محاسباتت! 💖`,
                 'فنی': (name) => `تو با کدهات، آینده ما رو می‌سازی! ${name} عزیز. ممنون از خلاقیت و شگفت‌انگیزیت در حل مسئله. 💻`,
@@ -293,16 +349,16 @@
 
             const PERSONALIZED_TEXT = {
                 'ماهان': {
-                    otp_welcome: (name) => `ماهانِ عزیزم، درخشش تو مثل ماه کامل در آسمون ماست! آماده‌ی دریافت رمز و راز بزرگی؟ 🌙`,
-                    portal_title: `جادوی پرتال ماه فعال شد...`,
+                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
+                    portal_title: `جادوی پرتال فعال شد...`,
                     portal_challenge: `ما تمام وجودمان را برای استقبال از تو، ستاره‌ی درخشان، آماده کردیم! 💖`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف گنجینه‌ی ماهان! 💎`,
+                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
                 },
                 'default': {
-                    otp_welcome: (name) => `سلام ${name} عزیزم! خوش برگشتی! 💖`,
+                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
                     portal_title: `دنیای شگفتی‌ها در حال آماده‌سازی...`,
                     portal_challenge: `تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف گنجینه‌ی تو! 💎`,
+                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
                 }
             };
 
@@ -370,7 +426,6 @@
                         const giftTitleText = textData.gift_reveal_title(firstName);
                         document.getElementById('gift-reveal-title').textContent = giftTitleText;
                         
-                        // آماده‌سازی بخش جعبه جواهر برای یک کلیک
                         document.getElementById('jewel-box').style.display = 'block';
                         document.getElementById('reveal-message').textContent = 'این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...';
                         document.getElementById('show-gift-btn').style.display = 'block'; 
@@ -388,12 +443,10 @@
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
                 
-                // پنهان کردن جعبه جواهر بعد از کلیک
                 document.getElementById('jewel-box').style.display = 'none';
                 document.getElementById('reveal-message').textContent = '🎉 باز شد! 🎉';
                 document.getElementById('show-gift-btn').style.display = 'none'; 
 
-                // --- رندومایزر فیکس شد ---
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
                 
@@ -415,12 +468,11 @@
                 });
             });
 
-            // --- Logic: Send to Friend (بخش پیامک فیکس شد) ---
+            // --- Logic: Send to Friend (بخش پیامک فیکس شد و فیدبک بهبود یافت) ---
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
                 
-                // این محدودیت برای این است که کاربر فقط یکبار پیام بفرستد
                 if (hasSentMessage) {
                     limitText.textContent = "عزیزم! قبلاً یک پیام شاد فرستادی! محدودیت یک پیام رو داریم 😔";
                     return;
@@ -432,8 +484,13 @@
 
                 if (friendName && friendPhone.length === 11 && message) {
                     hasSentMessage = true; 
-                    limitText.textContent = `انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
+                    // فیدبک بهبود یافته
+                    limitText.innerHTML = `✅ ارسال شد! انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
                     
+                    // شخصی‌سازی عنوان نهایی
+                    const firstName = currentUser.name.split(' ')[0];
+                    document.getElementById('final-celebration-title').textContent = `🎉 روزت مبارک، ${firstName} عزیز! 👑`;
+
                     setTimeout(() => {
                         navigateTo('celebration-section');
                         runConfetti(); 
