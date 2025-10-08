@@ -33,7 +33,7 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        /* --- Header/Logo Styles (فیکس: حذف سایه و بک‌گراند) --- */
+        /* --- Header/Logo Styles --- */
         .app-header {
             width: 100%;
             padding: 10px 0; 
@@ -83,10 +83,10 @@
             overflow: hidden; 
         }
         
-        /* 🚨 فیکس موبایل: استایل کارت تبریک شخصی‌سازی شده */
+        /* 🚨 فیکس: استایل کارت تبریک شخصی‌سازی شده */
         #personal-celebration-section .card { 
             max-width: 800px; 
-            padding: 60px 80px; /* دسکتاپ */
+            padding: 60px 80px; 
             border: 5px solid var(--secondary-color);
             position: relative;
         }
@@ -113,7 +113,7 @@
             border-radius: 15px; 
             line-height: 1.8; 
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
-            text-align: right; /* برای متن‌های چندخطی */
+            text-align: right; 
         }
         
         /* --- Category Selection Styles (فیکس دکمه‌های پیامک) --- */
@@ -121,7 +121,6 @@
         #category-selection { margin-bottom: 30px; padding: 15px; border-radius: 15px; background-color: var(--soft-pink); }
         .category-container { display: flex; justify-content: space-around; gap: 10px; flex-wrap: wrap; }
         .category-btn {
-            /* استایل فیکس شده */
             flex-grow: 1; min-width: 120px; padding: 15px 10px; border-radius: 10px; border: 2px solid var(--primary-color);
             background-color: var(--card-bg); cursor: pointer; font-weight: bold; color: var(--primary-color); transition: all 0.3s;
         }
@@ -129,7 +128,6 @@
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: var(--text-color-light); border-color: var(--secondary-color); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); transform: scale(1.05);
         }
-        /* استایل ویژه دکمه‌ی "خودم می‌نویسم" */
         .category-btn[data-category="self-write"] {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: var(--text-color-light); 
@@ -148,8 +146,10 @@
             width: 100%; padding: 15px 20px; margin: 10px 0; border: 2px solid var(--primary-color); border-radius: 15px; 
             background-color: #FFF; font-size: 1rem; transition: all 0.4s; font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            /* 🚨 فیکس موبایل: مطمئن شوید textarea در موبایل کوچک نشود */
-            min-height: 100px;
+        }
+        /* 🚨 فیکس: کاهش ارتفاع textarea برای موبایل و دسکتاپ */
+        textarea {
+             min-height: 100px;
         }
         .error-text { color: var(--primary-color); font-weight: bold; display: block; margin-top: 5px; }
 
@@ -223,16 +223,17 @@
             .wow-btn { font-size: 0.9rem; padding: 12px 20px; }
             .app-header img { max-width: 120px; }
             .full-screen { padding: 80px 5px 40px; } 
-            .card { padding: 30px 20px; border-radius: 20px; width: 98%; } 
+            /* 🚨 فیکس عرض کارت در موبایل */
+            .card { padding: 30px 15px; border-radius: 20px; width: 95%; max-width: 95%; } 
 
-            /* 🚨 فیکس: کارت تبریک شخصی‌سازی شده در موبایل */
+            /* فیکس: کارت تبریک شخصی‌سازی شده در موبایل */
             #personal-celebration-section .card { 
-                padding: 40px 20px; /* کاهش پدینگ */
+                padding: 40px 20px; 
             }
             #personal-celebration-title { font-size: 1.8rem; }
             #celebration-text-content { 
-                font-size: 1rem; /* کوچک شدن سایز فونت */
-                padding: 15px; /* کاهش پدینگ داخلی */
+                font-size: 1rem; 
+                padding: 15px; 
                 margin: 20px 0;
                 line-height: 1.7;
             }
@@ -249,14 +250,18 @@
                 padding: 12px 15px; 
             }
             
-            /* 🚨 فیکس: ظاهر فرم پیامک در موبایل */
+            /* فیکس: ظاهر فرم پیامک در موبایل */
             #friend-message-form {
-                padding: 0; /* حذف پدینگ اضافی */
-                display: none; /* برای حفظ منطق جاوااسکریپت */
+                padding: 0; 
+                display: none; 
             }
             input[type="tel"], input[type="text"], textarea { 
-                padding: 12px 15px; /* کاهش پدینگ اینپوت‌ها */
+                padding: 12px 15px; 
                 margin: 8px 0;
+            }
+            /* 🚨 فیکس نهایی: اطمینان از عرض 100% اینپوت ها */
+            input, textarea {
+                width: 100%;
             }
 
             /* فیکس نهایی پاپ‌آپ هدیه در موبایل */
@@ -264,6 +269,14 @@
             .personalized-welcome-title { font-size: 1.2rem; }
             .gift-text { font-size: 1.3rem; }
             .description-text, .gift-usage-info { font-size: 0.9rem; }
+            
+            /* فیکس دکمه‌های تایید نهایی */
+            .confirm-buttons {
+                flex-direction: column;
+            }
+            .confirm-buttons button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -498,12 +511,10 @@
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
             
-            // 🚨 تابع به‌روز شده برای نمایش پیام شخصی‌سازی شده از دیتابیس
+            // تابع به‌روز شده برای نمایش پیام شخصی‌سازی شده از دیتابیس
             const proceedToPersonalCelebration = (button) => {
                 const firstName = getFirstName(currentUser.name); 
                 const dept = currentUser.dept || 'عزیز';
-                
-                // 🚨 از فیلد message در دیتابیس استفاده می‌شود
                 const personalText = currentUser.message || 'تبریک ویژه روز دختر به شما 💖'; 
                 
                 document.getElementById('personal-celebration-title').textContent = `روزت مبارک، ${firstName} درخشان! 👑`;
@@ -640,8 +651,14 @@
                     messageForm.style.display = 'block';
                     
                     const friendNameInput = document.getElementById('friend-name');
-                    friendNameInput.focus();
-                    friendNameInput.scrollIntoView({ behavior: 'smooth', block: 'start', offset: -100 }); 
+                    
+                    // 🚨 فیکس نهایی اسکرول: اسکرول به خود فرم نه فقط به یک فیلد
+                    messageForm.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+
+                    // تأخیر کوچک برای تمرکز بعد از اسکرول
+                    setTimeout(() => {
+                        friendNameInput.focus();
+                    }, 300);
                 });
             });
 
