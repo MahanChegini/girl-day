@@ -32,6 +32,7 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
+        /* ⬅️ فیکس مهم: حذف pointer-events: none در حالت عادی و مدیریت آن فقط در active-section */
         .full-screen { min-height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed) ease-in-out; z-index: 1; }
         .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         
@@ -172,7 +173,7 @@
             const TEST_OTP = '1111';
             let currentUser = {}; 
             
-            // ⬅️ هدیه ثابت و نهایی
+            // هدیه ثابت و نهایی
             const STATIC_GIFT = "100 هزار تومان اعتبار کافه SMS.ir"; 
             
             // --- تابع نرمال‌سازی شماره به 10 رقم (حذف صفر اول) ---
@@ -185,12 +186,23 @@
             };
 
             // --- توابع کمکی (ناوبری و کانفتی) ---
-            const navigateTo = (targetId) => {
+            // ⬅️ فیکس اصلی: اطمینان از حذف کامل active-section از بقیه بخش‌ها
+            window.navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
-                sections.forEach(sec => { sec.classList.remove('active-section'); });
+                
+                // ابتدا تمام بخش‌ها را غیرفعال کن
+                sections.forEach(sec => {
+                    if (sec.id !== targetId) {
+                        sec.classList.remove('active-section');
+                    }
+                });
+                
+                // سپس بخش هدف را فعال کن
                 targetSection.classList.add('active-section');
+                
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
+            
             const runConfetti = () => { 
                 const defaults = { origin: { y: 0.7 } };
                 const colors = ["#FF69B4", "#A020F0", "#FFFFFF", "#FFD9E8"];
@@ -202,7 +214,7 @@
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
 
-            // ⬅️ تابع ناوبری به پرتال بعد از تأیید (دیگر Webhook را فراخوانی نمی‌کند)
+            // تابع ناوبری به پرتال بعد از تأیید
             const proceedToPortal = (button) => {
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
 
@@ -266,7 +278,6 @@
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ورود...';
 
-                    // ⬅️ اینجا دیگر Webhook نداریم، مستقیماً به پرتال می‌رویم
                     proceedToPortal(verifyButton); 
 
                 } else {
@@ -283,7 +294,6 @@
                 document.getElementById('reveal-message').textContent = '🎉 باز شد! 🎉';
                 document.getElementById('show-gift-btn').style.display = 'none'; 
 
-                // ⬅️ استفاده از هدیه ثابت
                 document.getElementById('gift-amount').textContent = STATIC_GIFT; 
                 
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
