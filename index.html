@@ -33,10 +33,10 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        /* --- Header/Logo Styles (Sticky و شفاف) --- */
+        /* --- Header/Logo Styles (فیکس لوگوی نصفه) --- */
         .app-header {
             width: 100%;
-            padding: 10px 0;
+            padding: 10px 0; /* فیکس پدینگ برای نمایش کامل لوگو */
             text-align: center;
             position: sticky; 
             top: 0;
@@ -51,16 +51,15 @@
             transition: all 0.3s;
         }
 
-        /* --- Section and Card Styles (فیکس ساختار صفحات) --- */
+        /* --- Section and Card Styles --- */
         .full-screen { 
-            /* 👇👇👇 فیکس کلیدی: نحوه نمایش سکشن‌های غیرفعال */
             min-height: 100vh; 
             width: 100%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             text-align: center; 
-            position: absolute; /* برای حالت غیرفعال */
+            position: absolute; 
             top: 0; 
             left: 0; 
             opacity: 0; 
@@ -69,13 +68,7 @@
             z-index: 1; 
             padding-top: 80px; 
         }
-        .full-screen.active-section { 
-            /* 👇👇👇 فیکس کلیدی: نحوه نمایش سکشن فعال */
-            opacity: 1; 
-            pointer-events: auto; 
-            position: relative; /* برای نمایش در فلو صفحه */
-            z-index: 10; 
-        }
+        .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         
         /* کارت‌های عمومی */
         .card { 
@@ -89,14 +82,25 @@
             overflow: hidden; 
         }
         
-        /* استایل کارت تبریک شخصی‌سازی شده */
+        /* استایل کارت تبریک شخصی‌سازی شده (فیکس تاج) */
         #personal-celebration-section .card { 
             max-width: 800px; 
             padding: 60px 80px; 
             border: 5px solid var(--secondary-color);
             position: relative;
         }
-        #personal-celebration-section .card::before { content: '👑'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-size: 3rem; background: var(--card-bg); padding: 5px 15px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        #personal-celebration-section .card::before { 
+            content: '👑'; 
+            position: absolute; 
+            top: -30px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 3rem; 
+            background: var(--card-bg); 
+            padding: 5px 15px; 
+            border-radius: 50%; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+        }
         #personal-celebration-title { color: var(--primary-color); margin-bottom: 5px; font-size: 2.5rem; }
         #celebration-text-content { 
             font-size: 1.3rem; 
@@ -117,8 +121,6 @@
         }
         #category-selection { margin-bottom: 30px; padding: 15px; border-radius: 15px; background-color: var(--soft-pink); }
         .category-container { display: flex; justify-content: space-around; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        
-        /* 👇👇👇 فیکس استایل دکمه‌های دسته‌بندی */
         .category-btn {
             flex-grow: 1; min-width: 120px; padding: 15px 10px; border-radius: 10px; border: 2px solid var(--primary-color);
             background-color: var(--card-bg); cursor: pointer; font-weight: bold; color: var(--primary-color); transition: all 0.3s;
@@ -139,7 +141,6 @@
         input[type="tel"]:focus, input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--secondary-color); box-shadow: 0 0 15px var(--secondary-color); transform: scale(1.01); }
         .error-text { color: var(--primary-color); font-weight: bold; display: block; margin-top: 5px; }
 
-        /* 👇👇👇 فیکس استایل دکمه‌های اصلی (WOW BTN) */
         .wow-btn { 
             padding: 18px 45px; border: none; border-radius: 50px; font-size: 1.3rem; font-weight: bold; cursor: pointer; 
             color: white; 
@@ -156,23 +157,34 @@
             box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color); 
         }
 
-        /* پاپ‌آپ تایید نهایی */
-        .confirm-popup-content {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 3px solid var(--primary-color);
+        /* --- Popups Styles (فیکس استایل پاپ‌آپ هدیه) --- */
+        .popup-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; 
+            z-index: 1000; 
+            overflow-y: auto; /* برای اسکرول پاپ‌آپ در موبایل */
         }
-        /* ... (بقیه استایل‌های پاپ آپ‌های ثابت) ... */
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .popup-content { 
             background: linear-gradient(160deg, #FFFFFF 0%, #FFF8FA 100%); 
-            padding: 45px; border-radius: 25px; max-width: 420px; width: 90%; position: relative; 
+            padding: 30px; /* فیکس پدینگ برای موبایل */
+            border-radius: 25px; max-width: 420px; width: 95%; 
+            position: relative; 
             box-shadow: 0 20px 50px rgba(255, 105, 180, 0.8); border: 4px solid #FFD700; 
+            margin: 20px 0; /* فیکس مارجین در موبایل */
+        }
+        .gift-text { font-size: 1.4rem; font-weight: 900; } /* فیکس سایز فونت */
+        .gift-code { font-size: 0.9rem; padding: 10px; } /* فیکس سایز فونت کد */
+
+        /* ... (استایل‌های پاپ‌آپ تایید نهایی و فوتر بدون تغییر) ... */
+        .app-footer {
+            width: 100%; text-align: center; padding: 20px 0; margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.2); 
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative; z-index: 5; 
+        }
+        .app-footer p {
+            color: var(--text-color-light); 
+            font-size: 0.85rem; opacity: 0.8; margin: 0;
         }
 
         /* ================================================= */
@@ -183,17 +195,23 @@
             h1 { font-size: 2.2rem !important; }
             .wow-btn { font-size: 1rem; padding: 14px 25px; }
 
-            .app-header img { max-width: 120px; }
+            /* فیکس لوگوی نصفه در موبایل */
+            .app-header img {
+                max-width: 120px; 
+            }
+
+            /* فیکس ریسپانسیو تاج */
+            #personal-celebration-section .card::before {
+                top: -20px;
+                font-size: 2rem;
+                padding: 2px 10px;
+            }
+
             .full-screen { padding-top: 60px; }
             .card { padding: 25px 15px; border-radius: 20px; width: 95%; }
 
-            #personal-celebration-section .card { padding: 30px 20px; width: 95%; }
-            #personal-celebration-title { font-size: 1.8rem; }
-            #celebration-text-content { font-size: 0.95rem; padding: 15px; }
-            
-            /* فیکس اصلی ریسپانسیو فرم */
+            /* فیکس ریسپانسیو فرم پیامک */
             #friend-section .card { padding: 20px 15px; max-width: 95%; }
-            .category-selection { margin-bottom: 20px; }
             .category-container { flex-direction: column; gap: 8px; }
             .category-btn { min-width: 100%; } 
             
@@ -209,19 +227,19 @@
 
         <section id="hero-section" class="full-screen active-section">
             <div class="content-wrapper">
-                <h1 style="color: var(--text-color-light);">روز دختر، روز درخشش تو! 👑</h1>
-                <p style="color: #FFD9E8;">امروز، روز توئه! ما یک گنجینه‌ی سِرّی داریم که فقط منتظره تو بازش کنی! 💖</p>
+                <h1 style="color: var(--text-color-light);">روز تو، لبخند ماست 💖</h1>
+                <p style="color: #FFD9E8;">روز دختر یعنی بهونه‌ای برای جشن گرفتنِ مهربونی و لبخند، توی این جشن جایزه ببر و شادی هدیه بده</p>
                 <button id="start-adventure-btn" class="wow-btn floating" onclick="navigateTo('phone-section')">باز کردن دعوتنامه ✨</button>
             </div>
         </section>
 
         <section id="phone-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2>گذرواژۀ انحصاری تو 🔑</h2>
-                <p>شماره موبایلت رو وارد کن تا مطمئن شیم **جادوگر اصلی** پشت خطه! 🪄</p>
+                <h2>خوش اومدی به جشن خودت 💕</h2>
+                <p>شماره‌ت رو وارد کن تا درِ جشن مخصوص دخترای SMS.ir برات باز شه 💖</p>
                 <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
                 <p id="phone-error" class="error-text"></p>
-                <button id="verify-phone-btn" class="wow-btn">تأیید هویت</button>
+                <button id="verify-phone-btn" class="wow-btn">باز کردن درِ جشن 🎉</button>
             </div>
         </section>
 
@@ -284,6 +302,10 @@
                 <button class="wow-btn" onclick="navigateTo('hero-section')">دعوتنامۀ مجدد</button>
             </div>
         </section>
+        
+        <footer class="app-footer">
+            <p>© 1403. کلیه حقوق مادی و معنوی متعلق به SMS.ir می‌باشد.</p>
+        </footer>
     </main>
 
     <div id="gift-popup" class="popup-overlay">
@@ -438,13 +460,13 @@
                     const firstName = currentUser.name.split(' ')[0];
                     document.getElementById('otp-welcome-text').textContent = `به سرزمین آرزوها خوش اومدی، ${firstName} عزیز! 💖`;
 
-                    verifyButton.textContent = 'تأیید هویت';
+                    verifyButton.textContent = 'باز کردن درِ جشن 🎉';
                     verifyButton.disabled = false;
                     
                     navigateTo('otp-section');
                 } else {
-                    errorText.textContent = "شماره وارد شده در لیست مهمان‌های جشن امروز نیست. لطفا دوباره چک کن. 😔";
-                    verifyButton.textContent = 'تأیید هویت';
+                    errorText.textContent = "شماره واردشده توی لیست مهمون‌های دعوت شده‌ی امروز نیست. شاید اشتباهی تایپ شده؟ دوباره امتحان کن 🌼";
+                    verifyButton.textContent = 'باز کردن درِ جشن 🎉';
                     verifyButton.disabled = false;
                 }
             };
@@ -516,7 +538,7 @@
             document.getElementById('popup-close-btn').addEventListener('click', handlePopupAction);
             document.getElementById('popup-next-btn-action').addEventListener('click', handlePopupAction);
 
-            // 6. Logic: Category Selection 
+            // 6. Logic: Category Selection (فیکس اسکرول به فرم)
             document.querySelectorAll('.category-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
@@ -528,7 +550,11 @@
 
                     messageBox.value = MESSAGE_TEMPLATES[category];
                     messageForm.style.display = 'block';
-                    document.getElementById('friend-name').focus();
+                    
+                    // 👇👇👇 کد فیکس اسکرول
+                    const friendNameInput = document.getElementById('friend-name');
+                    friendNameInput.focus();
+                    friendNameInput.scrollIntoView({ behavior: 'smooth', block: 'start', offset: -100 }); 
                 });
             });
 
@@ -575,7 +601,7 @@
 
                 // نمایش نهایی
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
-                document.getElementById('final-celebration-title').textContent = `🎉 روزت مبارک، ${firstName} عزیز! 👑`;
+                document.getElementById('final-celebration-title').textContent = `🎉 پیامک شادی ارسال شد! 😇`;
 
                 setTimeout(() => {
                     navigateTo('celebration-section');
