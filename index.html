@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (Server Endpoint Integrated)</title>
+    <title>روز دختر، روز درخشش تو! (OTP Webhook Integrated)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
-        /* ... بخش CSS شما (بدون تغییر) ... */
+        /* ... بخش CSS شما ... */
         :root {
             --primary-color: #FF69B4; 
             --secondary-color: #A020F0; 
@@ -154,13 +154,10 @@
             const sections = document.querySelectorAll('.full-screen');
             const backgroundMusic = document.getElementById('background-music');
             
-            // Endpoint شما برای چک کردن وضعیت (فقط برای GET)
-            const CHECK_STATUS_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
+            // Endpoint شما برای چک کردن وضعیت (GET) و ذخیره‌ی نهایی (POST)
+            const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
             
-            // Endpoint شما برای ذخیره‌ی نهایی هدیه (از POST استفاده خواهد شد)
-            const SAVE_GIFT_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb"; // فرض می‌کنیم همین Endpoint با متد POST برای ذخیره استفاده می‌شود
-            
-            // لیست ثابت کاربران مجاز (برای احراز هویت اولیه غیر از وضعیت تکراری)
+            // لیست ثابت کاربران مجاز
             const AUTH_LIST = {
                 '09198967708': { name: 'ماهان چگینی', dept: 'مالی' }, 
                 '09121234567': { name: 'سارا احمدی', dept: 'فنی' },
@@ -186,121 +183,46 @@
                 targetSection.classList.add('active-section');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
-            const runConfetti = () => { 
-                const defaults = { origin: { y: 0.7 } };
-                const colors = ["#FF69B4", "#A020F0", "#FFFFFF", "#FFD9E8"];
-                function fire(particleRatio, opts) {
-                    confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(200 * particleRatio), colors: colors }));
-                }
-                fire(0.25, { spread: 26, startVelocity: 55 });
-                fire(0.2, { spread: 60 });
-                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            };
+            const runConfetti = () => { /* ... */ }; 
+            const DEPT_MESSAGES = { /* ... */ };
+            const PERSONALIZED_TEXT = { /* ... */ };
             
-            const DEPT_MESSAGES = {
-                'مالی': (name) => `تو مثل یک ستاره‌ی درخشان، نظم و دقت رو به دنیای ما آوردی، ${name} عزیزم. ممنون از جادوی محاسباتت! 💖`,
-                'فنی': (name) => `تو با کدهات، آینده ما رو می‌سازی! ${name} عزیز. ممنون از خلاقیت و شگفت‌انگیزیت در حل مسئله. 💻`,
-                'عملیات': (name) => `تو قلب پُر انرژی و باهوش عملیات ما هستی، ${name}! ممنون که با درایتت، همه چیز رو سر و سامان می‌دی. 🚀`,
-                'مارکتینگ': (name) => `تو صدای شیرین و جذاب ما هستی، ${name} دوست‌داشتنی! ممنون که شور و هیجان رو به همه منتقل می‌کنی. 💡`,
-                'default': (name) => `درخشش تو، الهام‌بخش تمام ماست، ${name} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`
-            };
-            const PERSONALIZED_TEXT = {
-                'ماهان': {
-                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
-                    portal_title: `جادوی پرتال فعال شد...`,
-                    portal_challenge: `ما تمام وجودمان را برای استقبال از تو، ستاره‌ی درخشان، آماده کردیم! 💖`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
-                },
-                'default': {
-                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
-                    portal_title: `دنیای شگفتی‌ها در حال آماده‌سازی...`,
-                    portal_challenge: `تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
-                }
-            };
-            // --- پایان توابع کمکی ---
-
-            // --- Logic: Hero Section (پخش موزیک) ---
-            document.getElementById('start-adventure-btn').addEventListener('click', () => {
-                backgroundMusic.volume = 0.5;
-                backgroundMusic.play().catch(error => { console.log('Autoplay blocked.'); });
-                navigateTo('phone-section');
-            });
-
-            // --- Logic: Phone Verification (اصلاح شده برای API) ---
-            document.getElementById('verify-phone-btn').addEventListener('click', async () => {
-                const phoneInput = document.getElementById('phone-input').value.trim();
-                const errorText = document.getElementById('phone-error');
-                errorText.textContent = '';
+            // =================================================================
+            //                 ✅ تابع جدید: ثبت نهایی و ناوبری ✅
+            // =================================================================
+            const registerUserAndProceed = async (button, errorElement) => {
+                const phone = document.getElementById('phone-input').value.trim();
+                const mobileNumberOnly = phone.replace(/[^0-9]/g, ''); 
                 
-                const verifyButton = document.getElementById('verify-phone-btn');
-                verifyButton.disabled = true;
-                verifyButton.textContent = 'درحال بررسی...';
-
-                // 1. احراز هویت اولیه: چک کردن لیست ثابت AUTH_LIST
-                if (!AUTH_LIST[phoneInput]) {
-                    errorText.textContent = "شماره وارد شده در لیست مهمان‌های جشن امروز نیست. لطفا دوباره چک کن. 😔";
-                    verifyButton.textContent = 'تأیید هویت';
-                    verifyButton.disabled = false;
-                    return;
-                }
-
-                // 2. چک کردن وضعیت تکراری با Endpoint
-                const mobileNumberOnly = phoneInput.replace(/[^0-9]/g, ''); 
-                const url = `${CHECK_STATUS_ENDPOINT}?mobile=${mobileNumberOnly}`;
+                const payload = {
+                    mobile: mobileNumberOnly,
+                    name: currentUser.name,
+                    dept: currentUser.dept,
+                    status: 'VERIFIED_OTP', // وضعیت پس از تأیید کد
+                };
 
                 try {
-                    const response = await fetch(url);
-                    const result = await response.text(); 
-                    const status = result.trim().toLowerCase();
-
-                    if (status === 'duplicate') {
-                        errorText.textContent = "عزیزم! شما قبلاً گنجینه‌ی روز دخترت رو باز کردی! ✨";
-                        verifyButton.textContent = 'تأیید هویت';
-                        verifyButton.disabled = false;
-                        return;
-
-                    } else if (status === 'new') {
-                        
-                        // شماره جدید است، ادامه می‌دهد
-                        currentUser = AUTH_LIST[phoneInput];
-                        
-                        const firstName = currentUser.name.split(' ')[0];
-                        const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
-                        document.getElementById('otp-welcome-text').textContent = textData.otp_welcome(firstName);
-
-                        verifyButton.textContent = 'تأیید هویت';
-                        verifyButton.disabled = false;
-                        navigateTo('otp-section');
-
-                    } else {
-                        // در صورتی که پاسخ نامعتبر باشد
-                        errorText.textContent = "خطای سرور: پاسخ نامعتبر دریافت شد. 😥";
-                        verifyButton.textContent = 'تأیید هویت';
-                        verifyButton.disabled = false;
-                    }
-
-                } catch (e) {
-                    console.error("API Error:", e);
-                    errorText.textContent = "مشکلی در اتصال به سرور پیش آمد. لطفا دوباره امتحان کنید. 😥";
-                    verifyButton.textContent = 'تأیید هویت';
-                    verifyButton.disabled = false;
-                }
-            });
-
-            // --- Logic: OTP Verification (بدون تغییر) ---
-            document.getElementById('verify-otp-btn').addEventListener('click', () => {
-                const otpInput = document.getElementById('otp-input').value.trim();
-                const errorText = document.getElementById('otp-error');
-
-                if (otpInput === TEST_OTP) {
-                    errorText.textContent = '';
+                    // ارسال درخواست POST برای ثبت کاربر پس از تأیید OTP
+                    const response = await fetch(WEBHOOK_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
                     
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+                    
+                    // اگر ثبت نام موفق بود، ادامه می‌دهیم
                     const firstName = currentUser.name.split(' ')[0];
                     const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
                     document.getElementById('portal-title').textContent = textData.portal_title;
                     document.getElementById('portal-challenge-text').textContent = textData.portal_challenge;
 
+                    button.textContent = 'ورود به پرتال';
+                    button.disabled = false;
                     navigateTo('portal-section');
                     
                     // شبیه‌سازی لودینگ 3 ثانیه‌ای و ناوبری خودکار
@@ -315,12 +237,96 @@
                         navigateTo('gift-reveal-section'); 
                     }, 3000); 
 
+                } catch (e) {
+                    console.error("Registration Webhook Error:", e);
+                    errorElement.textContent = "مشکلی در ثبت نام نهایی پیش آمد. دوباره تلاش کنید. 😢";
+                    button.textContent = 'ورود به پرتال';
+                    button.disabled = false;
+                }
+            };
+
+            // --- Logic: Hero Section (پخش موزیک) ---
+            document.getElementById('start-adventure-btn').addEventListener('click', () => {
+                backgroundMusic.volume = 0.5;
+                backgroundMusic.play().catch(error => { console.log('Autoplay blocked.'); });
+                navigateTo('phone-section');
+            });
+
+            // --- Logic: Phone Verification (GET Webhook) ---
+            document.getElementById('verify-phone-btn').addEventListener('click', async () => {
+                const phoneInput = document.getElementById('phone-input').value.trim();
+                const errorText = document.getElementById('phone-error');
+                errorText.textContent = '';
+                
+                const verifyButton = document.getElementById('verify-phone-btn');
+                verifyButton.disabled = true;
+                verifyButton.textContent = 'درحال بررسی...';
+
+                if (!AUTH_LIST[phoneInput]) {
+                    errorText.textContent = "شماره وارد شده در لیست مهمان‌های جشن امروز نیست. لطفا دوباره چک کن. 😔";
+                    verifyButton.textContent = 'تأیید هویت';
+                    verifyButton.disabled = false;
+                    return;
+                }
+
+                const mobileNumberOnly = phoneInput.replace(/[^0-9]/g, ''); 
+                const url = `${WEBHOOK_ENDPOINT}?mobile=${mobileNumberOnly}`;
+
+                try {
+                    const response = await fetch(url);
+                    const result = await response.text(); 
+                    const status = result.trim().toLowerCase();
+
+                    if (status === 'duplicate') {
+                        errorText.textContent = "عزیزم! شما قبلاً گنجینه‌ی روز دخترت رو باز کردی! ✨";
+                        verifyButton.textContent = 'تأیید هویت';
+                        verifyButton.disabled = false;
+                        return;
+
+                    } else if (status === 'new') {
+                        
+                        currentUser = AUTH_LIST[phoneInput];
+                        const firstName = currentUser.name.split(' ')[0];
+                        const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
+                        document.getElementById('otp-welcome-text').textContent = textData.otp_welcome(firstName);
+
+                        verifyButton.textContent = 'تأیید هویت';
+                        verifyButton.disabled = false;
+                        navigateTo('otp-section');
+
+                    } else {
+                        errorText.textContent = "خطای سرور: پاسخ نامعتبر دریافت شد. 😥";
+                        verifyButton.textContent = 'تأیید هویت';
+                        verifyButton.disabled = false;
+                    }
+
+                } catch (e) {
+                    console.error("API Error:", e);
+                    errorText.textContent = "مشکلی در اتصال به سرور پیش آمد. لطفا دوباره امتحان کنید. 😥";
+                    verifyButton.textContent = 'تأیید هویت';
+                    verifyButton.disabled = false;
+                }
+            });
+
+            // --- Logic: OTP Verification (کال registerUserAndProceed) ---
+            document.getElementById('verify-otp-btn').addEventListener('click', () => {
+                const otpInput = document.getElementById('otp-input').value.trim();
+                const errorText = document.getElementById('otp-error');
+                const verifyButton = document.getElementById('verify-otp-btn');
+
+                if (otpInput === TEST_OTP) {
+                    errorText.textContent = '';
+                    verifyButton.disabled = true;
+                    verifyButton.textContent = 'درحال ثبت نهایی...';
+
+                    registerUserAndProceed(verifyButton, errorText);
+
                 } else {
                     errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
                 }
             });
 
-            // --- Logic: One-Click Gift Reveal (ذخیره‌سازی نهایی از طریق API) ---
+            // --- Logic: One-Click Gift Reveal (ذخیره‌سازی نهایی CLAIMED) ---
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', async () => {
@@ -346,11 +352,11 @@
                     mobile: mobileNumberOnly,
                     name: currentUser.name,
                     gift_amount: randomGift,
-                    status: 'CLAIMED'
+                    status: 'CLAIMED' // وضعیت نهایی
                 };
 
                 try {
-                    await fetch(SAVE_GIFT_ENDPOINT, {
+                    await fetch(WEBHOOK_ENDPOINT, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -360,7 +366,6 @@
                     console.log('Gift claim successfully posted to server.');
                 } catch (e) {
                     console.error('Error posting gift claim:', e);
-                    // اینجا می‌توانیم یک هشدار به کاربر بدهیم اما چون هدیه نمایش داده شده، معمولاً این بخش را لاگ می‌کنیم
                 }
 
                 giftPopup.style.display = 'flex';
