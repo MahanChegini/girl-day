@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی با Webhook GET - فقط موبایل 10 رقمی)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
-        /* --- CSS Styles --- (بدون تغییر) */
+        /* --- CSS Styles --- */
         :root {
             --primary-color: #FF69B4; /* صورتی شاد (Hot Pink) */
             --secondary-color: #A020F0; /* بنفش سلطنتی */
@@ -164,7 +164,7 @@
             // ⚠️ آدرس Webhook شما (فقط بخش اصلی) ⚠️
             const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
             
-            // دیتابیس داخلی برای احراز هویت (حالا 10 رقمی و بدون صفر)
+            // دیتابیس داخلی برای احراز هویت (10 رقمی و بدون صفر)
             const HR_DATABASE = {
                 '9198967708': { name: 'ماهان چگینی', dept: 'مالی' }, 
                 '9121234567': { name: 'سارا احمدی', dept: 'فنی' },
@@ -212,11 +212,10 @@
             };
 
             // =================================================================
-            //               ✅ تابع Webhook GET (فقط ارسال موبایل 10 رقمی) ✅
+            //               ✅ تابع Webhook GET (ارسال موبایل 10 رقمی) ✅
             // =================================================================
             const registerUserAndProceed = async (button, errorElement) => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
-                // ⬅️ اینجا شماره را به 10 رقم نرمال می‌کنیم
                 const mobileNumber10Digit = normalizeMobileNumber(phoneInput); 
                 
                 // ایجاد پارامتر GET: فقط شماره موبایل
@@ -231,6 +230,7 @@
                     const response = await fetch(finalUrl);
                     
                     if (!response.ok) {
+                        // اگر سرور پاسخ 200 نداد
                         console.warn(`Webhook responded with status: ${response.status}`);
                     }
                     
@@ -239,7 +239,6 @@
 
                     document.getElementById('portal-title').textContent = 'دنیای شگفتی‌ها در حال آماده‌سازی...';
                     document.getElementById('portal-challenge-text').textContent = 'تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫';
-
                     button.textContent = 'ورود به پرتال';
                     button.disabled = false;
                     navigateTo('portal-section');
@@ -260,7 +259,17 @@
                 }
             };
 
-            // --- Logic: Phone Verification (چک با شماره 10 رقمی) ---
+            // =================================================================
+            //                    ✨ فعال‌سازی ایونت‌ها ✨
+            // =================================================================
+
+            // 1. فعال‌سازی دکمه باز کردن دعوتنامه
+            document.getElementById('start-adventure-btn').addEventListener('click', () => {
+                navigateTo('phone-section');
+            });
+
+
+            // 2. Logic: Phone Verification (چک با شماره 10 رقمی)
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -269,7 +278,6 @@
                 verifyButton.disabled = true;
                 verifyButton.textContent = 'درحال بررسی...';
 
-                // ⬅️ اینجا هم ورودی کاربر رو 10 رقمی می‌کنیم و با دیتابیس 10 رقمی چک می‌کنیم
                 const normalizedPhone = normalizeMobileNumber(phoneInput);
 
                 if (HR_DATABASE[normalizedPhone]) {
@@ -290,7 +298,7 @@
                 }
             });
 
-            // --- Logic: OTP Verification (بدون تغییر) ---
+            // 3. Logic: OTP Verification
             document.getElementById('verify-otp-btn').addEventListener('click', () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
@@ -301,6 +309,7 @@
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ثبت نهایی...';
 
+                    // ⬅️ ارسال Webhook و ادامه فرآیند
                     registerUserAndProceed(verifyButton, errorText);
 
                 } else {
@@ -308,7 +317,7 @@
                 }
             });
 
-            // --- Logic: Gift Reveal و بقیه بخش‌ها (بدون تغییر) ---
+            // 4. Logic: One-Click Gift Reveal
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -330,6 +339,7 @@
                 runConfetti();
             });
 
+            // 5. Logic: Popup & Send to Friend
             document.querySelectorAll('.close-btn, #popup-next-btn').forEach(el => {
                 el.addEventListener('click', () => {
                     giftPopup.style.display = 'none';
@@ -350,7 +360,7 @@
                 const friendPhone = document.getElementById('friend-phone').value.trim();
                 const message = document.getElementById('friend-message').value.trim();
 
-                if (friendName && friendPhone.length >= 10 && message) { // چک ساده‌تر برای شماره
+                if (friendName && friendPhone.length >= 10 && message) {
                     hasSentMessage = true; 
                     
                     limitText.innerHTML = `✅ ارسال شد! انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
