@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی و کاملاً ریسپانسیو)</title>
+    <title>جشن روز دختر SMS.ir</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -33,15 +33,16 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        /* --- Header/Logo Styles (فیکس لوگوی نصفه) --- */
+        /* --- Header/Logo Styles (فیکس نهایی برای لوگو) --- */
         .app-header {
             width: 100%;
-            padding: 10px 0; /* فیکس پدینگ برای نمایش کامل لوگو */
+            padding: 10px 0; 
             text-align: center;
             position: sticky; 
             top: 0;
             left: 0;
             z-index: 100; 
+            background-color: rgba(255, 255, 255, 0.5); 
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); 
         }
         .app-header img {
@@ -53,7 +54,7 @@
 
         /* --- Section and Card Styles --- */
         .full-screen { 
-            min-height: 100vh; 
+            min-height: calc(100vh - 80px); 
             width: 100%; 
             display: flex; 
             justify-content: center; 
@@ -66,7 +67,7 @@
             pointer-events: none; 
             transition: opacity var(--transition-speed) ease-in-out; 
             z-index: 1; 
-            padding-top: 80px; 
+            padding: 80px 10px 100px; 
         }
         .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         
@@ -114,24 +115,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
         }
 
-        /* استایل کارت ارسال پیامک به دوست */
-        #friend-section .card { 
-            max-width: 650px; 
-            padding: 40px; 
-        }
-        #category-selection { margin-bottom: 30px; padding: 15px; border-radius: 15px; background-color: var(--soft-pink); }
-        .category-container { display: flex; justify-content: space-around; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .category-btn {
-            flex-grow: 1; min-width: 120px; padding: 15px 10px; border-radius: 10px; border: 2px solid var(--primary-color);
-            background-color: var(--card-bg); cursor: pointer; font-weight: bold; color: var(--primary-color); transition: all 0.3s;
-        }
-        .category-btn.selected {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-color-light); border-color: var(--secondary-color); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); transform: scale(1.05);
-        }
-        #friend-message-form { display: none; margin-top: 30px; }
-
-
         /* --- Input, Button, and other common styles --- */
         input[type="tel"], input[type="text"], textarea { 
             width: 100%; padding: 15px 20px; margin: 10px 0; border: 2px solid var(--primary-color); border-radius: 15px; 
@@ -157,34 +140,96 @@
             box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color); 
         }
 
-        /* --- Popups Styles (فیکس استایل پاپ‌آپ هدیه) --- */
+        /* --- Popups Styles (فیکس نهایی پاپ‌آپ‌ها و ریدیزاین هدیه) --- */
         .popup-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; 
+            background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: flex-start; 
+            padding-top: 50px; 
             z-index: 1000; 
-            overflow-y: auto; /* برای اسکرول پاپ‌آپ در موبایل */
+            overflow-y: auto; 
         }
-        .popup-content { 
+        .popup-content, .confirm-popup-content { 
             background: linear-gradient(160deg, #FFFFFF 0%, #FFF8FA 100%); 
-            padding: 30px; /* فیکس پدینگ برای موبایل */
+            padding: 30px; 
             border-radius: 25px; max-width: 420px; width: 95%; 
             position: relative; 
             box-shadow: 0 20px 50px rgba(255, 105, 180, 0.8); border: 4px solid #FFD700; 
-            margin: 20px 0; /* فیکس مارجین در موبایل */
+            margin-bottom: 50px; 
         }
-        .gift-text { font-size: 1.4rem; font-weight: 900; } /* فیکس سایز فونت */
-        .gift-code { font-size: 0.9rem; padding: 10px; } /* فیکس سایز فونت کد */
 
-        /* ... (استایل‌های پاپ‌آپ تایید نهایی و فوتر بدون تغییر) ... */
+        /* 🎯 استایل جدید برای پاپ‌آپ هدیه (Gift Redesign) */
+        .popup-content.gift-redesign { 
+            background: linear-gradient(160deg, #FFFFFF 0%, #FFFAFE 100%); 
+            padding: 35px; 
+            border-radius: 30px; 
+            max-width: 480px; 
+            width: 95%; 
+            box-shadow: 0 25px 70px rgba(255, 105, 180, 0.8), 0 0 0 5px #FFD700; 
+            border: none;
+        }
+
+        .personalized-welcome-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color); 
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .gift-box-wrapper {
+            background: linear-gradient(45deg, #FFD700 0%, #FFA07A 100%); 
+            padding: 20px 15px;
+            border-radius: 20px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7);
+            animation: pulse-shadow 2s infinite; 
+            width: 100%;
+        }
+
+        @keyframes pulse-shadow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .gift-text { 
+            color: #333333; 
+            font-size: 1.6rem; 
+            font-weight: 900; 
+            display: block;
+        }
+
+        .description-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        .gift-usage-info {
+            margin: 25px 0;
+            padding: 15px;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            text-align: center; 
+            font-size: 0.95rem;
+        }
+        .gift-usage-info p {
+            margin: 5px 0;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .next-action-btn {
+            margin-top: 30px;
+        }
+
+        /* --- Footer Styles --- */
         .app-footer {
-            width: 100%; text-align: center; padding: 20px 0; margin-top: 50px;
+            width: 100%; text-align: center; padding: 20px 0;
             background-color: rgba(255, 255, 255, 0.2); 
             border-top: 1px solid rgba(255, 255, 255, 0.3);
             position: relative; z-index: 5; 
-        }
-        .app-footer p {
-            color: var(--text-color-light); 
-            font-size: 0.85rem; opacity: 0.8; margin: 0;
         }
 
         /* ================================================= */
@@ -192,29 +237,42 @@
         /* ================================================= */
         @media (max-width: 768px) {
             
-            h1 { font-size: 2.2rem !important; }
-            .wow-btn { font-size: 1rem; padding: 14px 25px; }
+            h1 { font-size: 2rem !important; } 
+            .wow-btn { font-size: 0.9rem; padding: 12px 20px; }
 
-            /* فیکس لوگوی نصفه در موبایل */
-            .app-header img {
-                max-width: 120px; 
-            }
+            .app-header img { max-width: 120px; }
 
-            /* فیکس ریسپانسیو تاج */
             #personal-celebration-section .card::before {
-                top: -20px;
-                font-size: 2rem;
-                padding: 2px 10px;
+                top: -15px; 
+                font-size: 1.8rem;
+                padding: 0px 8px;
             }
+            #personal-celebration-section .card { padding: 40px 20px; }
+            #celebration-text-content { font-size: 1.1rem; padding: 15px; }
 
-            .full-screen { padding-top: 60px; }
-            .card { padding: 25px 15px; border-radius: 20px; width: 95%; }
+            .full-screen { padding: 80px 5px 100px; } 
+            .card { padding: 20px 10px; border-radius: 20px; width: 98%; } 
 
-            /* فیکس ریسپانسیو فرم پیامک */
-            #friend-section .card { padding: 20px 15px; max-width: 95%; }
+            #friend-section .card { padding: 20px 10px; max-width: 98%; }
             .category-container { flex-direction: column; gap: 8px; }
             .category-btn { min-width: 100%; } 
             
+            /* فیکس نهایی پاپ‌آپ هدیه در موبایل */
+            .popup-content.gift-redesign {
+                padding: 20px 15px; 
+                border-radius: 20px;
+                max-width: 95%;
+                margin-bottom: 20px;
+            }
+            .personalized-welcome-title {
+                font-size: 1.2rem;
+            }
+            .gift-text {
+                font-size: 1.3rem; 
+            }
+            .description-text, .gift-usage-info {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -245,11 +303,11 @@
 
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="otp-welcome-text">خوش آمدی عزیز! 💖</h2>
-                <p>کد تایید ۴ رقمی پیامک‌شده رو وارد کن. لحظۀ ورود به جشن نزدیکه!</p>
+                <h2 id="otp-welcome-text">نام عزیز، به این جشن خوش اومدی!💖</h2>
+                <p id="otp-main-text">کد 4 رقمی که برای ورود به جشن برات پیامک کردیم رو وارد کن تا بریم</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
-                <button id="verify-otp-btn" class="wow-btn">ورود به پرتال</button>
+                <button id="verify-otp-btn" class="wow-btn">ورود به جشن</button>
             </div>
         </section>
         
@@ -263,7 +321,7 @@
 
         <section id="gift-reveal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="gift-reveal-title">لحظه‌ی کشف راز بزرگ! 🎁</h2>
+                <h2 id="gift-reveal-title">نام جان، فقط یک قدم مونده 🎁</h2>
                 <div id="jewel-box">💎</div> 
                 <p id="reveal-message">این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...</p>
                 <button id="show-gift-btn" class="wow-btn">باز کردن جعبه‌ی جواهر! ✨</button>
@@ -309,18 +367,27 @@
     </main>
 
     <div id="gift-popup" class="popup-overlay">
-        <div class="popup-content">
+        <div class="popup-content gift-redesign"> 
             <button class="close-btn" id="popup-close-btn">&times;</button>
             <div id="confetti-container"></div>
-            <h3 id="popup-gift-title" class="gift-title-personalized">🥳 هدیه و سورپرایز ویژه تو: 🥳</h3>
-            <span id="gift-amount" class="gift-text"></span>
             
-            <p id="popup-personal-message" class="popup-personal-message"></p>
-            <div class="screenshot-area">
-                <p class="gift-code">کد اختصاصی: GIRL-MAGIC-2025</p>
+            <h3 id="popup-gift-title" class="personalized-welcome-title">🥳 نام عزیز، هدیه و سورپرایز ویژه این جشن:</h3> 
+            
+            <div class="gift-box-wrapper">
+                <span id="gift-amount" class="gift-text">100 هزار تومان اعتبار کافه SMS.ir</span>
             </div>
+
+            <p id="popup-personal-message" class="popup-personal-message description-text">
+                حضورت کنارمون ارزشمندتره و به‌پاس تبریک روزت، این اعتبار ناقابل تقدیم به تو
+            </p>
+
+            <div class="gift-usage-info">
+                <p>✅ **بدون محدودیت زمانی**</p>
+                <p>🎉 این اعتبار در اکانت کافه‌ت شارژ شده و قابل استفاده‌ست</p>
+            </div>
+
             <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
-            <button id="popup-next-btn-action" class="wow-btn">شادیمو با دوستام پخش کنم! 👯‍♀️</button>
+            <button id="popup-next-btn-action" class="wow-btn next-action-btn">شادیمو با دوستام پخش کنم! 👯‍♀️</button>
         </div>
     </div>
 
@@ -458,8 +525,9 @@
                     errorText.textContent = '';
                     
                     const firstName = currentUser.name.split(' ')[0];
-                    document.getElementById('otp-welcome-text').textContent = `به سرزمین آرزوها خوش اومدی، ${firstName} عزیز! 💖`;
-
+                    document.getElementById('otp-welcome-text').textContent = `${firstName} عزیز، به این جشن خوش اومدی!💖`;
+                    document.getElementById('otp-main-text').textContent = `کد 4 رقمی که برای ورود به جشن برات پیامک کردیم رو وارد کن تا بریم`;
+                    
                     verifyButton.textContent = 'باز کردن درِ جشن 🎉';
                     verifyButton.disabled = false;
                     
@@ -477,7 +545,7 @@
                 const verifyButton = document.getElementById('verify-otp-btn');
                 
                  if (otpInput.length !== 4) {
-                    errorText.textContent = "کد تایید باید دقیقاً ۴ رقم باشد.";
+                    errorText.textContent = "کد ورود به جشن روز دختر 4 رقمیه! دوباره چک می‌کنی؟";
                     return;
                 }
 
@@ -489,7 +557,7 @@
                     proceedToPersonalCelebration(verifyButton); 
 
                 } else {
-                    errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
+                    errorText.textContent = "متاسفانه این کد درست نبود! دوباره بررسی می‌کنی؟ توی جشن منتظرتیم 🎁";
                 }
             };
             
@@ -505,15 +573,15 @@
                 if (e.key === 'Enter') { e.preventDefault(); verifyOtp(); }
             });
             
-            // 3. Logic: Go to Gift Reveal
+            // 3. Logic: Go to Gift Reveal (آپدیت متن صفحه)
             document.getElementById('go-to-gift-btn').addEventListener('click', () => {
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
-                document.getElementById('gift-reveal-title').textContent = `لحظه‌ی کشف راز بزرگ، ${firstName}! 🎁`;
+                document.getElementById('gift-reveal-title').textContent = `${firstName} جان، فقط یک قدم مونده 🎁`;
                 navigateTo('gift-reveal-section');
             });
 
 
-            // 4. Logic: One-Click Gift Reveal 
+            // 4. Logic: One-Click Gift Reveal (آپدیت شده با ریدیزاین و متن جدید)
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -522,13 +590,12 @@
                 document.getElementById('reveal-message').textContent = '🎉 باز شد! 🎉';
                 document.getElementById('show-gift-btn').style.display = 'none'; 
 
-                document.getElementById('gift-amount').textContent = STATIC_GIFT; 
-                
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
-                const message = `درخشش تو، الهام‌بخش تمام ماست، ${firstName} عزیزم. این اعتبار ناقابلی تقدیم به تو! ✨`;
-                document.getElementById('popup-personal-message').textContent = message;
-
-                document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
+                
+                // متن‌های جدید اعمال شدند
+                document.getElementById('popup-gift-title').textContent = `${firstName} عزیز، هدیه و سورپرایز ویژه این جشن:`;
+                document.getElementById('gift-amount').textContent = '100 هزار تومان اعتبار کافه SMS.ir';
+                document.getElementById('popup-personal-message').textContent = 'حضورت کنارمون ارزشمندتره و به‌پاس تبریک روزت، این اعتبار ناقابل تقدیم به تو';
                 
                 giftPopup.style.display = 'flex';
                 runConfetti();
@@ -551,7 +618,6 @@
                     messageBox.value = MESSAGE_TEMPLATES[category];
                     messageForm.style.display = 'block';
                     
-                    // 👇👇👇 کد فیکس اسکرول
                     const friendNameInput = document.getElementById('friend-name');
                     friendNameInput.focus();
                     friendNameInput.scrollIntoView({ behavior: 'smooth', block: 'start', offset: -100 }); 
