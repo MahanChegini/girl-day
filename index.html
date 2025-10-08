@@ -67,7 +67,7 @@
             <div class="content-wrapper">
                 <h1 style="color: var(--text-color-light);">روز دختر، روز درخشش تو! 👑</h1>
                 <p style="color: #FFD9E8;">امروز، روز توئه! ما یک گنجینه‌ی سِرّی داریم که فقط منتظره تو بازش کنی! 💖</p>
-                <button id="start-adventure-btn" class="wow-btn floating">باز کردن دعوتنامه ✨</button>
+                <button id="start-adventure-btn" class="wow-btn floating" onclick="navigateTo('phone-section')">باز کردن دعوتنامه ✨</button>
             </div>
         </section>
 
@@ -194,6 +194,7 @@
             };
 
             // --- توابع کمکی (ناوبری و کانفتی) ---
+            // ⬅️ مهم: این تابع به صورت گلوبال تعریف شده و در HTML هم فراخوانی می‌شود
             const navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
                 sections.forEach(sec => { sec.classList.remove('active-section'); });
@@ -230,13 +231,11 @@
                     const response = await fetch(finalUrl);
                     
                     if (!response.ok) {
-                        // اگر سرور پاسخ 200 نداد
                         console.warn(`Webhook responded with status: ${response.status}`);
                     }
                     
                     // --- ناوبری در صورت موفقیت Webhook ---
                     const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
-
                     document.getElementById('portal-title').textContent = 'دنیای شگفتی‌ها در حال آماده‌سازی...';
                     document.getElementById('portal-challenge-text').textContent = 'تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫';
                     button.textContent = 'ورود به پرتال';
@@ -263,10 +262,7 @@
             //                    ✨ فعال‌سازی ایونت‌ها ✨
             // =================================================================
 
-            // 1. فعال‌سازی دکمه باز کردن دعوتنامه
-            document.getElementById('start-adventure-btn').addEventListener('click', () => {
-                navigateTo('phone-section');
-            });
+            // 1. فعال‌سازی دکمه باز کردن دعوتنامه ⬅️ حذف شد و به صورت inline در HTML قرار گرفت
 
 
             // 2. Logic: Phone Verification (چک با شماره 10 رقمی)
