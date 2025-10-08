@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی و کاملاً ریسپانسیو)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -146,8 +146,17 @@
             width: 100%; padding: 15px 20px; margin: 10px 0; border: 2px solid var(--primary-color); border-radius: 15px; 
             background-color: #FFF; font-size: 1rem; transition: all 0.4s; font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            direction: rtl; /* 🚨 فیکس RTL */
+            text-align: right; /* 🚨 فیکس RTL */
         }
-        /* 🚨 ارتفاع نرمال textarea برای دسکتاپ */
+        input[type="text"] {
+            direction: rtl; 
+            text-align: right;
+        }
+        input[type="tel"] {
+            direction: ltr; /* 🚨 شماره موبایل معمولاً LTR است اما برای نمایش فارسی از RTL استفاده می‌شود */
+            text-align: center;
+        }
         textarea {
              min-height: 100px;
         }
@@ -211,6 +220,16 @@
             border-radius: 10px; text-align: center; font-size: 0.95rem;
         }
         .gift-usage-info p { margin: 5px 0; color: #555; font-weight: bold; }
+        
+        .resend-btn {
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .resend-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
 
         /* ================================================= */
         /* 📱 فیکس نهایی واکنش‌گرایی (MEDIA QUERY) 📱 */
@@ -223,10 +242,8 @@
             .wow-btn { font-size: 0.9rem; padding: 12px 20px; }
             .app-header img { max-width: 120px; }
             .full-screen { padding: 80px 5px 40px; } 
-            /* 🚨 فیکس عرض کارت در موبایل */
             .card { padding: 30px 15px; border-radius: 20px; width: 95%; max-width: 95%; } 
 
-            /* فیکس: کارت تبریک شخصی‌سازی شده در موبایل */
             #personal-celebration-section .card { 
                 padding: 40px 20px; 
             }
@@ -238,7 +255,6 @@
                 line-height: 1.7;
             }
 
-            /* فیکس دکمه‌های دسته‌بندی پیامک برای موبایل */
             .category-container { 
                 flex-direction: column; 
                 gap: 10px; 
@@ -250,7 +266,6 @@
                 padding: 12px 15px; 
             }
             
-            /* فیکس: ظاهر فرم پیامک در موبایل */
             #friend-section .card {
                 padding: 30px 15px; 
                 max-width: 95%;
@@ -263,22 +278,18 @@
                 padding: 12px 15px; 
                 margin: 8px 0;
             }
-            /* 🚨 فیکس نهایی: ارتفاع باکس متن پیامک در موبایل */
             textarea {
                  min-height: 80px; 
             }
-            /* فیکس نهایی: اطمینان از عرض 100% اینپوت ها */
             input, textarea {
                 width: 100%;
             }
 
-            /* فیکس نهایی پاپ‌آپ هدیه در موبایل */
             .popup-content.gift-redesign { padding: 20px 15px; border-radius: 20px; max-width: 95%; margin-bottom: 20px; }
             .personalized-welcome-title { font-size: 1.2rem; }
             .gift-text { font-size: 1.3rem; }
             .description-text, .gift-usage-info { font-size: 0.9rem; }
             
-            /* فیکس دکمه‌های تایید نهایی */
             .confirm-buttons {
                 flex-direction: column;
             }
@@ -320,6 +331,7 @@
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
                 <button id="verify-otp-btn" class="wow-btn">ورود به جشن</button>
+                <button id="resend-btn" class="resend-btn" disabled style="background: none; border: none; color: var(--secondary-color); font-weight: bold; margin-top: 10px; cursor: pointer;"></button>
             </div>
         </section>
         
@@ -427,16 +439,17 @@
 
             const API_KEY = 'FpylXuJJua473fjeaphDNRpnr2jM2W0foCqR6qQ4e1cbpmoi'; // کلید وب‌سرویس شما
             const TEMPLATE_ID_LOGIN = 327224; // شناسه قالب لاگین
+            const TEMPLATE_ID_FRIEND = 407547; // شناسه قالب ارسال به دوست 
             
             const sections = document.querySelectorAll('.full-screen');
             let hasSentMessage = false;
-            let generatedOTP = null; // برای ذخیره کد 4 رقمی تولید شده
+            let generatedOTP = null; 
+            let currentUser = {}; 
+            let timerInterval = null; 
+            const RESEND_DELAY = 120; // 120 ثانیه
             
-            // 🚨 دیتابیس آپدیت شده با نام، واحد، شماره و متن شخصی‌سازی شده (Message)
+            // 🚨 دیتابیس (اطلاعات فقط برای نمونه‌سازی)
             const HR_DATABASE = {
-                // [شماره همراه 10 رقمی]: { name: "نام-نام خانوادگی", dept: "واحد سازمانی", message: "متن تبریک شخصی" }
-                
-                // تیم پشتیبانی
                 '9120339941': { name: 'فرناز-نصیربیگی', dept: 'پشتیبانی', message: 'تو از اون دخترا هستی که با صبر و مهربونی‌ت، دلِ هر کاربر و همکار رو آرام می‌کنی 💖 پشتیبانی فقط یه شغل نیست… یه هنر واقعی، و تو استادش شدی! امروز روز توئه؛ روز توانایی، تلاش و درخششت ✨' },
                 '9195982804': { name: 'زهرا-عظیمی', dept: 'پشتیبانی', message: 'تو با دقت و مهارتت، همیشه اطمینان و آرامش رو به تیم و کاربران هدیه می‌دی 💖 پشتیبانی برای تو فقط یه شغل نیست، بلکه راهی برای درخشش و کمک به دیگرانه! امروز جشن توئه؛ روز تقدیر از تلاش و مهربونی‌ت ✨' },
                 '9128420375': { name: 'زهرا-بهرامی', dept: 'پشتیبانی', message: 'با صبر و تعهدت، همیشه تجربه کاربری و محیط کاری بهتر رو خلق می‌کنی 💖 پشتیبانی تنها وظیفه نیست، یه هنر واقعیه و تو استادش شدی! امروز روز توئه؛ روز درخشش و قدردانی از مهارتت ✨' },
@@ -447,27 +460,13 @@
                 '9027697062': { name: 'سمیرا-پاپی', dept: 'پشتیبانی', message: 'تو با دقت و صبرت، همیشه اعتماد و آرامش رو به تیم هدیه می‌دی 💖 پشتیبانی یه هنر واقعی است و تو استادش شدی! امروز روز توئه؛ روز مهربونی و توانایی تو ✨' },
                 '9025816764': { name: 'مبینا-عبدی', dept: 'پشتیبانی', message: 'حضور حرفه‌ای و مهربانانه تو در تیم پشتیبانی، الهام‌بخش همه همکارانه 💖 پشتیبانی برای تو فقط یک شغل نیست، بلکه هنره! امروز روز توئه؛ روز درخشش و تعهد تو ✨' },
                 '9100817760': { name: 'زهرا-شادمانی', dept: 'پشتیبانی', message: 'تو با تلاش و مهارتت، همیشه تجربه‌ای مثبت و آرامش‌بخش برای تیم و کاربران خلق می‌کنی 💖 پشتیبانی یه هنر واقعی است، و تو استادش شدی! امروز روز توئه؛ روز درخشش و توانایی تو ✨' },
-                
-                // تیم مدیر مالی
                 '9120223124': { name: 'مائده-صدفی طهرانی', dept: 'مدیر مالی', message: 'تو با مدیریت دقیق و حرفه‌ای‌ت، مسیر مالی تیم رو هموار و مطمئن نگه می‌داری 💖 مالی فقط اعداد و گزارش نیست، بلکه هنر تصمیم‌گیری هوشمندانه است، و تو استادش شدی! امروز روز توئه؛ روز توانایی و رهبری تو ✨' },
-                
-                // تیم کارشناس ارشد مالی
                 '9199894845': { name: 'تبسم-قلی‌پور', dept: 'کارشناس ارشد مالی', message: 'تو از اون دخترا هستی که با دقت و نظمش، پایه‌های مالی تیم رو مستحکم و مطمئن نگه می‌داره 💖 مالی فقط اعداد نیست… هنرِ مدیریت و مهارت تو رو می‌طلبه، و تو استادش شدی! امروز روز توئه؛ روز درخشش، توانایی و تلاش ارزشمندت ✨' },
-                
-                // تیم کارشناس تولید محتوای سوشال
                 '9129349789': { name: 'آتش-ناری', dept: 'تولید محتوا', message: 'تو با مهارت و خلاقیتت، همیشه محتوایی تکرار نشدنی و میلیونی تولید می‌کنی💖 تولید محتوا فقط نوشتن نیست؛ هنر ارتباط موثره و تو استادش شدی! امروز روز توئه؛ روز درخشش و توانایی تو ✨' },
                 '9129314376': { name: 'انسیه-دهقانی', dept: 'تولید محتوا', message: 'تو با تعهد و ذکاوتت، همیشه محتوایی تولید می‌کنی که تاثیرگذار و جذابه 💖 تولید محتوا یه هنرِ واقعی است، و تو استادش شدی! امروز روز توئه؛ روز مهربونی و خلاقیت تو ✨' },
-                
-                // تیم گرافیست
                 '9227657238': { name: 'سحر-نیازی', dept: 'گرافیست', message: 'تو با خلاقیت و دقتت، همیشه زیبایی و انسجام رو به محتوای تیم هدیه می‌دی 💖 طراحی فقط تصویر نیست؛ هنر خلق تجربه بصریه، و تو استادش شدی! امروز روز توئه؛ روز درخشش و استعداد تو ✨' },
-                
-                // تیم برنامه‌نویس فرانت
                 '9127677208': { name: 'مهدا-کاظمی', dept: 'برنامه‌نویس فرانت', message: 'تو با تمرکز و خلاقیتت، همیشه تجربه‌ای روان و دلنشین برای کاربران خلق می‌کنی 💖 برنامه‌نویسی فقط کدنویسی نیست… هنر خلق تجربه‌های بی‌نقصه، و تو استادش شدی! امروز روز توئه؛ روز درخشش و مهارتت ✨' },
-                
-                // تیم مدیر (پیام مخصوص)
                 '9124487370': { name: 'وحید-خسروی', dept: 'مدیر', message: 'شما چون مدیرمون هستید به این صفحه دسترسی دارید😁 ما توی این صفحه به تشکر از زحمات همکاران دخترمون پرداختیم! شما هم چون مدیر هستید ارادت داریم' },
-
-                // تیم تست (شما)
                 '9198967708': { name: 'ماهان-چگینی', dept: 'تست (توسعه)', message: 'تو زحمت توسعه این سرویس رو کشیدی، حالا هم ببینش و ممنونیم ازت....' },
                 '9129252853': { name: 'ماهاان-چگینی', dept: 'تست', message: 'تو با دقت و مهارتت، همیشه تجربه‌ای بهتر و مطمئن برای تیم ایجاد می‌کنی 💖 تست کردن فقط یک شغل نیست، هنرِ شناخت دقیق است، و تو استادش شدی! امروز روز توئه؛ روز درخشش و تلاش تو ✨' }
             };
@@ -479,7 +478,6 @@
                 'self-write': '' 
             };
 
-            let currentUser = {}; 
             
             // --- تابع نرمال‌سازی شماره به 10 رقم (حذف صفر اول) ---
             const normalizeMobileNumber = (input) => {
@@ -495,10 +493,131 @@
                 return fullName ? fullName.split('-')[0] : 'عزیز';
             };
 
+            // --- تابع کمکی: استخراج نام و نام خانوادگی (بعد از خط تیره) ---
+            const getFullName = (fullName) => {
+                return fullName ? fullName.replace('-', ' ') : 'دوست عزیز';
+            };
+
             // --- تابع کمکی: تولید کد 4 رقمی تصادفی ---
             const generateRandomOTP = () => {
-                // تولید عدد 4 رقمی بین 1000 تا 9999
                 return Math.floor(1000 + Math.random() * 9000).toString();
+            };
+
+            // =================================================================
+            //                         ⏰ توابع تایمر ارسال مجدد ⏰
+            // =================================================================
+            const startResendTimer = (duration) => {
+                const resendBtn = document.getElementById('resend-btn');
+                let timer = duration;
+                
+                resendBtn.disabled = true;
+                if (timerInterval) clearInterval(timerInterval);
+
+                timerInterval = setInterval(() => {
+                    const minutes = Math.floor(timer / 60);
+                    const seconds = timer % 60;
+
+                    resendBtn.textContent = `ارسال مجدد کد (${minutes}:${seconds < 10 ? '0' : ''}${seconds})`;
+
+                    if (timer <= 0) {
+                        clearInterval(timerInterval);
+                        resendBtn.textContent = 'ارسال مجدد کد تایید';
+                        resendBtn.disabled = false;
+                    }
+                    timer--;
+                }, 1000);
+            };
+            
+            // =================================================================
+            //                         📡 توابع API ارسال پیامک 📡
+            // =================================================================
+
+            // 🚨 تابع مستقل ارسال کد تأیید (برای استفاده در لاگین و ارسال مجدد)
+            const sendSmsVerification = async (mobileNumber, name) => {
+                const errorText = document.getElementById('phone-error') || document.getElementById('otp-error');
+                
+                // 1. تولید کد و ذخیره آن
+                generatedOTP = generateRandomOTP(); 
+                
+                // 2. ساخت بدنه درخواست API
+                const requestBody = {
+                    "mobile": mobileNumber, 
+                    "templateId": TEMPLATE_ID_LOGIN,
+                    "parameters": [
+                        { "name": "NAME", "value": name },
+                        { "name": "CODE", "value": generatedOTP }
+                    ]
+                };
+
+                try {
+                    const response = await fetch('https://api.sms.ir/v1/send/verify', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': API_KEY 
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.status === 1) {
+                        errorText.textContent = '';
+                        return true; // موفقیت
+                    } else {
+                        console.error('API Error:', result);
+                        errorText.textContent = `خطا در ارسال پیامک (Status: ${result.status}). لطفاً بعداً امتحان کنید.`;
+                        return false; // شکست
+                    }
+
+                } catch (error) {
+                    console.error('Fetch Error:', error);
+                    errorText.textContent = "خطا در برقراری ارتباط با سرویس پیامک. لطفاً اتصال اینترنت خود را چک کنید.";
+                    return false; // شکست
+                }
+            };
+
+            // 🚨 تابع ارسال پیامک به دوست
+            const sendSmsToFriend = async (friendMobile, friendName, message) => {
+                
+                const senderFullName = getFullName(currentUser.name);
+                const errorText = document.getElementById('message-limit-text');
+
+                const requestBody = {
+                    "mobile": normalizeMobileNumber(friendMobile), 
+                    "templateId": TEMPLATE_ID_FRIEND,
+                    "parameters": [
+                        { "name": "FULLNAME", "value": senderFullName },
+                        { "name": "GIFTNAME", "value": friendName },
+                        { "name": "MESSAGE", "value": message }
+                    ]
+                };
+                
+                try {
+                    const response = await fetch('https://api.sms.ir/v1/send/verify', { 
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': API_KEY 
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.status === 1) {
+                        return true; // موفقیت
+                    } else {
+                        console.error('API Friend Send Error:', result);
+                        errorText.textContent = `متأسفانه خطایی در ارسال پیامک برای دوست شما رخ داد. (Status: ${result.status})`;
+                        return false; // شکست
+                    }
+
+                } catch (error) {
+                    console.error('Fetch Friend Send Error:', error);
+                    errorText.textContent = "خطا در برقراری ارتباط با سرویس پیامک. لطفاً اتصال اینترنت خود را چک کنید.";
+                    return false; // شکست
+                }
             };
 
 
@@ -533,7 +652,6 @@
                 const personalText = currentUser.message || 'تبریک ویژه روز دختر به شما 💖'; 
                 
                 document.getElementById('personal-celebration-title').textContent = `روزت مبارک، ${firstName} درخشان! 👑`;
-                
                 document.getElementById('celebration-text-content').innerHTML = `<strong>${firstName} عزیز</strong>، <br><br> ${personalText.replace(/\n/g, '<br>')}`;
 
                 button.textContent = 'ورود به پرتال';
@@ -557,8 +675,8 @@
                 const errorText = document.getElementById('phone-error');
                 const verifyButton = document.getElementById('verify-phone-btn');
                 
-                if (phoneInput.length < 10) {
-                    errorText.textContent = "شماره موبایل باید حداقل 10 رقم باشد (بدون صفر اول).";
+                if (normalizeMobileNumber(phoneInput).length !== 10) {
+                    errorText.textContent = "شماره موبایل نامعتبر است. باید ۱۱ رقم با صفر اول یا ۱۰ رقم بدون صفر باشد.";
                     return;
                 }
                 
@@ -566,68 +684,26 @@
                 verifyButton.textContent = 'درحال بررسی و ارسال کد...';
 
                 const normalizedPhone = normalizeMobileNumber(phoneInput);
-
+                
                 if (HR_DATABASE[normalizedPhone]) {
                     currentUser = HR_DATABASE[normalizedPhone];
-                    errorText.textContent = '';
-                    
                     const firstName = getFirstName(currentUser.name);
-                    
-                    // 1. تولید کد و ذخیره آن
-                    generatedOTP = generateRandomOTP(); 
-                    
-                    // 2. ساخت بدنه درخواست API
-                    const requestBody = {
-                        "mobile": normalizedPhone, // شماره موبایل 10 رقمی
-                        "templateId": TEMPLATE_ID_LOGIN,
-                        "parameters": [
-                            {
-                                "name": "NAME", // کلید در قالب SMS
-                                "value": firstName 
-                            },
-                            {
-                                "name": "CODE", // کلید در قالب SMS
-                                "value": generatedOTP 
-                            }
-                        ]
-                    };
 
-                    // 3. ارسال درخواست API
-                    try {
-                        const response = await fetch('https://api.sms.ir/v1/send/verify', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-API-KEY': API_KEY 
-                            },
-                            body: JSON.stringify(requestBody)
-                        });
+                    const success = await sendSmsVerification(normalizedPhone, firstName);
 
-                        const result = await response.json();
+                    if (success) {
+                        
+                        document.getElementById('otp-welcome-text').textContent = `${firstName} عزیز، به این جشن خوش اومدی!💖`;
+                        document.getElementById('otp-main-text').textContent = `کد 4 رقمی که برای ورود به جشن برات پیامک کردیم رو وارد کن تا بریم`;
+                        
+                        verifyButton.textContent = 'باز کردن درِ جشن 🎉';
+                        verifyButton.disabled = false;
+                        
+                        // 🚨 شروع تایمر ارسال مجدد
+                        startResendTimer(RESEND_DELAY);
 
-                        if (response.ok && result.status === 1) {
-                            // در صورت موفقیت API
-                            
-                            document.getElementById('otp-welcome-text').textContent = `${firstName} عزیز، به این جشن خوش اومدی!💖`;
-                            document.getElementById('otp-main-text').textContent = `کد 4 رقمی که برای ورود به جشن برات پیامک کردیم رو وارد کن تا بریم`;
-                            
-                            verifyButton.textContent = 'باز کردن درِ جشن 🎉';
-                            verifyButton.disabled = false;
-                            
-                            // انتقال به صفحه OTP
-                            navigateTo('otp-section');
-
-                        } else {
-                            // در صورت عدم موفقیت API
-                            console.error('API Error:', result);
-                            errorText.textContent = `خطا در ارسال پیامک (Status: ${result.status}). لطفاً بعداً امتحان کنید.`;
-                            verifyButton.textContent = 'باز کردن درِ جشن 🎉';
-                            verifyButton.disabled = false;
-                        }
-
-                    } catch (error) {
-                        console.error('Fetch Error:', error);
-                        errorText.textContent = "خطا در برقراری ارتباط با سرویس پیامک. لطفاً اتصال اینترنت خود را چک کنید.";
+                        navigateTo('otp-section');
+                    } else {
                         verifyButton.textContent = 'باز کردن درِ جشن 🎉';
                         verifyButton.disabled = false;
                     }
@@ -648,16 +724,16 @@
                     return;
                 }
 
-                // مقایسه کد وارد شده با کد ذخیره شده از API
                 if (otpInput === generatedOTP) { 
                     errorText.textContent = '';
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ورود...';
+                    
+                    if (timerInterval) clearInterval(timerInterval);
 
                     proceedToPersonalCelebration(verifyButton); 
 
                 } else {
-                    // 🚨 حالت نهایی: پیام خطای عمومی بدون نمایش کد صحیح
                     errorText.textContent = `متاسفانه این کد درست نبود! دوباره بررسی می‌کنی؟ توی جشن منتظرتیم 🎁`; 
                 }
             };
@@ -667,14 +743,39 @@
             document.getElementById('phone-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); verifyPhone(); }
             });
+            
+            // 🚨 2. Logic: Resend OTP (استفاده مجدد از API)
+            document.getElementById('resend-btn').addEventListener('click', async () => {
+                const resendBtn = document.getElementById('resend-btn');
+                resendBtn.disabled = true;
+                resendBtn.textContent = 'درحال ارسال مجدد...';
+                
+                const normalizedPhone = normalizeMobileNumber(document.getElementById('phone-input').value.trim());
+                const firstName = getFirstName(currentUser.name);
 
-            // 2. Logic: OTP Verification
+                const success = await sendSmsVerification(normalizedPhone, firstName);
+                
+                if (success) {
+                    document.getElementById('otp-error').textContent = 'پیامک جدید با موفقیت ارسال شد.';
+                    startResendTimer(RESEND_DELAY);
+                } else {
+                    // در صورت خطا، دکمه را بعد از چند ثانیه دوباره فعال کن
+                     resendBtn.textContent = 'خطا در ارسال! دوباره امتحان کن.';
+                     setTimeout(() => { 
+                        resendBtn.textContent = 'ارسال مجدد کد تایید';
+                        resendBtn.disabled = false;
+                    }, 5000); 
+                }
+            });
+
+
+            // 3. Logic: OTP Verification
             document.getElementById('verify-otp-btn').addEventListener('click', verifyOtp);
             document.getElementById('otp-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); verifyOtp(); }
             });
             
-            // 3. Logic: Go to Gift Reveal (آپدیت متن صفحه)
+            // 4. Logic: Go to Gift Reveal (آپدیت متن صفحه)
             document.getElementById('go-to-gift-btn').addEventListener('click', () => {
                 const firstName = getFirstName(currentUser.name);
                 document.getElementById('gift-reveal-title').textContent = `${firstName} جان، فقط یک قدم مونده 🎁`;
@@ -682,7 +783,7 @@
             });
 
 
-            // 4. Logic: One-Click Gift Reveal (آپدیت شده با ریدیزاین و متن جدید)
+            // 5. Logic: One-Click Gift Reveal (آپدیت شده با ریدیزاین و متن جدید)
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -701,11 +802,11 @@
                 runConfetti();
             });
 
-            // 5. فعال کردن دکمه‌های داخل پاپ‌آپ هدیه
+            // 6. فعال کردن دکمه‌های داخل پاپ‌آپ هدیه
             document.getElementById('popup-close-btn').addEventListener('click', handlePopupAction);
             document.getElementById('popup-next-btn-action').addEventListener('click', handlePopupAction);
 
-            // 6. Logic: Category Selection (فیکس اسکرول به فرم)
+            // 7. Logic: Category Selection (فیکس اسکرول به فرم)
             document.querySelectorAll('.category-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
@@ -720,10 +821,8 @@
                     
                     const friendNameInput = document.getElementById('friend-name');
                     
-                    // 🚨 فیکس نهایی اسکرول: اسکرول به خود فرم نه فقط به یک فیلد
                     messageForm.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
 
-                    // تأخیر کوچک برای تمرکز بعد از اسکرول
                     setTimeout(() => {
                         friendNameInput.focus();
                     }, 300);
@@ -731,7 +830,7 @@
             });
 
 
-            // 7. Logic: Show Confirmation Popup (کلیک روی دکمه ارسال پیامک)
+            // 8. Logic: Show Confirmation Popup (کلیک روی دکمه ارسال پیامک)
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
@@ -745,9 +844,8 @@
                 const friendPhone = document.getElementById('friend-phone').value.trim();
                 const message = document.getElementById('friend-message').value.trim();
 
-                if (friendName && friendPhone.length >= 10 && message) {
+                if (friendName && normalizeMobileNumber(friendPhone).length === 10 && message) {
                     
-                    // نمایش پاپ‌آپ تأیید نهایی
                     const finalConfirmPopup = document.getElementById('final-confirm-popup');
                     document.getElementById('confirm-friend-name').textContent = `نام: ${friendName}`;
                     document.getElementById('confirm-friend-phone').textContent = `شماره: ${friendPhone}`;
@@ -758,28 +856,44 @@
                     finalConfirmPopup.style.display = 'flex';
 
                 } else {
-                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
+                    limitText.textContent = "لطفاً تمام فیلدهای نام، شماره موبایل ۱۱ رقمی (با صفر اول) یا ۱۰ رقمی (بدون صفر) و پیام رو پر کن! ✍️";
                 }
             });
 
-            // 8. Logic: Final Send Action (ارسال نهایی از داخل پاپ‌آپ)
-            // 🚨 اینجا API ارسال پیامک به دوست پیاده‌سازی نشده و صرفاً نمایشی است.
-            document.getElementById('confirm-send-btn').addEventListener('click', () => {
+            // 🚨 9. Logic: Final Send Action (ارسال نهایی API به دوست)
+            document.getElementById('confirm-send-btn').addEventListener('click', async () => {
                 
-                hasSentMessage = true; 
+                const friendName = document.getElementById('friend-name').value.trim();
+                const friendPhone = document.getElementById('friend-phone').value.trim();
+                const message = document.getElementById('friend-message').value.trim();
                 
-                document.getElementById('final-confirm-popup').style.display = 'none';
+                const confirmBtn = document.getElementById('confirm-send-btn');
+                confirmBtn.disabled = true;
+                confirmBtn.textContent = 'درحال ارسال پیامک...';
+                
+                const success = await sendSmsToFriend(friendPhone, friendName, message);
 
-                const firstName = getFirstName(currentUser.name);
-                document.getElementById('final-celebration-title').textContent = `🎉 پیامک شادی ارسال شد، ${firstName}! 😇`;
+                if (success) {
+                    hasSentMessage = true; 
+                    document.getElementById('final-confirm-popup').style.display = 'none';
 
-                setTimeout(() => {
-                    navigateTo('celebration-section');
-                    runConfetti(); 
-                }, 500);
+                    const firstName = getFirstName(currentUser.name);
+                    document.getElementById('final-celebration-title').textContent = `🎉 پیامک شادی ارسال شد، ${firstName}! 😇`;
+
+                    setTimeout(() => {
+                        navigateTo('celebration-section');
+                        runConfetti(); 
+                    }, 500);
+                } else {
+                    confirmBtn.disabled = false;
+                    confirmBtn.textContent = '✅ مطمئنم، ارسال کن!';
+                    document.getElementById('final-confirm-popup').style.display = 'none'; 
+                    navigateTo('friend-section'); 
+                    
+                }
             });
 
-            // 9. Logic: Cancel Send (اصلاح شماره)
+            // 10. Logic: Cancel Send (اصلاح شماره)
             document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
                 document.getElementById('final-confirm-popup').style.display = 'none';
                 document.getElementById('friend-phone').focus(); 
