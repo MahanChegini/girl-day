@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر SMS.ir</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -83,7 +83,7 @@
             overflow: hidden; 
         }
         
-        /* 🚨 فیکس: استایل کارت تبریک شخصی‌سازی شده */
+        /* 🚨 استایل کارت تبریک شخصی‌سازی شده */
         #personal-celebration-section .card { 
             max-width: 800px; 
             padding: 60px 80px; 
@@ -116,7 +116,7 @@
             text-align: right; 
         }
         
-        /* --- Category Selection Styles (فیکس دکمه‌های پیامک) --- */
+        /* --- Category Selection Styles --- */
         #friend-section .card { max-width: 650px; padding: 40px; }
         #category-selection { margin-bottom: 30px; padding: 15px; border-radius: 15px; background-color: var(--soft-pink); }
         .category-container { display: flex; justify-content: space-around; gap: 10px; flex-wrap: wrap; }
@@ -154,7 +154,7 @@
             text-align: right;
         }
         input[type="tel"] {
-            direction: ltr; /* 🚨 شماره موبایل معمولاً LTR است اما برای نمایش فارسی از RTL استفاده می‌شود */
+            direction: ltr; /* 🚨 نمایش عدد در موبایل از چپ به راست */
             text-align: center;
         }
         textarea {
@@ -427,6 +427,11 @@
             </div>
         </div>
     </div>
+
+    <audio id="celebration-audio" preload="auto">
+        <source src="https://download.bibis.ir/Music/English/Alicia-Keys/Alicia-Keys-GIRL-ON-FIRE_bibis.ir.mp3" type="audio/mp3">
+        متأسفانه مرورگر شما از پخش صدای HTML5 پشتیبانی نمی‌کند.
+    </audio>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 
@@ -718,6 +723,7 @@
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
                 const verifyButton = document.getElementById('verify-otp-btn');
+                const audioPlayer = document.getElementById('celebration-audio'); // 🚨 المنت جدید
                 
                  if (otpInput.length !== 4) {
                     errorText.textContent = "کد ورود به جشن روز دختر 4 رقمیه! دوباره چک می‌کنی؟";
@@ -730,6 +736,12 @@
                     verifyButton.textContent = 'درحال ورود...';
                     
                     if (timerInterval) clearInterval(timerInterval);
+                    
+                    // 🚨 پلی کردن آهنگ بعد از تأیید موفق
+                    audioPlayer.volume = 0.5;
+                    audioPlayer.play().catch(error => {
+                        console.error('Playback failed:', error);
+                    });
 
                     proceedToPersonalCelebration(verifyButton); 
 
@@ -759,7 +771,6 @@
                     document.getElementById('otp-error').textContent = 'پیامک جدید با موفقیت ارسال شد.';
                     startResendTimer(RESEND_DELAY);
                 } else {
-                    // در صورت خطا، دکمه را بعد از چند ثانیه دوباره فعال کن
                      resendBtn.textContent = 'خطا در ارسال! دوباره امتحان کن.';
                      setTimeout(() => { 
                         resendBtn.textContent = 'ارسال مجدد کد تایید';
@@ -888,21 +899,4 @@
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = '✅ مطمئنم، ارسال کن!';
                     document.getElementById('final-confirm-popup').style.display = 'none'; 
-                    navigateTo('friend-section'); 
-                    
-                }
-            });
-
-            // 10. Logic: Cancel Send (اصلاح شماره)
-            document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
-                document.getElementById('final-confirm-popup').style.display = 'none';
-                document.getElementById('friend-phone').focus(); 
-            });
-
-
-            // --- Initial Setup ---
-            navigateTo('hero-section'); 
-        });
-    </script>
-</body>
-</html>
+                    navigateTo('friend-section');
