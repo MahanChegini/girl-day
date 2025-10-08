@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر در SMS.ir</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -310,7 +310,7 @@
             <div class="content-wrapper">
                 <h1 style="color: var(--text-color-light);">روز تو، لبخند ماست 💖</h1>
                 <p style="color: #FFD9E8;">روز دختر یعنی بهونه‌ای برای جشن گرفتنِ مهربونی و لبخند، توی این جشن جایزه ببر و شادی هدیه بده</p>
-                <button id="start-adventure-btn" class="wow-btn floating" onclick="navigateTo('phone-section')">باز کردن دعوتنامه ✨</button>
+                <button id="start-adventure-btn" class="wow-btn floating">باز کردن دعوتنامه ✨</button>
             </div>
         </section>
 
@@ -723,7 +723,7 @@
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
                 const verifyButton = document.getElementById('verify-otp-btn');
-                const audioPlayer = document.getElementById('celebration-audio'); // 🚨 المنت جدید
+                const audioPlayer = document.getElementById('celebration-audio'); 
                 
                  if (otpInput.length !== 4) {
                     errorText.textContent = "کد ورود به جشن روز دختر 4 رقمیه! دوباره چک می‌کنی؟";
@@ -750,13 +750,18 @@
                 }
             };
             
-            // 1. Logic: Phone Verification 
+            // 1. Logic: Fix for Start Button (دکمه باز کردن دعوتنامه)
+            document.getElementById('start-adventure-btn').addEventListener('click', () => {
+                navigateTo('phone-section');
+            });
+            
+            // 2. Logic: Phone Verification 
             document.getElementById('verify-phone-btn').addEventListener('click', verifyPhone);
             document.getElementById('phone-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); verifyPhone(); }
             });
             
-            // 🚨 2. Logic: Resend OTP (استفاده مجدد از API)
+            // 🚨 3. Logic: Resend OTP (استفاده مجدد از API)
             document.getElementById('resend-btn').addEventListener('click', async () => {
                 const resendBtn = document.getElementById('resend-btn');
                 resendBtn.disabled = true;
@@ -780,13 +785,13 @@
             });
 
 
-            // 3. Logic: OTP Verification
+            // 4. Logic: OTP Verification
             document.getElementById('verify-otp-btn').addEventListener('click', verifyOtp);
             document.getElementById('otp-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); verifyOtp(); }
             });
             
-            // 4. Logic: Go to Gift Reveal (آپدیت متن صفحه)
+            // 5. Logic: Go to Gift Reveal (آپدیت متن صفحه)
             document.getElementById('go-to-gift-btn').addEventListener('click', () => {
                 const firstName = getFirstName(currentUser.name);
                 document.getElementById('gift-reveal-title').textContent = `${firstName} جان، فقط یک قدم مونده 🎁`;
@@ -794,7 +799,7 @@
             });
 
 
-            // 5. Logic: One-Click Gift Reveal (آپدیت شده با ریدیزاین و متن جدید)
+            // 6. Logic: One-Click Gift Reveal (آپدیت شده با ریدیزاین و متن جدید)
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -813,11 +818,11 @@
                 runConfetti();
             });
 
-            // 6. فعال کردن دکمه‌های داخل پاپ‌آپ هدیه
+            // 7. فعال کردن دکمه‌های داخل پاپ‌آپ هدیه
             document.getElementById('popup-close-btn').addEventListener('click', handlePopupAction);
             document.getElementById('popup-next-btn-action').addEventListener('click', handlePopupAction);
 
-            // 7. Logic: Category Selection (فیکس اسکرول به فرم)
+            // 8. Logic: Category Selection (فیکس اسکرول به فرم)
             document.querySelectorAll('.category-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
@@ -841,7 +846,7 @@
             });
 
 
-            // 8. Logic: Show Confirmation Popup (کلیک روی دکمه ارسال پیامک)
+            // 9. Logic: Show Confirmation Popup (کلیک روی دکمه ارسال پیامک)
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
@@ -871,7 +876,7 @@
                 }
             });
 
-            // 🚨 9. Logic: Final Send Action (ارسال نهایی API به دوست)
+            // 🚨 10. Logic: Final Send Action (ارسال نهایی API به دوست)
             document.getElementById('confirm-send-btn').addEventListener('click', async () => {
                 
                 const friendName = document.getElementById('friend-name').value.trim();
@@ -899,4 +904,21 @@
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = '✅ مطمئنم، ارسال کن!';
                     document.getElementById('final-confirm-popup').style.display = 'none'; 
-                    navigateTo('friend-section');
+                    navigateTo('friend-section'); 
+                    
+                }
+            });
+
+            // 11. Logic: Cancel Send (اصلاح شماره)
+            document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+                document.getElementById('final-confirm-popup').style.display = 'none';
+                document.getElementById('friend-phone').focus(); 
+            });
+
+
+            // --- Initial Setup ---
+            navigateTo('hero-section'); 
+        });
+    </script>
+</body>
+</html>
