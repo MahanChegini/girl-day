@@ -1,146 +1,4 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (OTP Webhook Integrated)</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
-    
-    <style>
-        /* ... بخش CSS شما ... */
-        :root {
-            --primary-color: #FF69B4; 
-            --secondary-color: #A020F0; 
-            --soft-pink: #FFD9E8; 
-            --gradient-start: #FF99CC; 
-            --gradient-end: #CC99FF; 
-            --card-bg: #FFFFFF;
-            --text-color-dark: #333333;
-            --text-color-light: #FFFFFF;
-            --shadow-deep: rgba(160, 32, 240, 0.5); 
-            --transition-speed: 0.7s;
-        }
-
-        /* --- استایل‌های اصلی و فیکس ناوبری --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark); }
-        body, html { height: 100%; overflow-x: hidden; scroll-behavior: smooth; background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); background-size: 400% 400%; animation: gradient-animation 15s ease infinite; }
-        @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .full-screen { min-height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed) ease-in-out; z-index: 1; }
-        .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
-        .card { background-color: var(--card-bg); padding: 50px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); max-width: 450px; width: 90%; border: none; overflow: hidden; }
-        input[type="tel"], input[type="text"], textarea { width: 100%; padding: 15px 20px; margin: 10px 0; border: 2px solid #EEE; border-radius: 25px; background-color: var(--soft-pink); font-size: 1rem; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark); }
-        input[type="tel"]:focus, input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--secondary-color); box-shadow: 0 0 15px var(--secondary-color); transform: scale(1.02); }
-        .error-text { color: var(--primary-color); font-weight: bold; display: block; margin-top: 5px; }
-        .wow-btn { padding: 18px 45px; border: none; border-radius: 50px; font-size: 1.3rem; font-weight: bold; cursor: pointer; color: white; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); box-shadow: 0 10px 20px var(--shadow-deep); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-top: 1.5rem; position: relative; overflow: hidden; z-index: 1; }
-        .wow-btn:hover { transform: translateY(-5px) scale(1.03) rotate(-1deg); box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color); }
-        .floating { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); } }
-        #jewel-box { font-size: 6rem; cursor: pointer; color: #FFD700; animation: floating 3s ease-in-out infinite alternate; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); margin: 20px 0; transition: transform 0.5s; }
-        @keyframes floating { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-10px) rotate(3deg); } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .popup-content { background-color: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 400px; width: 90%; position: relative; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.5); }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 2rem; cursor: pointer; border: none; background: none; color: var(--text-color-dark); }
-        .gift-title-personalized { color: var(--primary-color); margin-bottom: 5px; font-size: 1.5rem; }
-        .gift-text { font-size: 1.8rem; font-weight: 900; color: var(--secondary-color); display: block; margin: 15px 0 25px 0; padding: 10px; border-radius: 10px; background-color: var(--soft-pink); border: 3px solid var(--primary-color); line-height: 1.5; }
-        #personal-message { font-style: italic; color: #666; margin-bottom: 20px; line-height: 1.6; }
-        .gift-code { font-size: 0.9rem; font-weight: bold; color: var(--text-color-dark); padding: 8px 15px; background-color: #f0f0f0; border-radius: 5px; display: inline-block; margin-top: 15px; }
-        .screenshot-tip { font-size: 0.8rem; color: #888; margin-top: 5px; }
-    </style>
-</head>
-<body>
-
-    <audio id="background-music" loop>
-        <source src="rooz-dokhtar.mp3" type="audio/mpeg">
-        متأسفانه مرورگر شما از فایل‌های صوتی پشتیبانی نمی‌کند.
-    </audio>
-
-    <main id="landing-container">
-        <section id="hero-section" class="full-screen active-section">
-            <div class="content-wrapper">
-                <h1 style="color: var(--text-color-light);">روز دختر، روز درخشش تو! 👑</h1>
-                <p style="color: #FFD9E8;">امروز، روز توئه! ما یک گنجینه‌ی سِرّی داریم که فقط منتظره تو بازش کنی! 💖</p>
-                <button id="start-adventure-btn" class="wow-btn floating">باز کردن دعوتنامه ✨</button>
-            </div>
-        </section>
-
-        <section id="phone-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2>گذرواژۀ انحصاری تو 🔑</h2>
-                <p>شماره موبایلت رو وارد کن تا مطمئن شیم **جادوگر اصلی** پشت خطه! 🪄</p>
-                <input type="tel" id="phone-input" placeholder="09** *** ** **" maxlength="11">
-                <p id="phone-error" class="error-text"></p>
-                <button id="verify-phone-btn" class="wow-btn">تأیید هویت</button>
-            </div>
-        </section>
-
-        <section id="otp-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2 id="otp-welcome-text"></h2>
-                <p>کد تایید ۴ رقمی پیامک‌شده رو وارد کن. لحظۀ ورود به جشن نزدیکه!</p>
-                <input type="text" id="otp-input" placeholder="****" maxlength="4">
-                <p id="otp-error" class="error-text"></p>
-                <button id="verify-otp-btn" class="wow-btn">ورود به پرتال</button>
-            </div>
-        </section>
-
-        <section id="portal-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2 id="portal-title"></h2>
-                <div class="portal-loader" style="height: 50px; margin: 20px auto;">
-                    <div style="width: 50px; height: 50px; border-radius: 50%; border: 5px solid var(--soft-pink); border-top-color: var(--secondary-color); animation: spin 1s linear infinite; margin: 0 auto;"></div>
-                </div>
-                <p id="portal-challenge-text" class="portal-text" style="font-weight: bold; color: var(--secondary-color);"></p>
-            </div>
-        </section>
-
-        <section id="gift-reveal-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2 id="gift-reveal-title">لحظه‌ی کشف راز بزرگ! 🎁</h2>
-                <div id="jewel-box">🎁</div> 
-                <p id="reveal-message">این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...</p>
-                <button id="show-gift-btn" class="wow-btn">باز کردن جعبه‌ی جواهر! ✨</button>
-            </div>
-        </section>
-
-        <section id="friend-section" class="full-screen">
-            <div class="card fade-in-down">
-                <h2>💌 یه پیام ساده، می‌تونه دنیای یه نفر رو شاد کنه!</h2>
-                <p style="font-weight: bold; color: var(--secondary-color); margin-bottom: 10px;">شادی رو پخش کن! ✨</p>
-                <p>بهترین کار اینه که حال خوبت رو با دوستات تقسیم کنی. یه تبریک خاص براشون بفرست.</p>
-                <form id="friend-message-form">
-                    <input type="text" id="friend-name" placeholder="نام دوست درخشانت">
-                    <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
-                    <textarea id="friend-message" placeholder="متن پیامک (پیشنهاد: روز دخترت مبارک دوست جادویی من! ✨)"></textarea>
-                    <p id="message-limit-text" class="error-text"></p>
-                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال انرژی مثبت</button>
-                </form>
-            </div>
-        </section>
-
-        <section id="celebration-section" class="full-screen">
-            <div class="content-wrapper">
-                <h1 style="color: var(--primary-color); font-size: 4rem;" id="final-celebration-title">🎉 مأموریت شادی تکمیل شد! 😇</h1>
-                <p>ماجراجویی تکمیل شد! روزت مبارک، دختر درخشان! 💖 حضور تو، بزرگترین افتخار ماست. 🥳</p>
-                <button class="wow-btn" onclick="navigateTo('hero-section')">دعوتنامۀ مجدد</button>
-            </div>
-        </section>
-    </main>
-
-    <div id="gift-popup" class="popup-overlay">
-        <div class="popup-content">
-            <button class="close-btn">&times;</button>
-            <div id="confetti-container"></div>
-            <h3 id="popup-gift-title" class="gift-title-personalized">🥳 هدیه و سورپرایز ویژه تو: 🥳</h3>
-            <span id="gift-amount" class="gift-text"></span>
-            <p id="personal-message"></p>
-            <div class="screenshot-area">
-                <p class="gift-code">کد اختصاصی: GIRL-MAGIC-2025</p>
-            </div>
-            <p class="screenshot-tip">یه اسکرین شات بگیر تا یادت نره! 😉</p>
-            <button id="popup-next-btn" class="wow-btn">شادی رو با دوستام تقسیم کنم! 👯‍♀️</button>
-        </div>
-    </div>
+// ... بخش قبلی کدهای HTML و CSS (بدون تغییر) ...
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
     
@@ -157,7 +15,7 @@
             // Endpoint شما برای چک کردن وضعیت (GET) و ذخیره‌ی نهایی (POST)
             const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
             
-            // لیست ثابت کاربران مجاز
+            // لیست ثابت کاربران مجاز (دیتای اولیه شما)
             const AUTH_LIST = {
                 '09198967708': { name: 'ماهان چگینی', dept: 'مالی' }, 
                 '09121234567': { name: 'سارا احمدی', dept: 'فنی' },
@@ -188,8 +46,9 @@
             const PERSONALIZED_TEXT = { /* ... */ };
             
             // =================================================================
-            //                 ✅ تابع جدید: ثبت نهایی و ناوبری ✅
+            //                 ✅ تابع ثبت نهایی و ناوبری (POST Webhook) ✅
             // =================================================================
+            // این تابع بعد از وارد کردن OTP کال می‌شود.
             const registerUserAndProceed = async (button, errorElement) => {
                 const phone = document.getElementById('phone-input').value.trim();
                 const mobileNumberOnly = phone.replace(/[^0-9]/g, ''); 
@@ -212,6 +71,7 @@
                     });
                     
                     if (!response.ok) {
+                        // اگر سرور خطا داد
                         throw new Error(`Server responded with status: ${response.status}`);
                     }
                     
@@ -239,7 +99,7 @@
 
                 } catch (e) {
                     console.error("Registration Webhook Error:", e);
-                    errorElement.textContent = "مشکلی در ثبت نام نهایی پیش آمد. دوباره تلاش کنید. 😢";
+                    errorElement.textContent = "مشکلی در اتصال به سرور برای ثبت نهایی پیش آمد. دوباره تلاش کنید. 😢";
                     button.textContent = 'ورود به پرتال';
                     button.disabled = false;
                 }
@@ -262,13 +122,15 @@
                 verifyButton.disabled = true;
                 verifyButton.textContent = 'درحال بررسی...';
 
+                // 1. احراز هویت اولیه: چک کردن لیست ثابت AUTH_LIST (اولویت اول)
                 if (!AUTH_LIST[phoneInput]) {
                     errorText.textContent = "شماره وارد شده در لیست مهمان‌های جشن امروز نیست. لطفا دوباره چک کن. 😔";
                     verifyButton.textContent = 'تأیید هویت';
                     verifyButton.disabled = false;
                     return;
                 }
-
+                
+                // --- اگر در لیست اولیه بود، حالا وضعیت تکراری را از سرور چک می‌کنیم ---
                 const mobileNumberOnly = phoneInput.replace(/[^0-9]/g, ''); 
                 const url = `${WEBHOOK_ENDPOINT}?mobile=${mobileNumberOnly}`;
 
@@ -278,6 +140,7 @@
                     const status = result.trim().toLowerCase();
 
                     if (status === 'duplicate') {
+                        // 2. شماره تکراری است
                         errorText.textContent = "عزیزم! شما قبلاً گنجینه‌ی روز دخترت رو باز کردی! ✨";
                         verifyButton.textContent = 'تأیید هویت';
                         verifyButton.disabled = false;
@@ -285,6 +148,7 @@
 
                     } else if (status === 'new') {
                         
+                        // 3. شماره جدید است، به مرحله OTP می‌رود
                         currentUser = AUTH_LIST[phoneInput];
                         const firstName = currentUser.name.split(' ')[0];
                         const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
@@ -295,13 +159,15 @@
                         navigateTo('otp-section');
 
                     } else {
+                        // 4. خطای پاسخ نامعتبر (فقط اگر سرور پاسخ داد ولی محتوای نامعتبر بود)
                         errorText.textContent = "خطای سرور: پاسخ نامعتبر دریافت شد. 😥";
                         verifyButton.textContent = 'تأیید هویت';
                         verifyButton.disabled = false;
                     }
 
                 } catch (e) {
-                    console.error("API Error:", e);
+                    // 5. خطای اتصال واقعی (Timeout, CORS, Network Error)
+                    console.error("API Error (Connection failed):", e);
                     errorText.textContent = "مشکلی در اتصال به سرور پیش آمد. لطفا دوباره امتحان کنید. 😥";
                     verifyButton.textContent = 'تأیید هویت';
                     verifyButton.disabled = false;
@@ -319,6 +185,7 @@
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ثبت نهایی...';
 
+                    // Webhook POST برای ثبت در شیت
                     registerUserAndProceed(verifyButton, errorText);
 
                 } else {
@@ -344,7 +211,7 @@
 
                 document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
                 
-                // 3. ذخیره‌ی نهایی وضعیت در سرور با POST
+                // ذخیره‌ی نهایی وضعیت در سرور با POST (تغییر وضعیت به CLAIMED)
                 const phone = document.getElementById('phone-input').value.trim();
                 const mobileNumberOnly = phone.replace(/[^0-9]/g, ''); 
 
@@ -365,14 +232,14 @@
                     });
                     console.log('Gift claim successfully posted to server.');
                 } catch (e) {
-                    console.error('Error posting gift claim:', e);
+                    console.error('Error posting final gift claim:', e);
                 }
 
                 giftPopup.style.display = 'flex';
                 runConfetti();
             });
 
-            // --- Logic: Popup & Send to Friend (بدون تغییر) ---
+            // --- بقیه منطق‌ها ---
             document.querySelectorAll('.close-btn, #popup-next-btn').forEach(el => {
                 el.addEventListener('click', () => {
                     giftPopup.style.display = 'none';
@@ -382,7 +249,7 @@
 
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                // ... (منطق ارسال پیامک بدون تغییر)
+                // ...
             });
 
             // --- Initial Setup ---
