@@ -147,7 +147,7 @@
             background-color: #FFF; font-size: 1rem; transition: all 0.4s; font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
-        /* 🚨 فیکس: کاهش ارتفاع textarea برای موبایل و دسکتاپ */
+        /* 🚨 ارتفاع نرمال textarea برای دسکتاپ */
         textarea {
              min-height: 100px;
         }
@@ -251,6 +251,10 @@
             }
             
             /* فیکس: ظاهر فرم پیامک در موبایل */
+            #friend-section .card {
+                padding: 30px 15px; 
+                max-width: 95%;
+            }
             #friend-message-form {
                 padding: 0; 
                 display: none; 
@@ -259,7 +263,11 @@
                 padding: 12px 15px; 
                 margin: 8px 0;
             }
-            /* 🚨 فیکس نهایی: اطمینان از عرض 100% اینپوت ها */
+            /* 🚨 فیکس نهایی: ارتفاع باکس متن پیامک در موبایل */
+            textarea {
+                 min-height: 80px; 
+            }
+            /* فیکس نهایی: اطمینان از عرض 100% اینپوت ها */
             input, textarea {
                 width: 100%;
             }
@@ -511,16 +519,15 @@
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
             
-            // تابع به‌روز شده برای نمایش پیام شخصی‌سازی شده از دیتابیس
+            // 🚨 تابع به‌روز شده برای حذف عبارت "همکار بخش [واحد]"
             const proceedToPersonalCelebration = (button) => {
                 const firstName = getFirstName(currentUser.name); 
-                const dept = currentUser.dept || 'عزیز';
                 const personalText = currentUser.message || 'تبریک ویژه روز دختر به شما 💖'; 
                 
                 document.getElementById('personal-celebration-title').textContent = `روزت مبارک، ${firstName} درخشان! 👑`;
                 
-                // نمایش پیام شخصی‌سازی شده: جایگزینی خط جدید با <br>
-                document.getElementById('celebration-text-content').innerHTML = `<strong>${firstName} عزیز</strong>، همکار بخش **${dept}**، <br><br> ${personalText.replace(/\n/g, '<br>')}`;
+                // نمایش پیام شخصی‌سازی شده: حذف ذکر واحد سازمانی
+                document.getElementById('celebration-text-content').innerHTML = `<strong>${firstName} عزیز</strong>، <br><br> ${personalText.replace(/\n/g, '<br>')}`;
 
                 button.textContent = 'ورود به پرتال';
                 button.disabled = false;
