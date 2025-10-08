@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی و آفلاین)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -161,9 +161,6 @@
             const sections = document.querySelectorAll('.full-screen');
             let hasSentMessage = false;
 
-            // ⚠️ آدرس Webhook شما (فقط بخش اصلی) ⚠️
-            const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
-            
             // دیتابیس داخلی برای احراز هویت (10 رقمی و بدون صفر)
             const HR_DATABASE = {
                 '9198967708': { name: 'ماهان چگینی', dept: 'مالی' }, 
@@ -175,18 +172,12 @@
             const TEST_OTP = '1111';
             let currentUser = {}; 
             
-            const GIFTS = [
-                "300,000 تومان اعتبار خرید از کافه شرکت",
-                "کدتخفیف 100% (یک آیتم) خرید از کافه",
-                "بلیت استخر سه‌ماهه‌ رایگان",
-                "بن تخفیف 200,000 تومانی اسنپ‌فود"
-            ];
+            // ⬅️ هدیه ثابت و نهایی
+            const STATIC_GIFT = "100 هزار تومان اعتبار کافه SMS.ir"; 
             
-            // --- تابع جدید: نرمال‌سازی شماره به 10 رقم (حذف صفر اول) ---
+            // --- تابع نرمال‌سازی شماره به 10 رقم (حذف صفر اول) ---
             const normalizeMobileNumber = (input) => {
-                // تمام کاراکترهای غیر عددی را حذف می‌کند
                 let mobile = input.replace(/[^0-9]/g, '');
-                // اگر 11 رقم باشد و با 0 شروع شده باشد، صفر اول را حذف می‌کند.
                 if (mobile.length === 11 && mobile.startsWith('0')) {
                     mobile = mobile.substring(1);
                 }
@@ -194,7 +185,6 @@
             };
 
             // --- توابع کمکی (ناوبری و کانفتی) ---
-            // ⬅️ مهم: این تابع به صورت گلوبال تعریف شده و در HTML هم فراخوانی می‌شود
             const navigateTo = (targetId) => {
                 const targetSection = document.getElementById(targetId);
                 sections.forEach(sec => { sec.classList.remove('active-section'); });
@@ -212,60 +202,31 @@
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
 
-            // =================================================================
-            //               ✅ تابع Webhook GET (ارسال موبایل 10 رقمی) ✅
-            // =================================================================
-            const registerUserAndProceed = async (button, errorElement) => {
-                const phoneInput = document.getElementById('phone-input').value.trim();
-                const mobileNumber10Digit = normalizeMobileNumber(phoneInput); 
+            // ⬅️ تابع ناوبری به پرتال بعد از تأیید (دیگر Webhook را فراخوانی نمی‌کند)
+            const proceedToPortal = (button) => {
+                const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
+
+                document.getElementById('portal-title').textContent = 'دنیای شگفتی‌ها در حال آماده‌سازی...';
+                document.getElementById('portal-challenge-text').textContent = 'تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫';
+                button.textContent = 'ورود به پرتال';
+                button.disabled = false;
+                navigateTo('portal-section');
                 
-                // ایجاد پارامتر GET: فقط شماره موبایل
-                const params = new URLSearchParams({
-                    mobile: mobileNumber10Digit,
-                });
-
-                // ساخت URL نهایی: آدرس + ?mobile=شماره (10 رقمی)
-                const finalUrl = `${WEBHOOK_ENDPOINT}?${params.toString()}`;
-
-                try {
-                    const response = await fetch(finalUrl);
-                    
-                    if (!response.ok) {
-                        console.warn(`Webhook responded with status: ${response.status}`);
-                    }
-                    
-                    // --- ناوبری در صورت موفقیت Webhook ---
-                    const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
-                    document.getElementById('portal-title').textContent = 'دنیای شگفتی‌ها در حال آماده‌سازی...';
-                    document.getElementById('portal-challenge-text').textContent = 'تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫';
-                    button.textContent = 'ورود به پرتال';
-                    button.disabled = false;
-                    navigateTo('portal-section');
-                    
-                    setTimeout(() => {
-                        document.getElementById('gift-reveal-title').textContent = `لحظه‌ی کشف راز بزرگ، ${firstName}! 🎁`;
-                        document.getElementById('jewel-box').style.display = 'block';
-                        document.getElementById('reveal-message').textContent = 'این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...';
-                        document.getElementById('show-gift-btn').style.display = 'block'; 
-                        navigateTo('gift-reveal-section'); 
-                    }, 3000); 
-
-                } catch (e) {
-                    console.error("Registration Webhook Error (GET):", e);
-                    errorElement.textContent = "مشکلی در اتصال به سرور برای ثبت نهایی پیش آمد. دوباره تلاش کنید. 😢";
-                    button.textContent = 'ورود به پرتال';
-                    button.disabled = false;
-                }
+                setTimeout(() => {
+                    document.getElementById('gift-reveal-title').textContent = `لحظه‌ی کشف راز بزرگ، ${firstName}! 🎁`;
+                    document.getElementById('jewel-box').style.display = 'block';
+                    document.getElementById('reveal-message').textContent = 'این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...';
+                    document.getElementById('show-gift-btn').style.display = 'block'; 
+                    navigateTo('gift-reveal-section'); 
+                }, 3000); 
             };
+
 
             // =================================================================
             //                    ✨ فعال‌سازی ایونت‌ها ✨
             // =================================================================
 
-            // 1. فعال‌سازی دکمه باز کردن دعوتنامه ⬅️ حذف شد و به صورت inline در HTML قرار گرفت
-
-
-            // 2. Logic: Phone Verification (چک با شماره 10 رقمی)
+            // 1. Logic: Phone Verification (چک با شماره 10 رقمی)
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -294,7 +255,7 @@
                 }
             });
 
-            // 3. Logic: OTP Verification
+            // 2. Logic: OTP Verification
             document.getElementById('verify-otp-btn').addEventListener('click', () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
@@ -303,17 +264,17 @@
                 if (otpInput === TEST_OTP) {
                     errorText.textContent = '';
                     verifyButton.disabled = true;
-                    verifyButton.textContent = 'درحال ثبت نهایی...';
+                    verifyButton.textContent = 'درحال ورود...';
 
-                    // ⬅️ ارسال Webhook و ادامه فرآیند
-                    registerUserAndProceed(verifyButton, errorText);
+                    // ⬅️ اینجا دیگر Webhook نداریم، مستقیماً به پرتال می‌رویم
+                    proceedToPortal(verifyButton); 
 
                 } else {
                     errorText.textContent = "کد درست نیست! لطفاً با دقت چک کن، پرتال آرزوها منتظره! 🎁";
                 }
             });
 
-            // 4. Logic: One-Click Gift Reveal
+            // 3. Logic: One-Click Gift Reveal
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -322,8 +283,8 @@
                 document.getElementById('reveal-message').textContent = '🎉 باز شد! 🎉';
                 document.getElementById('show-gift-btn').style.display = 'none'; 
 
-                const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
-                document.getElementById('gift-amount').textContent = randomGift;
+                // ⬅️ استفاده از هدیه ثابت
+                document.getElementById('gift-amount').textContent = STATIC_GIFT; 
                 
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
                 const message = `درخشش تو، الهام‌بخش تمام ماست، ${firstName} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`;
@@ -335,7 +296,7 @@
                 runConfetti();
             });
 
-            // 5. Logic: Popup & Send to Friend
+            // 4. Logic: Popup & Send to Friend
             document.querySelectorAll('.close-btn, #popup-next-btn').forEach(el => {
                 el.addEventListener('click', () => {
                     giftPopup.style.display = 'none';
