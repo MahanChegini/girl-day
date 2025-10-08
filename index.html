@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی و مدرن)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی و واکنش‌گرا)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -35,9 +35,10 @@
         .full-screen { min-height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed) ease-in-out; z-index: 1; }
         .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         
+        /* استایل عمومی کارت */
         .card { background-color: var(--card-bg); padding: 50px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); max-width: 450px; width: 90%; border: none; overflow: hidden; }
         
-        /* استایل اختصاصی برای کارد تبریک شخصی‌سازی شده (فیکس و مدرن) */
+        /* استایل اختصاصی برای کارد تبریک شخصی‌سازی شده */
         #personal-celebration-section .card {
             max-width: 650px; 
             padding: 60px 80px;
@@ -73,7 +74,6 @@
 
         #jewel-box { font-size: 6rem; cursor: pointer; color: #FFD700; animation: floating 3s ease-in-out infinite alternate; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); margin: 20px 0; transition: transform 0.5s; }
         @keyframes floating { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-10px) rotate(3deg); } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .popup-content { background-color: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 400px; width: 90%; position: relative; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.5); }
@@ -91,7 +91,7 @@
             color: var(--text-color-dark); 
             margin: 30px 0; 
             padding: 20px; 
-            background: linear-gradient(135deg, #FFF8FB, #FFFBFE); /* پس زمینه لایت و زیبا */
+            background: linear-gradient(135deg, #FFF8FB, #FFFBFE);
             border-left: 5px solid var(--primary-color);
             border-right: 5px solid var(--secondary-color);
             border-radius: 15px; 
@@ -99,6 +99,46 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         #personal-celebration-title { color: var(--primary-color); margin-bottom: 5px; font-size: 2.5rem; }
+
+        /* ================================================= */
+        /* 📱 فیکس واکنش‌گرایی (MEDIA QUERY) 📱 */
+        /* ================================================= */
+        @media (max-width: 768px) {
+            
+            /* فونت‌های بزرگ را کوچک کن */
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 1.5rem; }
+            .wow-btn { font-size: 1.1rem; padding: 15px 30px; }
+            #jewel-box { font-size: 5rem; }
+            #final-celebration-title { font-size: 3rem !important; }
+            
+            /* پدینگ کارت‌ها را کاهش بده */
+            .card { padding: 30px 20px; border-radius: 25px; width: 95%; }
+            .popup-content { padding: 30px 20px; }
+            
+            /* فیکس صفحه تبریک شخصی‌سازی شده */
+            #personal-celebration-section .card {
+                padding: 40px 30px; /* کاهش پدینگ */
+                max-width: 95%;
+                border-width: 3px;
+            }
+            #personal-celebration-section .card::before {
+                top: -30px;
+                font-size: 2rem;
+            }
+            #personal-celebration-title { font-size: 2rem; }
+            #celebration-text-content { 
+                font-size: 1rem; 
+                padding: 15px; 
+                line-height: 1.6;
+            }
+
+            /* فیکس فرم ارسال پیامک */
+            #friend-section .card {
+                max-width: 95%;
+            }
+            
+        }
     </style>
 </head>
 <body>
@@ -272,7 +312,7 @@
                 navigateTo('personal-celebration-section');
             };
 
-            // ⬅️ فیکس تابع مدیریت دکمه‌های پاپ‌آپ
+            // فیکس تابع مدیریت دکمه‌های پاپ‌آپ
             const handlePopupAction = () => {
                 const giftPopup = document.getElementById('gift-popup');
                 // 1. پاپ‌آپ را پنهان کن
@@ -362,7 +402,7 @@
                 runConfetti();
             });
 
-            // ⬅️ 5. فیکس: فعال کردن دکمه‌های داخل پاپ‌آپ با استفاده از تابع فیکس
+            // 5. فیکس: فعال کردن دکمه‌های داخل پاپ‌آپ با استفاده از تابع فیکس
             document.getElementById('popup-close-btn').addEventListener('click', handlePopupAction);
             document.getElementById('popup-next-btn-action').addEventListener('click', handlePopupAction);
 
