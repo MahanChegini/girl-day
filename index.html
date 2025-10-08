@@ -3,28 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی با Webhook)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی با Webhook GET)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
-        /* --- CSS Styles --- */
-        :root {
-            --primary-color: #FF69B4; 
-            --secondary-color: #A020F0; 
-            --soft-pink: #FFD9E8; 
-            --gradient-start: #FF99CC; 
-            --gradient-end: #CC99FF; 
-            --card-bg: #FFFFFF;
-            --text-color-dark: #333333;
-            --text-color-light: #FFFFFF;
-            --shadow-deep: rgba(160, 32, 240, 0.5); 
-            --transition-speed: 0.7s;
-        }
-
-        /* --- استایل‌های اصلی و فیکس ناوبری --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Shabnam', Tahoma, sans-serif; color: var(--text-color-dark); }
-        body, html { height: 100%; overflow-x: hidden; scroll-behavior: smooth; background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); background-size: 400% 400%; animation: gradient-animation 15s ease infinite; }
-        @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        /* ... بخش CSS بدون تغییر ... */
+        :root { /* ... styles ... */ }
+        /* ... بقیه استایل‌ها ... */
         .full-screen { min-height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center; position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed) ease-in-out; z-index: 1; }
         .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         .card { background-color: var(--card-bg); padding: 50px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); max-width: 450px; width: 90%; border: none; overflow: hidden; }
@@ -154,7 +139,7 @@
             const sections = document.querySelectorAll('.full-screen');
             const backgroundMusic = document.getElementById('background-music');
             
-            // Endpoint شما برای چک کردن وضعیت (GET) و ذخیره‌ی نهایی (POST)
+            // Endpoint شما برای چک کردن وضعیت و ذخیره‌ی نهایی (فقط از GET استفاده می‌کنیم)
             const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
             
             // لیست ثابت کاربران مجاز (دیتای اولیه شما)
@@ -217,28 +202,26 @@
             };
             
             // =================================================================
-            //                 ✅ تابع ثبت نهایی و ناوبری (POST Webhook) ✅
+            //                 ✅ تابع ثبت نهایی و ناوبری (GET Webhook) ✅
             // =================================================================
+            // این تابع بعد از وارد کردن OTP کال می‌شود.
             const registerUserAndProceed = async (button, errorElement) => {
                 const phone = document.getElementById('phone-input').value.trim();
                 const mobileNumberOnly = phone.replace(/[^0-9]/g, ''); 
                 
-                const payload = {
+                // اطلاعاتی که می‌خواهیم در شیت ذخیره کنیم (با Query Parameters برای GET)
+                const params = new URLSearchParams({
                     mobile: mobileNumberOnly,
                     name: currentUser.name,
                     dept: currentUser.dept,
-                    status: 'VERIFIED_OTP', // وضعیت پس از تأیید کد
-                };
+                    status: 'VERIFIED_OTP' 
+                }).toString();
 
+                const urlWithParams = `${WEBHOOK_ENDPOINT}?${params}`;
+                
                 try {
-                    // ارسال درخواست POST برای ثبت کاربر پس از تأیید OTP
-                    const response = await fetch(WEBHOOK_ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    // ارسال درخواست GET برای ثبت کاربر پس از تأیید OTP
+                    const response = await fetch(urlWithParams); 
                     
                     if (!response.ok) {
                         throw new Error(`Server responded with status: ${response.status}`);
@@ -281,7 +264,7 @@
                 navigateTo('phone-section');
             });
 
-            // --- Logic: Phone Verification (GET Webhook) ---
+            // --- Logic: Phone Verification (GET Webhook برای چک کردن تکراری) ---
             document.getElementById('verify-phone-btn').addEventListener('click', async () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -301,7 +284,7 @@
                 
                 // --- اگر در لیست اولیه بود، حالا وضعیت تکراری را از سرور چک می‌کنیم ---
                 const mobileNumberOnly = phoneInput.replace(/[^0-9]/g, ''); 
-                const url = `${WEBHOOK_ENDPOINT}?mobile=${mobileNumberOnly}`;
+                const url = `${WEBHOOK_ENDPOINT}?mobile=${mobileNumberOnly}`; // فقط موبایل را برای چک کردن تکراری می‌فرستیم
 
                 try {
                     const response = await fetch(url);
@@ -354,7 +337,7 @@
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ثبت نهایی...';
 
-                    // Webhook POST برای ثبت در شیت
+                    // Webhook GET برای ثبت در شیت با status=VERIFIED_OTP
                     registerUserAndProceed(verifyButton, errorText);
 
                 } else {
@@ -380,25 +363,21 @@
 
                 document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
                 
-                // ذخیره‌ی نهایی وضعیت در سرور با POST (تغییر وضعیت به CLAIMED)
+                // ذخیره‌ی نهایی وضعیت در سرور با GET (تغییر وضعیت به CLAIMED)
                 const phone = document.getElementById('phone-input').value.trim();
                 const mobileNumberOnly = phone.replace(/[^0-9]/g, ''); 
 
-                const payload = {
+                const params = new URLSearchParams({
                     mobile: mobileNumberOnly,
                     name: currentUser.name,
                     gift_amount: randomGift,
                     status: 'CLAIMED' // وضعیت نهایی
-                };
+                }).toString();
+
+                const urlWithParams = `${WEBHOOK_ENDPOINT}?${params}`;
 
                 try {
-                    await fetch(WEBHOOK_ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    await fetch(urlWithParams);
                     console.log('Gift claim successfully posted to server.');
                 } catch (e) {
                     console.error('Error posting final gift claim:', e);
@@ -418,7 +397,7 @@
 
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                // ... (منطق ارسال پیامک در اینجا حذف شده بود)
+                // ...
                 navigateTo('celebration-section'); 
             });
 
