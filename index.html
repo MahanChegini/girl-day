@@ -9,8 +9,8 @@
     <style>
         /* --- CSS Variables --- */
         :root {
-            --primary-color: #FF69B4; /* صورتی شاد (Hot Pink) */
-            --secondary-color: #A020F0; /* بنفش سلطنتی */
+            --primary-color: #FF69B4; 
+            --secondary-color: #A020F0; 
             --soft-pink: #FFD9E8; 
             --gradient-start: #FF99CC; 
             --gradient-end: #CC99FF; 
@@ -33,16 +33,16 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        /* --- Header/Logo Styles (فیکس شده: Sticky و شفاف) --- */
+        /* --- Header/Logo Styles (Sticky و شفاف) --- */
         .app-header {
             width: 100%;
             padding: 10px 0;
             text-align: center;
-            position: sticky; /* ثابت می‌ماند */
+            position: sticky; 
             top: 0;
             left: 0;
             z-index: 100; 
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* سایه ملایم برای برجستگی */
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); 
         }
         .app-header img {
             max-width: 180px; 
@@ -66,7 +66,7 @@
             pointer-events: none; 
             transition: opacity var(--transition-speed) ease-in-out; 
             z-index: 1; 
-            padding-top: 80px; /* فضای خالی برای لوگو */
+            padding-top: 80px; 
         }
         .full-screen.active-section { opacity: 1; pointer-events: auto; position: relative; z-index: 10; }
         
@@ -82,13 +82,12 @@
             overflow: hidden; 
         }
         
-        /* فیکس: استایل کارت تبریک شخصی‌سازی شده */
+        /* استایل کارت تبریک شخصی‌سازی شده */
         #personal-celebration-section .card { 
-            max-width: 800px; /* افزایش عرض برای دسکتاپ */
+            max-width: 800px; 
             padding: 60px 80px; 
             border: 5px solid var(--secondary-color);
         }
-        #personal-celebration-section .card::before { content: '👑'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-size: 3rem; background: var(--card-bg); padding: 5px 15px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
         #personal-celebration-title { color: var(--primary-color); margin-bottom: 5px; font-size: 2.5rem; }
         #celebration-text-content { 
             font-size: 1.3rem; 
@@ -102,7 +101,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
         }
 
-        /* فیکس: استایل کارت ارسال پیامک به دوست */
+        /* استایل کارت ارسال پیامک به دوست */
         #friend-section .card { 
             max-width: 650px; 
             padding: 40px; 
@@ -110,70 +109,60 @@
         #category-selection { margin-bottom: 30px; padding: 15px; border-radius: 15px; background-color: var(--soft-pink); }
         .category-container { display: flex; justify-content: space-around; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         .category-btn {
-            flex-grow: 1;
-            min-width: 120px;
-            padding: 15px 10px;
-            border-radius: 10px;
-            border: 2px solid var(--primary-color);
-            background-color: var(--card-bg);
-            cursor: pointer;
-            font-weight: bold;
-            color: var(--primary-color);
-            transition: all 0.3s;
+            flex-grow: 1; min-width: 120px; padding: 15px 10px; border-radius: 10px; border: 2px solid var(--primary-color);
+            background-color: var(--card-bg); cursor: pointer; font-weight: bold; color: var(--primary-color); transition: all 0.3s;
         }
         .category-btn.selected {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-color-light);
-            border-color: var(--secondary-color);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            transform: scale(1.05);
+            color: var(--text-color-light); border-color: var(--secondary-color); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); transform: scale(1.05);
         }
         #friend-message-form { display: none; margin-top: 30px; }
 
 
-        /* --- Input, Button, and other common styles --- */
-        input[type="tel"], input[type="text"], textarea { 
-            width: 100%; 
-            padding: 15px 20px; 
-            margin: 10px 0; 
-            border: 2px solid var(--primary-color); 
-            border-radius: 15px; 
-            background-color: #FFF; 
-            font-size: 1rem; 
-            transition: all 0.4s; 
-            font-family: 'Shabnam', Tahoma, sans-serif; 
+        /* پاپ‌آپ تایید نهایی */
+        .confirm-popup-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--primary-color);
+        }
+        .confirm-popup-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        .confirm-info {
+            background-color: var(--soft-pink);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+        .confirm-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .confirm-buttons .wow-btn {
+            flex-grow: 1;
+            margin-top: 0;
+            font-size: 1rem;
+            padding: 12px 20px;
+        }
+        .confirm-buttons .cancel-btn {
+            background: #ccc;
             color: var(--text-color-dark);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: none;
         }
-        input[type="tel"]:focus, input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--secondary-color); box-shadow: 0 0 15px var(--secondary-color); transform: scale(1.01); }
-        .error-text { color: var(--primary-color); font-weight: bold; display: block; margin-top: 5px; }
-
-        .wow-btn { padding: 18px 45px; border: none; border-radius: 50px; font-size: 1.3rem; font-weight: bold; cursor: pointer; color: white; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); box-shadow: 0 10px 20px var(--shadow-deep); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-top: 1.5rem; position: relative; overflow: hidden; z-index: 1; }
-        .wow-btn:hover { transform: translateY(-5px) scale(1.03) rotate(-1deg); box-shadow: 0 15px 25px var(--shadow-deep), 0 0 20px var(--primary-color); }
-
-        /* Gift Popup Redesign Styles */
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .popup-content { 
-            background: linear-gradient(160deg, #FFFFFF 0%, #FFF8FA 100%); 
-            padding: 45px; 
-            border-radius: 25px; 
-            max-width: 420px; 
-            width: 90%; 
-            position: relative; 
-            box-shadow: 0 20px 50px rgba(255, 105, 180, 0.8);
-            border: 4px solid #FFD700; 
-        }
-        .gift-text { 
-            font-size: 1.6rem; 
-            font-weight: 900; 
-            color: #4B0082;
-            display: block; 
-            margin: 20px 0 30px 0; 
-            padding: 15px; 
-            border-radius: 10px; 
-            background: linear-gradient(90deg, #FFEEDD, #FFF0B5);
-            border: 3px dashed #FFA500;
-            line-height: 1.4; 
+        .confirm-buttons .cancel-btn:hover {
+             transform: translateY(-2px) scale(1.02);
+             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }
 
 
@@ -205,11 +194,12 @@
                 padding: 15px; 
             }
             
-            /* فیکس: کارت ارسال پیامک به دوست در موبایل */
+            /* 👇👇👇 فیکس کلیدی: کارت ارسال پیامک به دوست در موبایل */
             #friend-section .card {
-                padding: 30px 20px;
+                padding: 20px 15px; /* کاهش پدینگ */
                 max-width: 95%; 
             }
+            .category-selection { margin-bottom: 20px; }
             .category-container { flex-direction: column; gap: 8px; }
             .category-btn { min-width: 100%; } 
             
@@ -245,7 +235,7 @@
             <div class="card fade-in-down">
                 <h2 id="otp-welcome-text">خوش آمدی عزیز! 💖</h2>
                 <p>کد تایید ۴ رقمی پیامک‌شده رو وارد کن. لحظۀ ورود به جشن نزدیکه!</p>
-                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
+                <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
                 <button id="verify-otp-btn" class="wow-btn">ورود به پرتال</button>
             </div>
@@ -288,7 +278,7 @@
                     <input type="tel" id="friend-phone" placeholder="شماره همراه دوستت" maxlength="11">
                     <textarea id="friend-message" placeholder="متن پیامک"></textarea>
                     <p id="message-limit-text" class="error-text"></p>
-                    <button type="submit" id="send-message-btn" class="wow-btn">ارسال انرژی مثبت</button>
+                    <button type="submit" id="submit-message-btn" class="wow-btn">ارسال انرژی مثبت</button>
                 </form>
             </div>
         </section>
@@ -318,6 +308,22 @@
         </div>
     </div>
 
+    <div id="final-confirm-popup" class="popup-overlay">
+        <div class="confirm-popup-content">
+            <h3 id="confirm-title">تأیید نهایی ارسال پیامک</h3>
+            <p>شما درحال ارسال پیامک تبریک به:</p>
+            <div class="confirm-info">
+                <span id="confirm-friend-name"></span><br>
+                <span id="confirm-friend-phone"></span>
+            </div>
+            <p style="font-weight: bold; color: #555;">اگر مطمئنی، بفرست تا خوشحالش کنیم! 💖</p>
+            <div class="confirm-buttons">
+                <button id="confirm-send-btn" class="wow-btn">✅ مطمئنم، ارسال کن!</button>
+                <button id="confirm-cancel-btn" class="wow-btn cancel-btn">اصلاح شماره</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
     
     <script>
@@ -330,7 +336,6 @@
             const sections = document.querySelectorAll('.full-screen');
             let hasSentMessage = false;
 
-            // دیتابیس داخلی برای احراز هویت (10 رقمی و بدون صفر)
             const HR_DATABASE = {
                 '9198967708': { name: 'ماهان چگینی', dept: 'فناوری اطلاعات' }, 
                 '9121234567': { name: 'سارا احمدی', dept: 'فنی و مهندسی' },
@@ -342,16 +347,14 @@
                 'best-friend': 'دوست صمیمی و جادویی من، روز دختر مبارک! تو یکی از درخشان‌ترین آدم‌های زندگی منی. امیدوارم همیشه همین‌قدر قوی و شاد باشی! ✨',
                 'colleague': 'همکار عزیزم، روز دختر رو به شما تبریک می‌گم. ممنون بابت همکاری‌های عالی و انرژی مثبتی که به تیم می‌دی. امیدوارم همیشه موفق باشی! 💖',
                 'sister': 'خواهر/خویشاوند دوست‌داشتنی، روز دختر مبارک! تو لایق تمام آرزوهای قشنگ این دنیایی. بهترین‌ها برای تو! 💐',
-                'self-write': '' // متن خالی برای حالت دستی
+                'self-write': '' 
             };
 
             const TEST_OTP = '1111';
             let currentUser = {}; 
             
-            // هدیه ثابت و نهایی
             const STATIC_GIFT = "100 هزار تومان اعتبار کافه SMS.ir"; 
             
-            // متن‌های شخصی‌سازی شده بر اساس شغل
             const PERSONAL_MESSAGES = {
                 'فناوری اطلاعات': 'دنیای دیجیتال با درخشش هوش و خلاقیت شماست که پیش می‌رود. حضور یک **متخصص فناوری** مثل شما، جادوی جشن ماست! روزتون مبارک 💖',
                 'فنی و مهندسی': 'هر ساختار قوی، نیازمند دقت و ظرافت است. مهارت‌های **مهندسی** شما، ستون محکمی برای اهداف ماست. قدردان زحمات شماییم. ✨',
@@ -395,7 +398,6 @@
                 fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
             };
 
-            // ناوبری به مرحله تبریک شخصی‌سازی شده (فلو جدید)
             const proceedToPersonalCelebration = (button) => {
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
                 const dept = currentUser.dept || 'default';
@@ -410,7 +412,6 @@
                 navigateTo('personal-celebration-section');
             };
 
-            // فیکس تابع مدیریت دکمه‌های پاپ‌آپ
             const handlePopupAction = () => {
                 const giftPopup = document.getElementById('gift-popup');
                 giftPopup.style.display = 'none';
@@ -421,13 +422,11 @@
             //                    ✨ فعال‌سازی ایونت‌ها (ورود) ✨
             // =================================================================
 
-            // فیکس: تابع کلیک دکمه تأیید هویت
             const verifyPhone = () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
                 const verifyButton = document.getElementById('verify-phone-btn');
                 
-                // --- اعتبارسنجی اولیه
                 if (phoneInput.length < 10) {
                     errorText.textContent = "شماره موبایل باید حداقل 10 رقم باشد (بدون صفر اول).";
                     return;
@@ -456,13 +455,11 @@
                 }
             };
 
-            // فیکس: تابع کلیک دکمه تأیید OTP
             const verifyOtp = () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
                 const verifyButton = document.getElementById('verify-otp-btn');
                 
-                // --- اعتبارسنجی اولیه
                  if (otpInput.length !== 4) {
                     errorText.textContent = "کد تایید باید دقیقاً ۴ رقم باشد.";
                     return;
@@ -482,25 +479,17 @@
             
             // 1. Logic: Phone Verification 
             document.getElementById('verify-phone-btn').addEventListener('click', verifyPhone);
-            // فیکس: فعال‌سازی Enter روی فیلد موبایل
             document.getElementById('phone-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault(); 
-                    verifyPhone();
-                }
+                if (e.key === 'Enter') { e.preventDefault(); verifyPhone(); }
             });
 
             // 2. Logic: OTP Verification
             document.getElementById('verify-otp-btn').addEventListener('click', verifyOtp);
-            // فیکس: فعال‌سازی Enter روی فیلد OTP
             document.getElementById('otp-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault(); 
-                    verifyOtp();
-                }
+                if (e.key === 'Enter') { e.preventDefault(); verifyOtp(); }
             });
             
-            // 3. Logic: Go to Gift Reveal (از مرحله تبریک به جعبه‌ی جواهر)
+            // 3. Logic: Go to Gift Reveal
             document.getElementById('go-to-gift-btn').addEventListener('click', () => {
                 const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
                 document.getElementById('gift-reveal-title').textContent = `لحظه‌ی کشف راز بزرگ، ${firstName}! 🎁`;
@@ -508,7 +497,7 @@
             });
 
 
-            // 4. Logic: One-Click Gift Reveal (باز کردن هدیه و نمایش پاپ‌آپ)
+            // 4. Logic: One-Click Gift Reveal 
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -529,7 +518,7 @@
                 runConfetti();
             });
 
-            // 5. فعال کردن دکمه‌های داخل پاپ‌آپ
+            // 5. فعال کردن دکمه‌های داخل پاپ‌آپ هدیه
             document.getElementById('popup-close-btn').addEventListener('click', handlePopupAction);
             document.getElementById('popup-next-btn-action').addEventListener('click', handlePopupAction);
 
@@ -543,19 +532,14 @@
                     const messageBox = document.getElementById('friend-message');
                     const messageForm = document.getElementById('friend-message-form');
 
-                    // پر کردن خودکار متن
                     messageBox.value = MESSAGE_TEMPLATES[category];
-                    
-                    // نمایش فرم ارسال
                     messageForm.style.display = 'block';
-                    
-                    // فوکوس روی فیلد نام
                     document.getElementById('friend-name').focus();
                 });
             });
 
 
-            // 7. Logic: Send to Friend
+            // 7. Logic: Show Confirmation Popup (کلیک روی دکمه ارسال پیامک)
             document.getElementById('friend-message-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const limitText = document.getElementById('message-limit-text');
@@ -570,24 +554,47 @@
                 const message = document.getElementById('friend-message').value.trim();
 
                 if (friendName && friendPhone.length >= 10 && message) {
-                    hasSentMessage = true; 
                     
-                    limitText.innerHTML = `✅ ارسال شد! انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
+                    // نمایش پاپ‌آپ تأیید نهایی
+                    const finalConfirmPopup = document.getElementById('final-confirm-popup');
+                    document.getElementById('confirm-friend-name').textContent = `نام: ${friendName}`;
+                    document.getElementById('confirm-friend-phone').textContent = `شماره: ${friendPhone}`;
                     
-                    const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
-                    document.getElementById('final-celebration-title').textContent = `🎉 روزت مبارک، ${firstName} عزیز! 👑`;
-
-                    // اینجا در مرحله بعد، اتصال API پیامک انجام می‌شود
-                    // فعلاً با یک دیلی، به مرحله نهایی می‌رویم
-                    setTimeout(() => {
-                        navigateTo('celebration-section');
-                        runConfetti(); 
-                    }, 1000);
+                    const userFirstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
+                    document.getElementById('confirm-title').textContent = `تأیید نهایی ارسال، ${userFirstName} جان!`;
+                    
+                    finalConfirmPopup.style.display = 'flex';
 
                 } else {
                     limitText.textContent = "لطفاً تمام فیلدهای نام، شماره و پیام رو پر کن تا تبریک ارسال بشه! ✍️";
                 }
             });
+
+            // 8. Logic: Final Send Action (ارسال نهایی از داخل پاپ‌آپ)
+            document.getElementById('confirm-send-btn').addEventListener('click', () => {
+                // این تابع در مرحله بعد با اتصال API جایگزین می‌شود
+                
+                hasSentMessage = true; 
+                
+                // بستن پاپ آپ
+                document.getElementById('final-confirm-popup').style.display = 'none';
+
+                // نمایش نهایی
+                const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
+                document.getElementById('final-celebration-title').textContent = `🎉 روزت مبارک، ${firstName} عزیز! 👑`;
+
+                setTimeout(() => {
+                    navigateTo('celebration-section');
+                    runConfetti(); 
+                }, 500);
+            });
+
+            // 9. Logic: Cancel Send (اصلاح شماره)
+            document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+                document.getElementById('final-confirm-popup').style.display = 'none';
+                document.getElementById('friend-phone').focus(); // برگرداندن فوکوس به فیلد شماره
+            });
+
 
             // --- Initial Setup ---
             navigateTo('hero-section'); 
