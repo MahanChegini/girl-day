@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روز دختر، روز درخشش تو! (نسخه نهایی با Webhook POST)</title>
+    <title>روز دختر، روز درخشش تو! (نسخه نهایی با Webhook GET - فقط موبایل)</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/shabnam-font@v5.0.1/dist/font-face.css" rel="stylesheet">
     
     <style>
@@ -83,7 +83,7 @@
 
         <section id="otp-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="otp-welcome-text"></h2>
+                <h2 id="otp-welcome-text">خوش آمدی عزیز! 💖</h2>
                 <p>کد تایید ۴ رقمی پیامک‌شده رو وارد کن. لحظۀ ورود به جشن نزدیکه!</p>
                 <input type="text" id="otp-input" placeholder="****" maxlength="4">
                 <p id="otp-error" class="error-text"></p>
@@ -93,11 +93,11 @@
 
         <section id="portal-section" class="full-screen">
             <div class="card fade-in-down">
-                <h2 id="portal-title"></h2>
+                <h2 id="portal-title">دنیای شگفتی‌ها در حال آماده‌سازی...</h2>
                 <div class="portal-loader" style="height: 50px; margin: 20px auto;">
                     <div style="width: 50px; height: 50px; border-radius: 50%; border: 5px solid var(--soft-pink); border-top-color: var(--secondary-color); animation: spin 1s linear infinite; margin: 0 auto;"></div>
                 </div>
-                <p id="portal-challenge-text" class="portal-text" style="font-weight: bold; color: var(--secondary-color);"></p>
+                <p id="portal-challenge-text" class="portal-text" style="font-weight: bold; color: var(--secondary-color);">تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫</p>
             </div>
         </section>
 
@@ -161,9 +161,8 @@
             const sections = document.querySelectorAll('.full-screen');
             let hasSentMessage = false;
 
-            // ⚠️ این آدرس را با Webhook نهایی خود جایگزین کنید ⚠️
-            const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb?mobile=09198967708&name=%D9%85%D8%A7%D9%87%D8%A7%D9%86%20%DA%86%DA%AF%DB%8C%D9%86%DB%8C&dept=%D9%85%D8%A7%D9%84%DB%8C&status=VERIFIED_OTP&timestamp=2025-10-08T...
-"; // جایگزین شود
+            // ⚠️ آدرس Webhook شما (فقط بخش اصلی) ⚠️
+            const WEBHOOK_ENDPOINT = "https://n8n.ipdev.ir/webhook/fa917e63-86c3-481b-8c14-b8586e4f31bb";
             
             // دیتابیس داخلی برای احراز هویت (بدون Webhook)
             const HR_DATABASE = {
@@ -174,7 +173,7 @@
             };
 
             const TEST_OTP = '1111';
-            let currentUser = {}; 
+            let currentUser = {}; // فقط برای نمایش پیام‌های روی صفحه استفاده می‌شود 
             
             const GIFTS = [
                 "300,000 تومان اعتبار خرید از کافه شرکت",
@@ -182,29 +181,6 @@
                 "بلیت استخر سه‌ماهه‌ رایگان",
                 "بن تخفیف 200,000 تومانی اسنپ‌فود"
             ];
-            
-            // پیام‌های صمیمی و دخترانه برای دپارتمان‌ها و شخصی‌سازی‌ها (بدون تغییر)
-            const DEPT_MESSAGES = {
-                'مالی': (name) => `تو مثل یک ستاره‌ی درخشان، نظم و دقت رو به دنیای ما آوردی، ${name} عزیزم. ممنون از جادوی محاسباتت! 💖`,
-                'فنی': (name) => `تو با کدهات، آینده ما رو می‌سازی! ${name} عزیز. ممنون از خلاقیت و شگفت‌انگیزیت در حل مسئله. 💻`,
-                'عملیات': (name) => `تو قلب پُر انرژی و باهوش عملیات ما هستی، ${name}! ممنون که با درایتت، همه چیز رو سر و سامان می‌دی. 🚀`,
-                'مارکتینگ': (name) => `تو صدای شیرین و جذاب ما هستی، ${name} دوست‌داشتنی! ممنون که شور و هیجان رو به همه منتقل می‌کنی. 💡`,
-                'default': (name) => `درخشش تو، الهام‌بخش تمام ماست، ${name} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`
-            };
-            const PERSONALIZED_TEXT = {
-                'ماهان': {
-                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
-                    portal_title: `جادوی پرتال فعال شد...`,
-                    portal_challenge: `ما تمام وجودمان را برای استقبال از تو، ستاره‌ی درخشان، آماده کردیم! 💖`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
-                },
-                'default': {
-                    otp_welcome: (name) => `به سرزمین آرزوها خوش اومدی، ${name} عزیز! 💖`,
-                    portal_title: `دنیای شگفتی‌ها در حال آماده‌سازی...`,
-                    portal_challenge: `تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫`,
-                    gift_reveal_title: (name) => `لحظه‌ی کشف راز بزرگ، ${name}! 🎁`,
-                }
-            };
             
             // --- توابع کمکی (ناوبری و کانفتی) ---
             const navigateTo = (targetId) => {
@@ -225,41 +201,35 @@
             };
 
             // =================================================================
-            //                 ✅ تابع Webhook POST برای ثبت نهایی ✅
+            //               ✅ تابع Webhook GET (فقط ارسال موبایل) ✅
             // =================================================================
             const registerUserAndProceed = async (button, errorElement) => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const mobileNumberOnly = phoneInput.replace(/[^0-9]/g, ''); 
                 
-                // دیتای ارسالی به Webhook با متد POST (JSON Body)
-                const payload = {
+                // ایجاد پارامتر GET: فقط شماره موبایل
+                const params = new URLSearchParams({
                     mobile: mobileNumberOnly,
-                    name: currentUser.name,
-                    dept: currentUser.dept,
-                    status: 'VERIFIED_OTP', // وضعیت ثبت موقت
-                    timestamp: new Date().toISOString()
-                };
+                });
+
+                // ساخت URL نهایی: آدرس + ?mobile=شماره
+                const finalUrl = `${WEBHOOK_ENDPOINT}?${params.toString()}`;
 
                 try {
-                    // ارسال درخواست POST برای ثبت کاربر پس از تأیید OTP
-                    const response = await fetch(WEBHOOK_ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload),
-                    });
+                    // ارسال درخواست GET
+                    const response = await fetch(finalUrl);
                     
+                    // چون از GET استفاده می‌کنیم و هدف فقط ارسال دیتا است، فرض می‌کنیم موفق است
                     if (!response.ok) {
-                        // اگر سرور پاسخ 200 نداد، خطا می‌دهد
-                        throw new Error(`Server responded with status: ${response.status}`);
+                        console.warn(`Webhook responded with status: ${response.status}`);
                     }
                     
                     // --- ناوبری در صورت موفقیت Webhook ---
-                    const firstName = currentUser.name.split(' ')[0];
-                    const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
-                    document.getElementById('portal-title').textContent = textData.portal_title;
-                    document.getElementById('portal-challenge-text').textContent = textData.portal_challenge;
+                    // از نام‌های پیش‌فرض استفاده می‌کنیم چون نیازی به ارسال نام نیست
+                    const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز'; 
+
+                    document.getElementById('portal-title').textContent = 'دنیای شگفتی‌ها در حال آماده‌سازی...';
+                    document.getElementById('portal-challenge-text').textContent = 'تو نور این جشن هستی! چند لحظه تا رسیدن به گنجینه‌ات... 💫';
 
                     button.textContent = 'ورود به پرتال';
                     button.disabled = false;
@@ -267,8 +237,7 @@
                     
                     // شبیه‌سازی لودینگ 3 ثانیه‌ای و ناوبری خودکار
                     setTimeout(() => {
-                        const giftTitleText = textData.gift_reveal_title(firstName);
-                        document.getElementById('gift-reveal-title').textContent = giftTitleText;
+                        document.getElementById('gift-reveal-title').textContent = `لحظه‌ی کشف راز بزرگ، ${firstName}! 🎁`;
                         document.getElementById('jewel-box').style.display = 'block';
                         document.getElementById('reveal-message').textContent = 'این جعبه‌ی جادویی فقط با یک کلیک تو باز می‌شود...';
                         document.getElementById('show-gift-btn').style.display = 'block'; 
@@ -276,7 +245,7 @@
                     }, 3000); 
 
                 } catch (e) {
-                    console.error("Registration Webhook Error:", e);
+                    console.error("Registration Webhook Error (GET):", e);
                     errorElement.textContent = "مشکلی در اتصال به سرور برای ثبت نهایی پیش آمد. دوباره تلاش کنید. 😢";
                     button.textContent = 'ورود به پرتال';
                     button.disabled = false;
@@ -288,7 +257,7 @@
                 navigateTo('phone-section');
             });
 
-            // --- Logic: Phone Verification (فقط چک کردن لیست داخلی) ---
+            // --- Logic: Phone Verification ---
             document.getElementById('verify-phone-btn').addEventListener('click', () => {
                 const phoneInput = document.getElementById('phone-input').value.trim();
                 const errorText = document.getElementById('phone-error');
@@ -302,8 +271,7 @@
                     errorText.textContent = '';
                     
                     const firstName = currentUser.name.split(' ')[0];
-                    const textData = PERSONALIZED_TEXT[firstName] || PERSONALIZED_TEXT['default'];
-                    document.getElementById('otp-welcome-text').textContent = textData.otp_welcome(firstName);
+                    document.getElementById('otp-welcome-text').textContent = `به سرزمین آرزوها خوش اومدی، ${firstName} عزیز! 💖`;
 
                     verifyButton.textContent = 'تأیید هویت';
                     verifyButton.disabled = false;
@@ -316,7 +284,7 @@
                 }
             });
 
-            // --- Logic: OTP Verification (اضافه شدن Webhook) ---
+            // --- Logic: OTP Verification (اضافه شدن Webhook GET) ---
             document.getElementById('verify-otp-btn').addEventListener('click', () => {
                 const otpInput = document.getElementById('otp-input').value.trim();
                 const errorText = document.getElementById('otp-error');
@@ -327,7 +295,7 @@
                     verifyButton.disabled = true;
                     verifyButton.textContent = 'درحال ثبت نهایی...';
 
-                    // ⬅️ اینجا Webhook فعال می‌شود 
+                    // ⬅️ اینجا Webhook GET فعال می‌شود (فقط موبایل)
                     registerUserAndProceed(verifyButton, errorText);
 
                 } else {
@@ -335,7 +303,7 @@
                 }
             });
 
-            // --- Logic: One-Click Gift Reveal (هدیه‌ی رندوم و ثبت نهایی) ---
+            // --- Logic: One-Click Gift Reveal ---
             const giftPopup = document.getElementById('gift-popup');
 
             document.getElementById('show-gift-btn').addEventListener('click', () => {
@@ -347,13 +315,12 @@
                 const randomGift = GIFTS[Math.floor(Math.random() * GIFTS.length)];
                 document.getElementById('gift-amount').textContent = randomGift;
                 
-                const firstName = currentUser.name.split(' ')[0];
-                const messageFunc = DEPT_MESSAGES[currentUser.dept] || DEPT_MESSAGES['default'];
-                document.getElementById('personal-message').textContent = messageFunc(firstName);
+                // پیام شخصی‌سازی شده بر اساس نام (فقط برای نمایش)
+                const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
+                const message = `درخشش تو، الهام‌بخش تمام ماست، ${firstName} عزیزم. ممنون که عضو ارزشمند این خانواده هستی! ✨`;
+                document.getElementById('personal-message').textContent = message;
 
                 document.getElementById('popup-gift-title').textContent = `🥳 هدیه و سورپرایز ویژه ${firstName} عزیز: 🥳`;
-                
-                // 💡 نکته: اگر نیاز داری در لحظه باز شدن هدیه (Gift Claim) هم دیتای جدیدی ثبت بشه، باید اینجا یک Webhook دیگه اضافه کنی.
                 
                 giftPopup.style.display = 'flex';
                 runConfetti();
@@ -385,7 +352,7 @@
                     
                     limitText.innerHTML = `✅ ارسال شد! انرژی مثبت شما برای ${friendName} ارسال شد! 💌`;
                     
-                    const firstName = currentUser.name.split(' ')[0];
+                    const firstName = currentUser.name ? currentUser.name.split(' ')[0] : 'عزیز';
                     document.getElementById('final-celebration-title').textContent = `🎉 روزت مبارک، ${firstName} عزیز! 👑`;
 
                     setTimeout(() => {
